@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/update/poloniex.jsp</url>
+    <description>update poloniex data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
+  <cron>
+    <url>/update/gatecoin.jsp</url>
+    <description>update gatecoin data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
+  <cron>
+    <url>/update/kraken.jsp</url>
+    <description>update kraken data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
+</cronentries>
