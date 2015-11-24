@@ -1,0 +1,48 @@
+gatecoin api example
+
+{
+  "createDateTime": "1447952045",
+  "vwap": 0.002955444966228852,
+  "volumn": 191919.49632731,
+  "last": 0.0029005,
+  "askQ": 26.23,
+  "currencyPair": "ETHBTC",
+  "open": 0.0030042,
+  "bidQ": 30.67,
+  "volume": 191919.49632731,
+  "lastQ": 26.23,
+  "high": 0.0030205,
+  "low": 0.00286,
+  "ask": 0.0028974,
+  "bid": 0.0028945
+}
+{
+  "createDateTime": "1447952045",
+  "vwap": 0.9238171014492753,
+  "volumn": 3450,
+  "last": 0.88001,
+  "askQ": 200,
+  "currencyPair": "ETHEUR",
+  "open": 0.93591,
+  "bidQ": 100,
+  "volume": 3450,
+  "lastQ": 50,
+  "high": 0.94114,
+  "low": 0.88001,
+  "ask": 0.94,
+  "bid": 0.87
+}
+
+
+
+explanation of the terms:
+volume: the unit is the first element of currencyPair.
+eg. currencyPair: "ETHBTC"
+volume: volume of eth (first currency)
+
+
+what we need:
+
+last: last
+volume: volume
+

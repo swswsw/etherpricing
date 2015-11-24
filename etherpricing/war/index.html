@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ether pricing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="center">
+	<div id="circle">
+		<h1 class="title">Ether</h1>
+		<h1 class="title">Pricing</h1>
+		<h1 class="title">2.38030</h1>
+		<h1 class="title">mBTC</h1>
+	</div>
+	<div id="bar">
+		<button onclick="javascript:window.location.href='detail.html'">Detail</button>
+		<button onclick="javascript:window.location.href='c/'">Calculator</button>
+	</div>
+</div>
+
+<style>
+.title {
+	text-align: center;
+	font-family: Lucida Grande,Lucida Sans Unicode;
+	color: rgb(148,148,148);
+}
+
+#center {
+	margin:auto;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+	width:24em;
+    height:22em;
+    margin-top: -11em; /*set to a negative number 1/2 of your height*/
+    margin-left: -11em; /*set to a negative number 1/2 of your width*/
+}
+
+#circle {
+	margin: auto;
+    width:18em;
+    height:18em;
+    -moz-border-radius: 9em;
+	-webkit-border-radius: 9em;
+	border-radius: 9em;
+	border: 1px solid #ccc;
+    background-color: #DBD5A4; /*#f3f3f3*/
+}
+
+#bar {
+	text-align: center;
+	padding: 1em;
+}
+
+#bar button {
+	margin-left: 1em;
+	margin-right: 1em;
+	font-family: Lucida Grande,Lucida Sans Unicode;
+	font-weight: bold;
+	background-color: rgba(0,0,0,0);
+	-moz-border-radius: 5em;
+	-webkit-border-radius: 5em;
+	border-radius: 5em;
+	border: 1px solid #ccc;
+	padding: 1em;
+	color: white;
+	width: 10em;
+}
+
+body {
+	background: lightgray;
+	/*background-image: url('/img/grad.jpg');*/
+	background: -webkit-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Chrome 10+, Saf5.1+ */
+	background:    -moz-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* FF3.6+ */
+	background:     -ms-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* IE10 */
+	background:      -o-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Opera 11.10+ */
+	background:         linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* W3C */        
+}
+</style>
+</body>
+</html>

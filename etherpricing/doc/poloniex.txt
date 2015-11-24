@@ -1,0 +1,39 @@
+poloniex api result examples
+
+btc_eth: 
+{
+  "highestBid": "0.00290051",
+  "low24hr": "0.00285001",
+  "last": "0.00292000",
+  "high24hr": "0.00303969",
+  "percentChange": "-0.02127060",
+  "isFrozen": "0",
+  "lowestAsk": "0.00292000",
+  "quoteVolume": "191587.24124039",
+  "baseVolume": "564.84104684"
+}
+
+usdt_eth:
+{
+  "highestBid": "0.92604836",
+  "low24hr": "0.96022746",
+  "last": "0.96022746",
+  "high24hr": "1.02000002",
+  "percentChange": "-0.04927031",
+  "isFrozen": "0",
+  "lowestAsk": "0.97878406",
+  "quoteVolume": "243.48152257",
+  "baseVolume": "239.08029750"
+}
+
+
+baseVolume: the volume using the unit of first element.  
+quoteVolume: the volume using the unit of second element.
+eg. btc_eth: 
+baseVolume = 564.84 btc
+quoteVolume = 191587.24 eth
+
+
+last: last
+volume: quoteVolume (in eth)
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EtherPricing Detail</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="overall">
+
+	<div id="top-section">
+		<h1 class="large-price"><span id="title-price">2.5375</span> m฿</h1>
+	</div>
+	<div id="summary-section">
+		<h3 class="text-center">Summary</h3>
+		<table id="summary-table" class="table table-striped table-condensed table-hover">
+			<tbody>
+				<tr>
+					<td>volume (24h)</td>
+					<td>23504321 ETH</td>
+				</tr>
+				<tr>
+					<td>24h sliding average</td>
+					<td>2.5552 m฿</td>
+				</tr>
+				<tr>
+					<td>high</td>
+					<td>2.7552 m฿</td>
+				</tr>
+				<tr>
+					<td>low</td>
+					<td>2.3536 m฿</td>
+				</tr>
+				<tr>
+					<td>last update</td>
+					<td>22:05:25</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- 
+		<p>volume (24h): 23504321 ETH</p>
+		<p>24h sliding average: 2.5552 m฿</p>
+		<p>high: 2.7552 m฿</p>
+		<p>low: 2.3536 m฿</p>
+		<p>last update: 22:05:25</p>
+		 -->
+	</div>
+	<div id="detail-section">
+		<h3 class="text-center">Pricing Data from Exchanges</h3>
+		<table id="detail-table" class="table table-striped table-condensed table-hover">
+			<thead>
+				<tr>
+					<th>exchange</th>
+					<th>pair</th>
+					<th>volume (%)</th>
+					<th>volume ETH (24h)</th>
+					<th>last price m฿</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Polonix</td>
+					<td>ETH/BTC</td>
+					<td>53.74%</td>
+					<td>2345230</td>
+					<td>2.3536</td>
+				</tr>
+				<tr>
+					<td>Gatecoin</td>
+					<td>ETH/BTC</td>
+					<td>24.92%</td>
+					<td>234523</td>
+					<td>2.3536</td>
+				</tr>
+				<tr>
+					<td>Kraken</td>
+					<td>ETH/BTC</td>
+					<td>15.94%</td>
+					<td>23454</td>
+					<td>2.3536</td>
+				</tr>
+				<tr>
+					<td>Kraken</td>
+					<td>ETH/EUR</td>
+					<td>3.11%</td>
+					<td>2345</td>
+					<td>2.3536</td>
+				</tr>
+				<tr>
+					<td>Cryptsy</td>
+					<td>ETH/BTC</td>
+					<td>0.94%</td>
+					<td>2345</td>
+					<td>2.3536</td>
+				</tr>
+				<tr>
+					<td>Bittrex</td>
+					<td>ETH/BTC</td>
+					<td>0.60%</td>
+					<td>243</td>
+					<td>2.3536</td>
+				</tr>
+			</tbody>
+		
+		</table>
+	</div>
+</div>
+
+</body>
+
+<style>
+#overall {
+	margin: 2em auto;
+}
+
+#top-section {
+	min-height: 10em;
+	padding: 4em;
+	background-color: #f7f7f7;
+	margin: 2em auto;
+}
+
+.large-price {
+	text-align: center;
+}
+
+#title-price {
+	font-size: 2em;
+	color: #428BCA;
+}
+
+#summary-section {
+	margin: 2em auto;
+}
+
+#summary-table {
+	width: 20em;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 2em;
+}
+
+#summary-table tr td:nth-of-type(2) {
+	text-align: right;
+}
+
+#detail-section {
+	margin: 2em auto;
+}
+
+#detail-table {
+	text-align: right;
+}
+
+@media (min-width: 640px){
+	#overall {
+		width: 80%;
+	}
+}
+
+
+#detail-table thead th {
+	text-align: right;
+}
+
+</style>
+
+</html>
