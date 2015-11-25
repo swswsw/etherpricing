@@ -58,5 +58,39 @@ public class PriceCache implements Serializable {
 					+ "\"volume\": " + volume 
 					+ " }";
 		}
+
+		public String getCurrency1() {
+			return currency1;
+		}
+
+		public void setCurrency1(String currency1) {
+			this.currency1 = currency1;
+		}
+
+		public String getCurrency2() {
+			return currency2;
+		}
+
+		public void setCurrency2(String currency2) {
+			this.currency2 = currency2;
+		}
+
+		public double getLast() {
+			return last;
+		}
+
+		public void setLast(double last) {
+			this.last = last;
+		}
+
+		public double getVolume() {
+			return volume;
+		}
+
+		public void setVolume(double volume) {
+			this.volume = volume;
+		}
+		
+		
 	}
 }

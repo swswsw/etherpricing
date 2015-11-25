@@ -1,0 +1,16 @@
+https://api.bitcoinaverage.com/ticker/global/USD/
+
+{
+  "24h_avg": 322.93,
+  "ask": 326.42,
+  "bid": 325.88,
+  "last": 326.26,
+  "timestamp": "Wed, 25 Nov 2015 15:13:05 -0000",
+  "volume_btc": 64578.23,
+  "volume_percent": 73.03
+}
+
+
+last: last
+volume: volume_btc
+
