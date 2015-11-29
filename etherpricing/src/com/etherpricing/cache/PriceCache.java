@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class PriceCache implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * unlikely to have more than 10 ether currency pair in one exchange.
 	 */
