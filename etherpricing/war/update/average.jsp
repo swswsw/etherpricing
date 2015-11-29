@@ -97,9 +97,11 @@ for (int i=0; i<allPrices.size(); i++) {
 
 // avoid divide by 0 problem.  check if denominator is 0.
 double average = (totalVolume != 0.0D) ? (totalSoFar / totalVolume) : 0.0D;
-AverageCache ac = new AverageCache(average, totalVolume);
+JSONObject jsonAvg = new JSONObject();
+jsonAvg.put("last", average);
+jsonAvg.put("volume", totalVolume);
 
-CacheManager.save("latest_average", ac);
+CacheManager.save("latest_average", jsonAvg.toString());
 
 // not used
 if (fiatRates != null) {
