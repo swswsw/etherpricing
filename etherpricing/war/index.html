@@ -22,7 +22,8 @@
 <script type="text/javascript">
 (function() {
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', '/api/average.jsp');
+	var bustCache = '?' + new Date().getTime();
+	xhr.open('GET', '/api/average.jsp' + bustCache);
 	xhr.send(null);
 
 	xhr.onreadystatechange = function () {
