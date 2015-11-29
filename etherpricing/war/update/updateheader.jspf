@@ -1,0 +1,8 @@
+<%--common stuff to be include at beginning of jsp --%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%
+//cache buster
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+response.setHeader("Expires", "0"); // Proxies.
+%>
