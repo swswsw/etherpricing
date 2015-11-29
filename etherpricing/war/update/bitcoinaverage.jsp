@@ -6,26 +6,19 @@
 <%@ page import="com.etherpricing.cache.*" %>
 <%@ page import="org.json.*" %>
 <%
-// get bitcoinaverge btc_usd prices
-// https://api.bitcoinaverage.com/ticker/global/USD/
+// get bitcoinaverge prices
+// https://api.bitcoinaverage.com/ticker/global/all
 
 JSONObject json = null;
 try {
-	json = RetrieveData.jsonData("https://api.bitcoinaverage.com/ticker/global/USD/");
+	json = RetrieveData.jsonData("https://api.bitcoinaverage.com/ticker/global/all");
 } catch (SocketTimeoutException ex) {
 	// sometimes, timeout can occur
 	throw ex;
 }
 
-PriceCache pc = new PriceCache();
-if (json != null) {
-	double last = json.getDouble("last");
-	double volume = json.getDouble("volume_btc");
-	
-	PriceCache.Price price = new PriceCache.Price("BTC", "USD", last, volume);
-	pc.getPriceList().add(price);
-	
-	CacheManager.save("latest_bitcoinaverage", pc);
+if (json != null) {	
+	CacheManager.save("latest_bitcoinaverage", json.toString());
 }
 %>
-<%=pc%>
+<%=(json != null) ? json.toString(2) : null %>

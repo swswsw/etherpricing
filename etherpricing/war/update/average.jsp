@@ -16,9 +16,14 @@ private double findRates(String currencySymbol, JSONObject fiatRates)
 }
 
 /**
- *
+ * find xbt's price in another currency using the given bitcoinaverage rates object
+ * @return 1xbt=this much currency.  eg. currencySymbol=USD, return 500.  which means 1xbt=500USD
  */
-//private double findXbtRates(String currencySymbol, )
+private double findXbtRates(String currencySymbol, JSONObject bitcoinaverageRates) 
+	throws JSONException {
+	JSONObject rate = bitcoinaverageRates.getJSONObject(currencySymbol);
+	return rate.getDouble("last");
+}
 %>
 <%
 // calculate weighted average.
@@ -31,17 +36,14 @@ PriceCache pcPoloniex = CacheManager.getPriceCache("latest_poloniex");
 PriceCache pcGatecoin = CacheManager.getPriceCache("latest_gatecoin");
 PriceCache pcKraken = CacheManager.getPriceCache("latest_kraken");
 
-//get bitcoin to usd rate data
-PriceCache pcBitcoinaverage = CacheManager.getPriceCache("latest_bitcoinaverage");
-double btcusd = -1D;
-if (pcBitcoinaverage != null) {
-	if (pcBitcoinaverage.getPriceList().size() > 0) {
-		PriceCache.Price btcusdPrice = pcBitcoinaverage.getPriceList().get(0);
-		btcusd = btcusdPrice.getLast();
-	}
+//get bitcoin to fiat currency rate data
+String sBaRates = CacheManager.getString("latest_bitcoinaverage");
+JSONObject baRates = null;
+if (sBaRates != null) {
+	baRates = new JSONObject(sBaRates);
 }
 
-// get fiat exchange rate data (may not be used right now)
+// get fiat exchange rate data (not used right now. to remove)
 String sFiatRates = CacheManager.getString("latest_openexchangerates");
 JSONObject fiatRates = null;
 if (sFiatRates != null) {
@@ -62,15 +64,43 @@ if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
 // then translating to usd to display.  since most of the people in the beginning would want to see usd price.
 for (int i=0; i<allPrices.size(); i++) {
 	PriceCache.Price price = allPrices.get(i);
-	totalVolume += price.getVolume();
-	totalSoFar += (price.getLast() * price.getVolume());
-	// convert non-xbt price to xbt
 	
+	double last = 0.0D;
+	double volume = 0.0D;
+	// convert non-xbt price to xbt
+	if ("BTC".equals(price.getCurrency2()) || "XBT".equals(price.getCurrency2())) {
+		last = price.getLast();
+		volume = price.getVolume();
+	} else {
+		double xbtInCurrency2 = 0.0D;
+		try {
+			xbtInCurrency2 = findXbtRates(price.getCurrency2(), baRates);
+		} catch (JSONException ex) {
+			// conversion rate for currency2 is not found on bitcoinaverage.
+		}
+		
+		if (xbtInCurrency2 != 0.0D) {
+			last = price.getLast() / xbtInCurrency2;
+			volume = price.getVolume();
+		} // if we cannot find the conversion rate, then we don't invlude this price in calcuation.
+		
+		// eg. currency2 = "USD".  
+		// from bitcoinaverage, we can find that xbtInCurrency2 = 1000.00.  that is 1 xbt = 1000 usd
+		// price.getLast() is eth's price in usd.
+		// so to get last in xbt,   last = price.getLast() / xbtInCurrency2
+	}
+	
+	totalSoFar += (last * volume);
+	totalVolume += volume;
 }
 
 // avoid divide by 0 problem.  check if denominator is 0.
 double average = (totalVolume != 0.0D) ? (totalSoFar / totalVolume) : 0.0D;
+AverageCache ac = new AverageCache(average, totalVolume);
 
+CacheManager.save("latest_average", ac);
+
+// not used
 if (fiatRates != null) {
 	// calculate average and total volume.
 	//try {
@@ -91,8 +121,8 @@ if (fiatRates != null) {
 <hr/>
 <%=pcKraken%>
 <hr/>
-<%=pcBitcoinaverage%>
+<%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>
-<%=(fiatRates != null) ? fiatRates.toString(2) : ""%>
+<%=(fiatRates != null) ? fiatRates.toString(2) : null%>
 <h4/>
 <%=average%>

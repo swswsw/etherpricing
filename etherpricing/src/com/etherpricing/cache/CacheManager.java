@@ -47,4 +47,24 @@ public class CacheManager {
 		
 		return value;
 	}
+	
+	public static void save(String key, AverageCache value) {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+		syncCache.put(key, value);
+	}
+	
+	public static AverageCache getAverageCache(String key) {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+		AverageCache value = (AverageCache) syncCache.get(key); // Read from cache.
+		if (value == null) {
+		    // Get value from another source.
+		    // ........
+
+		    //syncCache.put(key, value); // Populate cache.
+		} 
+		
+		return value;
+	}
 }

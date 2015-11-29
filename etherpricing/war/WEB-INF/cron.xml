@@ -20,4 +20,9 @@
     <description>update bitcoinaverage exchange rate to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/update/average.jsp</url>
+    <description>calculate average and put in cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
 </cronentries>
