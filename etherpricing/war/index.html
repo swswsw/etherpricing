@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ether pricing</title>
+<title>Ether Pricing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -10,7 +10,7 @@
 	<div id="circle">
 		<h1 class="title">Ether</h1>
 		<h1 class="title">Pricing</h1>
-		<h1 class="title">2.38030</h1>
+		<h1 id="last" class="title"></h1>
 		<h1 class="title">mBTC</h1>
 	</div>
 	<div id="bar">
@@ -18,6 +18,17 @@
 		<button onclick="javascript:window.location.href='c/'">Calculator</button>
 	</div>
 </div>
+
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$.getJSON("/api/average.jsp", function(data) {
+	if (data && data.last) {
+		// convert to mxbt by * 1000.  keep only 4 decimals.
+		var lastMxbt = (data.last * 1000).toFixed(4); 
+		$("#last").text(lastMxbt);
+	}
+});
+</script>
 
 <style>
 .title {
