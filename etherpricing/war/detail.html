@@ -4,10 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EtherPricing Detail</title>
+<script src="js/jquery-2.1.4.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="https://etherpricing.com/" itemprop="url">
+                <span itemprop="name">EtherPricing</span>
+            </a>
+            <span class="navbar-brand slogan hidden-xs hidden-sm">ether price index</span>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="submenu" href="explain.htm">Index Formula</a></li>
+                <li><a class="submenu" href="detail.html">Detail</a></li>
+                <li><a class="submenu" href="c/">Calculate</a></li>
+                <li><a class="submenu" href="charts.html">Charts</a></li>
+                <!--<li><a class="submenu" href="blog.html">Blog</a></li>-->
+                <li><a class="submenu" href="faq.html">FAQ</a></li>
+                <li><a class="submenu" href="api.html">API</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <div id="overall">
 
@@ -120,7 +148,7 @@
 	min-height: 10em;
 	padding: 4em;
 	background-color: #f7f7f7;
-	margin: 2em auto;
+	margin: 4em auto;
 }
 
 .large-price {
