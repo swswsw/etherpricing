@@ -25,4 +25,19 @@
     <description>calculate average and put in cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/trial/everymin.jsp</url>
+    <description>see when it is called every mins</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
+  <cron>
+    <url>/trial/everyhour.jsp</url>
+    <description>see when it is called every hour</description>
+    <schedule>every 1 hours</schedule>
+  </cron>
+  <cron>
+    <url>/trial/everyday.jsp</url>
+    <description>see when it is called every day</description>
+    <schedule>every day 00:00</schedule>
+  </cron>
 </cronentries>
