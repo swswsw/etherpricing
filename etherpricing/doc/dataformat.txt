@@ -1,0 +1,66 @@
+data to be stored.
+
+every minutes
+
+- calculate the weighted average
+
+stored data
+1. sum - total weighted sum from all exchanges sources 
+2. volume - total volume from all exchanges sources in the last 24h
+3. average - weighted average = sum / volume
+4. timestamp
+
+
+every hour
+
+stored data
+summary data for the last hr
+1. sum - total sum of all the minute data
+2. volume - total volume from all the minute data
+3. average - sum / volume
+4. timestamp
+
+
+every day
+
+stored data
+summary data for the last day
+1. sum - total sum of all the hourly data
+2. volume - total volume from all the hourly data
+3. average - sum / volume
+4. timestamp
+
+this will be done at 00:00 utc
+
+
+24hr change
+1. get the price 24 hr ago
+2. compare
+
+
+24 hr sliding average
+
+1. sum - total sum of all the hourly data in the last 24 hr
+2. volume - total volume from all the hourly data
+3. average - sum / volume
+4. timestamp
+
+24 hr high/low data
+
+using gql:
+where time > {24hr earlier}
+order by average asc limit 1
+order by average desc limit 1
+
+it may be slow.  let's see how long the query takes.
+
+
+
+1 week summary
+
+
+1 month summary?
+
+
+be careful about boundary condition on the time.
+
