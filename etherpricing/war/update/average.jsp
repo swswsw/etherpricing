@@ -1,3 +1,4 @@
+<%@page import="com.etherpricing.objectify.ObjectifyManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="updateheader.jspf" %>
@@ -5,6 +6,7 @@
 <%@ page import="java.net.*" %>
 <%@ page import="com.etherpricing.net.*" %>
 <%@ page import="com.etherpricing.cache.*" %>
+<%@ page import="com.etherpricing.model.*" %>
 <%@ page import="org.json.*" %>
 <%!
 /**
@@ -30,6 +32,8 @@ private double findXbtRates(String currencySymbol, JSONObject bitcoinaverageRate
 // calculate weighted average.
 // calculate average by averaging the prices and volumes from each exchanges 
 // in the cache.
+
+long currentTimeMillis = System.currentTimeMillis();
 
 // retrieve price/volume from each cache
 // find average
@@ -100,8 +104,17 @@ double average = (totalVolume != 0.0D) ? (totalSoFar / totalVolume) : 0.0D;
 JSONObject jsonAvg = new JSONObject();
 jsonAvg.put("last", average);
 jsonAvg.put("volume", totalVolume);
+jsonAvg.put("sum", totalSoFar);
 
 CacheManager.save("latest_average", jsonAvg.toString());
+
+Minute minute = new Minute();
+minute.id = currentTimeMillis;
+minute.average = average;
+minute.volume = totalVolume;
+minute.sum = totalSoFar;
+minute.timestamp = new Date(currentTimeMillis);
+ObjectifyManager.save(minute);
 
 // not used
 if (fiatRates != null) {
