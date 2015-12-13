@@ -20,7 +20,7 @@ List<Minute> tenmins = ObjectifyService.ofy()
           .type(Minute.class) // We want only minute class
           .filter("timeslot >", start)
           .filter("timeslot <=", end)
-          //.order("-timestamp")       // Most recent first - timestamp
+          .order("-timeslot")       // Most recent first - timestamp
           .list();
 %>
 <%=tenmins%>
