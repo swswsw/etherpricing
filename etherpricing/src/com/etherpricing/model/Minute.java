@@ -17,7 +17,8 @@ public class Minute {
     public double sum; // should i call this "last"?
     public double volume;
     @Index public double average;
-    public Date timestamp;
+    @Index public Date timeslot;
+    public long timestamp;
     
     /**
      * calculate the exact minute with 0 milliseconds

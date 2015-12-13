@@ -108,12 +108,15 @@ jsonAvg.put("sum", totalSoFar);
 
 CacheManager.save("latest_average", jsonAvg.toString());
 
+long wholeTime = Minute.calcWholeTime(currentTimeMillis);
+
 Minute minute = new Minute();
-minute.id = Minute.calcWholeTime(currentTimeMillis);
+minute.id = wholeTime;
 minute.average = average;
 minute.volume = totalVolume;
 minute.sum = totalSoFar;
-minute.timestamp = new Date(currentTimeMillis);
+minute.timeslot = new Date(wholeTime);
+minute.timestamp = currentTimeMillis;
 ObjectifyManager.save(minute);
 
 // not used
