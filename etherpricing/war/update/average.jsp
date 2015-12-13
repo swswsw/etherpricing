@@ -109,7 +109,7 @@ jsonAvg.put("sum", totalSoFar);
 CacheManager.save("latest_average", jsonAvg.toString());
 
 Minute minute = new Minute();
-minute.id = currentTimeMillis;
+minute.id = Minute.calcWholeTime(currentTimeMillis);
 minute.average = average;
 minute.volume = totalVolume;
 minute.sum = totalSoFar;
