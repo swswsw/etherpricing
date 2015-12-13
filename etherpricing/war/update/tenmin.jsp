@@ -22,5 +22,7 @@ List<Minute> tenmins = ObjectifyService.ofy()
           .filter("timeslot <=", end)
           .order("-timeslot")       // Most recent first - timestamp
           .list();
+		
+// sum up the 10 mins results
 %>
 <%=tenmins%>
