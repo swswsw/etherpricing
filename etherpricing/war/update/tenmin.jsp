@@ -8,7 +8,7 @@
 
 <%
 long timeMillis = System.currentTimeMillis();
-long wholeMinute = Minute.calcWholeTime(timeMillis);
+long wholeMinute = TenMinute.calcWholeTime(timeMillis);
 final long MILLIS_IN_TEN_MINUTES = 1000l * 60l * 10l;
 Date start = new Date(wholeMinute - MILLIS_IN_TEN_MINUTES);
 Date end = new Date(wholeMinute);
