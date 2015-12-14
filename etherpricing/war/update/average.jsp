@@ -101,10 +101,13 @@ for (int i=0; i<allPrices.size(); i++) {
 
 // avoid divide by 0 problem.  check if denominator is 0.
 double average = (totalVolume != 0.0D) ? (totalSoFar / totalVolume) : 0.0D;
+double rateUsd = findXbtRates("USD", baRates);
+double lastUsd = average * rateUsd;
 JSONObject jsonAvg = new JSONObject();
 jsonAvg.put("last", average);
 jsonAvg.put("volume", totalVolume);
 jsonAvg.put("sum", totalSoFar);
+jsonAvg.put("lastUsd", lastUsd);
 
 CacheManager.save("latest_average", jsonAvg.toString());
 

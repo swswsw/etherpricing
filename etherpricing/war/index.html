@@ -11,7 +11,7 @@
 		<h1 class="title">Ether</h1>
 		<h1 class="title">Pricing</h1>
 		<h1 id="last" class="title"></h1>
-		<h1 class="title">mBTC</h1>
+		<h1 class="title">USD</h1>
 	</div>
 	<div id="bar">
 		<!--button onclick="javascript:window.location.href='detail.html'">Detail</button-->
@@ -35,8 +35,9 @@
 				if (data && data.last) {
 					// convert to mxbt by * 1000.  keep only 4 decimals.
 					var lastMxbt = (data.last * 1000).toFixed(4);
+					var lastUsd = data.lastUsd.toFixed(4);
 					var last = document.getElementById("last");
-					last.innerHTML = lastMxbt;
+					last.innerHTML = lastUsd;
 				}
 		  	} else {
 		  		if (console) {
