@@ -23,8 +23,9 @@ List<Minute> tenmins = ObjectifyService.ofy()
           .order("-timeslot")       // Most recent first - timestamp
           .list();
 
-double sum = 0.0D;
-double volume = 0.0D;
+//sum up the 10 mins results
+double sum = 0.0d;
+double volume = 0.0d;
 for (Minute minute:tenmins) {
 	sum += minute.sum;
 	volume += minute.volume;
@@ -34,12 +35,12 @@ TenMinute tenMinute = new TenMinute();
 tenMinute.id = wholeMinute;
 tenMinute.sum = sum;
 tenMinute.volume = volume;
-tenMinute.average = sum / volume;
+tenMinute.average = (volume > 0) ? (sum / volume) : 0.0d;
 tenMinute.timeslot = end;
 tenMinute.timestamp = timeMillis;
 
 ObjectifyManager.save(tenMinute);
 
-// sum up the 10 mins results
+
 %>
 <%=tenmins%>
