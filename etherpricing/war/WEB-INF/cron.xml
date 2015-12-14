@@ -28,12 +28,12 @@
   <cron>
     <url>/trial/everymin.jsp</url>
     <description>see when it is called every mins</description>
-    <schedule>every 1 minutes</schedule>
+    <schedule>every 10 minutes from 00:00 to 00:00</schedule>
   </cron>
   <cron>
     <url>/trial/everyhour.jsp</url>
     <description>see when it is called every hour</description>
-    <schedule>every 1 hours</schedule>
+    <schedule>every 1 hours from 00:00 to 00:00</schedule>
   </cron>
   <cron>
     <url>/trial/everyday.jsp</url>
