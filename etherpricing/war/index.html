@@ -39,8 +39,8 @@
 					// convert to mxbt by * 1000.  keep only 4 decimals.
 					var lastMxbt = (data.last * 1000).toFixed(4);
 					var lastUsd = data.lastUsd.toFixed(4);
-					var lastUsdElem = document.getElementById("lastUsd");
-					var lastMxbtElem = document.getElementById("lastMxbt");
+					var lastUsdElem = id("lastUsd");
+					var lastMxbtElem = id("lastMxbt");
 					lastUsdElem.innerHTML = lastUsd;
 					lastMxbtElem.innerHTML = lastMxbt;
 				}
@@ -52,11 +52,14 @@
 		}
 	};
 	
+	function id(name) {
+		return document.getElementById(name);
+	}
 	
 	function toggleCurrency() {
-		var lastUsdElem = document.getElementById("lastUsd");
-		var lastMxbtElem = document.getElementById("lastMxbt");
-		var currencyElem = document.getElementById("currency");
+		var lastUsdElem = id("lastUsd");
+		var lastMxbtElem = id("lastMxbt");
+		var currencyElem = id("currency");
 		if ("USD" === currency) {
 			currency = "mXBT";
 			lastUsdElem.style.display = "none";
@@ -70,7 +73,7 @@
 		}
 	}
 	
-	document.getElementById("circle").addEventListener("click", toggleCurrency);
+	id("circle").addEventListener("click", toggleCurrency);
 }());
 </script>
 
