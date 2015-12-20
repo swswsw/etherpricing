@@ -10,8 +10,9 @@
 	<div id="circle">
 		<h1 class="title">Ether</h1>
 		<h1 class="title">Pricing</h1>
-		<h1 id="last" class="title"></h1>
-		<h1 class="title">USD</h1>
+		<h1 id="lastUsd" class="title"></h1>
+		<h1 id="lastMxbt" class="title"></h1>
+		<h1 id="currency" class="title">USD</h1>
 	</div>
 	<div id="bar">
 		<!--button onclick="javascript:window.location.href='detail.html'">Detail</button-->
@@ -21,6 +22,8 @@
 
 <script type="text/javascript">
 (function() {
+	var currency = "USD";
+	
 	var xhr = new XMLHttpRequest();
 	var bustCache = '?' + new Date().getTime();
 	xhr.open('GET', '/api/average.jsp' + bustCache);
@@ -36,8 +39,10 @@
 					// convert to mxbt by * 1000.  keep only 4 decimals.
 					var lastMxbt = (data.last * 1000).toFixed(4);
 					var lastUsd = data.lastUsd.toFixed(4);
-					var last = document.getElementById("last");
-					last.innerHTML = lastUsd;
+					var lastUsdElem = document.getElementById("lastUsd");
+					var lastMxbtElem = document.getElementById("lastMxbt");
+					lastUsdElem.innerHTML = lastUsd;
+					lastMxbtElem.innerHTML = lastMxbt;
 				}
 		  	} else {
 		  		if (console) {
@@ -46,6 +51,26 @@
 		  	}
 		}
 	};
+	
+	
+	function toggleCurrency() {
+		var lastUsdElem = document.getElementById("lastUsd");
+		var lastMxbtElem = document.getElementById("lastMxbt");
+		var currencyElem = document.getElementById("currency");
+		if ("USD" === currency) {
+			currency = "mXBT";
+			lastUsdElem.style.display = "none";
+			lastMxbtElem.style.display = "block";
+			currencyElem.innerHTML = currency;
+		} else {
+			currency = "USD";
+			lastUsdElem.style.display = "block";
+			lastMxbtElem.style.display = "none";
+			currencyElem.innerHTML = currency;
+		}
+	}
+	
+	document.getElementById("circle").addEventListener("click", toggleCurrency);
 }());
 </script>
 
@@ -74,8 +99,9 @@
     -moz-border-radius: 9em;
 	-webkit-border-radius: 9em;
 	border-radius: 9em;
-	border: 1px solid #ccc;
+	border: 6px solid #ccc;
     background-color: #DBD5A4; /*#f3f3f3*/
+    cursor: pointer;
 }
 
 #bar {
@@ -96,6 +122,10 @@
 	padding: 1em;
 	color: white;
 	width: 10em;
+}
+
+#lastMxbt {
+	display: none;
 }
 
 body {
