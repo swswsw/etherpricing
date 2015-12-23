@@ -1,7 +1,5 @@
 package com.etherpricing.objectify;
 
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextListener;
@@ -17,6 +15,8 @@ public class OfyHelper implements ServletContextListener {
     // request.
     ObjectifyService.register(com.etherpricing.model.Minute.class);
     ObjectifyService.register(com.etherpricing.model.TenMinute.class);
+    ObjectifyService.register(com.etherpricing.model.Hour.class);
+    ObjectifyService.register(com.etherpricing.model.Day.class);
   }
 
   public void contextDestroyed(ServletContextEvent event) {

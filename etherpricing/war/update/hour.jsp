@@ -9,40 +9,40 @@
 
 <%
 long timeMillis = System.currentTimeMillis();
-long wholeMinute = TenMinute.calcWholeTime(timeMillis);
-final long MILLIS_IN_TEN_MINUTES = 1000L * 60L * 10L;
-Date start = new Date(wholeMinute - MILLIS_IN_TEN_MINUTES);
-Date end = new Date(wholeMinute);
+long wholeTime = Hour.calcWholeTime(timeMillis);
+final long MILLIS_IN_ONE_HOUR = 1000L * 60L * 60L;
+Date start = new Date(wholeTime - MILLIS_IN_ONE_HOUR);
+Date end = new Date(wholeTime);
 
 // get last 10 minutes' data
 // note, this may not be able to get current time.  because it might take sometime for the index to get updated.
-List<Minute> mins = ObjectifyService.ofy()
+List<TenMinute> tenmins = ObjectifyService.ofy()
           .load()
-          .type(Minute.class) // We want only minute class
+          .type(TenMinute.class) // We want only minute class
           .filter("timeslot >", start)
           .filter("timeslot <=", end)
           .order("-timeslot")       // Most recent first - timestamp
           .list();
 
-//sum up the 10 mins results
-if (mins.size() > 0) {
+//sum up results
+if (tenmins.size() > 0) {
 	double sum = 0.0d;
 	double volume = 0.0d;
-	for (Minute minute:mins) {
-		sum += minute.sum;
-		volume += minute.volume;
+	for (TenMinute tenmin:tenmins) {
+		sum += tenmin.sum;
+		volume += tenmin.volume;
 	}
 	
-	TenMinute tenMinute = new TenMinute();
-	tenMinute.id = wholeMinute;
-	tenMinute.sum = sum;
-	tenMinute.volume = volume;
-	tenMinute.average = (volume > 0) ? (sum / volume) : 0.0d;
-	tenMinute.timeslot = end;
-	tenMinute.timestamp = timeMillis;
+	Hour value = new Hour();
+	value.id = wholeTime;
+	value.sum = sum;
+	value.volume = volume;
+	value.average = (volume > 0) ? (sum / volume) : 0.0d;
+	value.timeslot = end;
+	value.timestamp = timeMillis;
 	
-	ObjectifyManager.save(tenMinute);
+	ObjectifyManager.save(value);
 }
 
 %>
-<%=mins%>
+<%=tenmins%>

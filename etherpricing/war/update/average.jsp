@@ -1,9 +1,9 @@
-<%@page import="com.etherpricing.objectify.ObjectifyManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="updateheader.jspf" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.net.*" %>
+<%@ page import="com.etherpricing.objectify.ObjectifyManager"%>
 <%@ page import="com.etherpricing.net.*" %>
 <%@ page import="com.etherpricing.cache.*" %>
 <%@ page import="com.etherpricing.model.*" %>

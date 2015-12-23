@@ -26,6 +26,21 @@
     <schedule>every 1 minutes</schedule>
   </cron>
   <cron>
+    <url>/update/tenmin.jsp</url>
+    <description>ten min summary</description>
+    <schedule>every 10 minutes from 00:00 to 23:59</schedule>
+  </cron>
+  <cron>
+    <url>/update/hour.jsp</url>
+    <description>hourly summary</description>
+    <schedule>every 1 hours from 00:00 to 23:59</schedule>
+  </cron>
+  <cron>
+    <url>/update/day.jsp</url>
+    <description>daily summary</description>
+    <schedule>every day 00:00</schedule>
+  </cron>
+  <cron>
     <url>/trial/everytenmin.jsp</url>
     <description>see when it is called every 10 mins</description>
     <schedule>every 10 minutes from 00:00 to 23:59</schedule>
