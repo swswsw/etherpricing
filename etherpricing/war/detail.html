@@ -53,8 +53,8 @@
 				<tr>
 					<td>24h change</td>
 					<td>
-						<span class="updown">▲</span> <span>0.1252</span> m฿<br/>
-						<span class="updown">▲</span> <span>1.35</span> %
+						<span class="updown up"></span> <span>0.1252</span> m฿<br/>
+						<span class="updown up"></span> <span>1.35</span> %
 					</td>
 				</tr>
 				<tr>
@@ -196,6 +196,22 @@
 
 #detail-table thead th {
 	text-align: right;
+}
+
+.up {
+	color: green;
+}
+
+.up::after {
+	content: "▲";
+}
+
+.down {
+	color: red;
+}
+
+.down::after {
+	content: "▼";
 }
 
 </style>
