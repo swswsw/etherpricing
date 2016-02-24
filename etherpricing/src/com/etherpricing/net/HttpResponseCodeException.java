@@ -1,13 +1,16 @@
 package com.etherpricing.net;
 
-import java.net.HttpURLConnection;
-
 /**
  * thrown when the resulting http response code is not 200 ok.  
  * @author sol wu
  *
  */
 public class HttpResponseCodeException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public static final int UNKNOWN = -1;
 	

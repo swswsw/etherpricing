@@ -14,7 +14,7 @@ import flexjson.JSONSerializer;
  */
 public class PriceCache implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	/**
 	 * unlikely to have more than 10 ether currency pair in one exchange.
@@ -37,6 +37,11 @@ public class PriceCache implements Serializable {
 	 * price of one single currency pair
 	 */
 	public static class Price implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		/** currency1 of currency pair */
 		private String currency1 = null;
 		/** currency2 of currency pair */

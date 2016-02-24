@@ -63,6 +63,7 @@ public class CacheManager {
 	public static ArrayList<PriceCache.Price> getPriceList(String key) {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+		@SuppressWarnings("unchecked")
 		ArrayList<PriceCache.Price> value = (ArrayList<PriceCache.Price>) syncCache.get(key); // Read from cache.
 		if (value == null) {
 		    // Get value from another source.
