@@ -40,6 +40,7 @@ long currentTimeMillis = System.currentTimeMillis();
 PriceCache pcPoloniex = CacheManager.getPriceCache("latest_poloniex");
 PriceCache pcGatecoin = CacheManager.getPriceCache("latest_gatecoin");
 PriceCache pcKraken = CacheManager.getPriceCache("latest_kraken");
+PriceCache pcBittrex = CacheManager.getPriceCache("latest_bittrex");
 
 //get bitcoin to fiat currency rate data
 String sBaRates = CacheManager.getString("latest_bitcoinaverage");
@@ -63,6 +64,7 @@ ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(50); // 
 if (pcPoloniex != null) { allPrices.addAll(pcPoloniex.getPriceList()); }
 if (pcGatecoin != null) { allPrices.addAll(pcGatecoin.getPriceList()); }
 if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
+if (pcBittrex != null) { allPrices.addAll(pcBittrex.getPriceList()); }
 
 // iterate all price to find the weighted average
 // we will calculate the final average in xbt as most of the volume is in xbt right now. 
@@ -143,6 +145,8 @@ if (fiatRates != null) {
 <%=pcGatecoin%>
 <hr/>
 <%=pcKraken%>
+<hr/>
+<%=pcBittrex%>
 <hr/>
 <%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>

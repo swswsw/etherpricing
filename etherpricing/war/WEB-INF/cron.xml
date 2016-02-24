@@ -16,6 +16,11 @@
     <schedule>every 1 minutes</schedule>
   </cron>
   <cron>
+    <url>/update/bittrex.jsp</url>
+    <description>update bittrex data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
+  <cron>
     <url>/update/bitcoinaverage.jsp</url>
     <description>update bitcoinaverage exchange rate to cache</description>
     <schedule>every 1 minutes</schedule>

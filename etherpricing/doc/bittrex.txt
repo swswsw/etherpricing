@@ -1,0 +1,43 @@
+
+
+Used to get the last 24 hour summary of all active exchanges
+https://bittrex.com/api/v1.1/public/getmarketsummaries 
+
+this shows only one currency pair.
+https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-eth
+
+{  
+   "success":true,
+   "message":"",
+   "result":[  
+      {  
+         "MarketName":"BTC-ETH",
+         "High":0.01146900,
+         "Low":0.01002103,
+         "Volume":26573.92901737,
+         "Last":0.01090001,
+         "BaseVolume":286.75456346,
+         "TimeStamp":"2016-02-20T02:28:01.137",
+         "Bid":0.01090007,
+         "Ask":0.01100551,
+         "OpenBuyOrders":620,
+         "OpenSellOrders":855,
+         "PrevDay":0.01040000,
+         "Created":"2015-08-14T09:02:24.817"
+      }
+   ]
+}
+
+Last: price of eth in unit of btc
+Volume: volume of eth (second currency)
+BaseVolume: volume of eth in unit of btc (first currency)
+TimeStamp: time
+PrevDay
+
+what we need:
+Last: last
+Volume: volume
+TimeStamp: 
+
+
+reference: https://bittrex.com/home/apiv1
