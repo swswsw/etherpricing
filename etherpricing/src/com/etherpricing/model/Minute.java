@@ -6,6 +6,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import flexjson.JSONSerializer;
+
 /**
  * saving this every minute.
  * @author sol wu
@@ -21,7 +23,7 @@ public class Minute {
     public long timestamp;
     
     public String toString() {
-    	return String.valueOf(id);
+    	return new JSONSerializer().exclude("*.class").serialize(this);
     }
     
     /**

@@ -6,6 +6,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import flexjson.JSONSerializer;
+
 /**
  * saving this summary rollup every hour.
  * @author sol wu
@@ -22,7 +24,7 @@ public class Hour {
     
     
     public String toString() {
-    	return String.valueOf(id);
+    	return new JSONSerializer().exclude("*.class").serialize(this);
     }
     
     /**

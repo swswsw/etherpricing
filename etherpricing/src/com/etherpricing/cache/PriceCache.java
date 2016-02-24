@@ -62,17 +62,8 @@ public class PriceCache implements Serializable {
 		}
 		
 		public String toString() {
-//			JSONSerializer serializer = new JSONSerializer();
-//			// exclude class name.  don't serialize class name.  (otherwise, there will be class field    class: "com.ether.PriceCache$Price")
-//			return serializer.exclude("*.class").serialize(this); 
-			return "{ "
-					+ "\"currency1\": \"" + currency1 + "\", "
-					+ "\"currency2\": \"" + currency2 + "\", "
-					+ "\"last\": " + last + ", "
-					+ "\"volume\": " + volume + ", " 
-					+ "\"time\": " + time + ", "
-					+ "\"exchange\": \"" + exchange + "\" "
-					+ " }";
+			// exclude class name.
+			return new JSONSerializer().exclude("*.class").serialize(this); 
 		}
 
 		public String getCurrency1() {
