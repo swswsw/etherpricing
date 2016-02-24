@@ -35,6 +35,7 @@ public class ScheduleRun {
 	}
 	
 	private static JSONObject retrieveData(String url) {
+		log.log(Level.INFO, "calling " + url);
 		JSONObject json = null;
 		try {
 			json = RetrieveData.jsonData(url);
