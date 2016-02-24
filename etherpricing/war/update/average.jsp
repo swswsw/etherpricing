@@ -59,7 +59,7 @@ double totalVolume = 0.0D;
 double totalSoFar = 0.0D;
 
 // iterate through all prices to calculate weighted average
-List<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(50); // probably don't have more than 50 prices to calculate
+ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(50); // probably don't have more than 50 prices to calculate
 if (pcPoloniex != null) { allPrices.addAll(pcPoloniex.getPriceList()); }
 if (pcGatecoin != null) { allPrices.addAll(pcGatecoin.getPriceList()); }
 if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
@@ -110,6 +110,7 @@ jsonAvg.put("sum", totalSoFar);
 jsonAvg.put("lastUsd", lastUsd);
 
 CacheManager.save("latest_average", jsonAvg.toString());
+CacheManager.save("price_list", allPrices);
 
 long wholeTime = Minute.calcWholeTime(currentTimeMillis);
 

@@ -15,6 +15,9 @@ try {
 	throw ex;
 }
 
+final long time = System.currentTimeMillis();
+final String gatecoin = "Gatecoin";
+
 List<JSONObject> ethTickers = new ArrayList<JSONObject>(5);
 if (json != null) {
 	JSONArray tickers = json.getJSONArray("tickers");
@@ -40,7 +43,7 @@ for (int i=0; i<ethTickers.size(); i++) {
 	String currency1 = currencyPair.substring(0,3); // first 3 characters are currency1
 	String currency2 = currencyPair.substring(3); // last 3 characters are currency2
 	PriceCache.Price price = new PriceCache.Price(currency1, currency2, 
-			ethTicker.getDouble("last"), ethTicker.getDouble("volume"));
+			ethTicker.getDouble("last"), ethTicker.getDouble("volume"), time, gatecoin);
 	pc.getPriceList().add(price);
 }
 

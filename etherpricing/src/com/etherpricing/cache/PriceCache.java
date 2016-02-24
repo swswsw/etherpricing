@@ -45,11 +45,18 @@ public class PriceCache implements Serializable {
 		/** 24h volume */
 		private double volume = -1;
 		
-		public Price(String currency1, String currency2, double last, double volume) {
+		/** time of the price */
+		private long time = 0L;
+		/** exchange name */
+		private String exchange = null;
+		
+		public Price(String currency1, String currency2, double last, double volume, long time, String exchange) {
 			this.currency1 = currency1;
 			this.currency2 = currency2;
 			this.last = last;
 			this.volume = volume;
+			this.time = time;
+			this.exchange = exchange;
 		}
 		
 		public String toString() {
@@ -57,7 +64,9 @@ public class PriceCache implements Serializable {
 					+ "\"currency1\": " + currency1 + ", "
 					+ "\"currency2\": " + currency2 + ", "
 					+ "\"last\": " + last + ", "
-					+ "\"volume\": " + volume 
+					+ "\"volume\": " + volume + ", " 
+					+ "\"time\": " + time + ", "
+					+ "\"exchange\": " + exchange
 					+ " }";
 		}
 
@@ -91,6 +100,22 @@ public class PriceCache implements Serializable {
 
 		public void setVolume(double volume) {
 			this.volume = volume;
+		}
+
+		public long getTime() {
+			return time;
+		}
+
+		public void setTime(long time) {
+			this.time = time;
+		}
+
+		public String getExchange() {
+			return exchange;
+		}
+
+		public void setExchange(String exchange) {
+			this.exchange = exchange;
 		}
 		
 		

@@ -7,6 +7,8 @@
 <%@ page import="org.json.*" %>
 <%
 JSONObject json = RetrieveData.jsonData("https://poloniex.com/public?command=returnTicker");
+final long time = System.currentTimeMillis();
+final String poloniex = "Poloniex"; 
 PriceCache pc = new PriceCache();
 if (json != null) {
 	JSONObject btceth = json.getJSONObject("BTC_ETH");
@@ -19,10 +21,10 @@ if (json != null) {
 	
 	// we want quoteVolume as the unit is in eth
 	PriceCache.Price btcethPrice = 
-		new PriceCache.Price("ETH", "BTC", btceth.getDouble("last"), btceth.getDouble("quoteVolume"));
+		new PriceCache.Price("ETH", "BTC", btceth.getDouble("last"), btceth.getDouble("quoteVolume"), time, poloniex);
 	
 	PriceCache.Price usdtethPrice = 
-			new PriceCache.Price("ETH", "USD", usdteth.getDouble("last"), usdteth.getDouble("quoteVolume"));
+		new PriceCache.Price("ETH", "USD", usdteth.getDouble("last"), usdteth.getDouble("quoteVolume"), time, poloniex);
 	
 	pc.getPriceList().add(btcethPrice);
 	pc.getPriceList().add(usdtethPrice);
