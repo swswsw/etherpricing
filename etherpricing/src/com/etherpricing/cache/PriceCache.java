@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import flexjson.JSONSerializer;
+
 /**
  * contain an exchange's price to be stored in cache.  
  * 
@@ -60,13 +62,16 @@ public class PriceCache implements Serializable {
 		}
 		
 		public String toString() {
+//			JSONSerializer serializer = new JSONSerializer();
+//			// exclude class name.  don't serialize class name.  (otherwise, there will be class field    class: "com.ether.PriceCache$Price")
+//			return serializer.exclude("*.class").serialize(this); 
 			return "{ "
-					+ "\"currency1\": " + currency1 + ", "
-					+ "\"currency2\": " + currency2 + ", "
+					+ "\"currency1\": \"" + currency1 + "\", "
+					+ "\"currency2\": \"" + currency2 + "\", "
 					+ "\"last\": " + last + ", "
 					+ "\"volume\": " + volume + ", " 
 					+ "\"time\": " + time + ", "
-					+ "\"exchange\": " + exchange
+					+ "\"exchange\": \"" + exchange + "\" "
 					+ " }";
 		}
 
