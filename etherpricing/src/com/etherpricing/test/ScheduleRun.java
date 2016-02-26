@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.etherpricing.net.RetrieveData;
@@ -60,17 +61,17 @@ public class ScheduleRun {
 	
 	private static void tenmin() {
 		final String tenmin = "/update/tenmin.jsp";		
-		retrieveData(host + tenmin);
+		retrieveArray(host + tenmin);
 	}
 	
 	private static void hour() {
 		final String hour = "/update/hour.jsp";		
-		retrieveData(host + hour);
+		retrieveArray(host + hour);
 	}
 	
 	private static void day() {
 		final String day = "/update/day.jsp";		
-		retrieveData(host + day);
+		retrieveArray(host + day);
 	}
 	
 	private static JSONObject retrieveData(String url) {
@@ -78,6 +79,17 @@ public class ScheduleRun {
 		JSONObject json = null;
 		try {
 			json = RetrieveData.jsonData(url);
+		} catch (Exception ex) {
+			log.log(Level.WARNING, "unable to retrieve data from " + url, ex);
+		}
+		return json;
+	}
+	
+	private static JSONArray retrieveArray(String url) {
+		log.log(Level.INFO, "calling " + url);
+		JSONArray json = null;
+		try {
+			json = RetrieveData.jsonArray(url);
 		} catch (Exception ex) {
 			log.log(Level.WARNING, "unable to retrieve data from " + url, ex);
 		}
