@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.etherpricing.net.RetrieveData;
 
 /**
+ * helper script to 
  * start a scheduled run for testing
  * @author sol wu
  *
@@ -43,7 +44,7 @@ public class ScheduleRun {
 	/**
 	 * run every minute
 	 */
-	private static void minute() {
+	public static void minute() {
 		final String poloniex = "/update/poloniex.jsp";
 		final String gatecoin = "/update/gatecoin.jsp";
 		final String kraken = "/update/kraken.jsp";
@@ -59,17 +60,17 @@ public class ScheduleRun {
 		retrieveData(host + average);
 	}
 	
-	private static void tenmin() {
+	public static void tenmin() {
 		final String tenmin = "/update/tenmin.jsp";		
 		retrieveArray(host + tenmin);
 	}
 	
-	private static void hour() {
+	public static void hour() {
 		final String hour = "/update/hour.jsp";		
 		retrieveArray(host + hour);
 	}
 	
-	private static void day() {
+	public static void day() {
 		final String day = "/update/day.jsp";		
 		retrieveArray(host + day);
 	}
