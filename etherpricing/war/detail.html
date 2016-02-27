@@ -85,51 +85,16 @@
 					<th>pair</th>
 					<th>volume (%)</th>
 					<th>volume ETH (24h)</th>
-					<th>last price m฿</th>
+					<th>last price</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Polonix</td>
-					<td>ETH/BTC</td>
-					<td>53.74%</td>
-					<td>2345230</td>
-					<td>2.3536</td>
-				</tr>
-				<tr>
-					<td>Gatecoin</td>
-					<td>ETH/BTC</td>
-					<td>24.92%</td>
-					<td>234523</td>
-					<td>2.3536</td>
-				</tr>
-				<tr>
-					<td>Kraken</td>
-					<td>ETH/BTC</td>
-					<td>15.94%</td>
-					<td>23454</td>
-					<td>2.3536</td>
-				</tr>
-				<tr>
-					<td>Kraken</td>
-					<td>ETH/EUR</td>
-					<td>3.11%</td>
-					<td>2345</td>
-					<td>2.3536</td>
-				</tr>
-				<tr>
-					<td>Cryptsy</td>
-					<td>ETH/BTC</td>
-					<td>0.94%</td>
-					<td>2345</td>
-					<td>2.3536</td>
-				</tr>
-				<tr>
-					<td>Bittrex</td>
-					<td>ETH/BTC</td>
-					<td>0.60%</td>
-					<td>243</td>
-					<td>2.3536</td>
+				<tr class="detail-table-row-template">
+					<td class="row-exchange">Polonix</td>
+					<td class="row-currency-pair">ETH/BTC</td>
+					<td class="row-volume-percent">53.74%</td>
+					<td class="row-volume">2345230</td>
+					<td class="row-last">2.3536</td>
 				</tr>
 			</tbody>
 		
@@ -143,12 +108,89 @@
 (function() {
 	$.getJSON( "/api/average.jsp", function( data ) { 
 		if (data && data.last && data.volume && data.lastUsd) {
-			$("#title-price").text((data.last * 1000).toFixed(4));
+			$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
 			$("#volume").text(data.volume.toFixed(0));
 		}
 	});
-}());
+
+	retrievePriceList();
+	
+	// get data	
+	function retrievePriceList() {
+		
+		$.getJSON("/api/pricelist.jsp", function(data) {
+			var i; // index
+			var priceItem; // price
+			var totalVolume = 0.0; // total volume
+			
+			// data should be an array
+			if (typeof data === "object") {
+				// sort on volume desc
+				data.sort(function(a, b) {
+				    return b.volume - a.volume;
+				});
+				// calculate total volume
+				for (i=0; i < data.length; i++) {
+					priceItem = data[i];
+					totalVolume += priceItem.volume;
+				}
+				// calculate volume percent and add row
+				for (i=0; i < data.length; i++) {
+					priceItem = data[i];
+					priceItem.volumePercent = (totalVolume != 0) ? (priceItem.volume * 100 / totalVolume) : 0;
+					addRow(priceItem);
+				}
+			}
+		});
+	}
+	
+	/**
+	 * create new row on detail table and attach it
+	 */
+	function addRow(priceItem) {
+		if (typeof priceItem === "object") {
+			// clone, then attach
+			var row = $(".detail-table-row-template").clone();
+			row.removeClass("detail-table-row-template");
+			row.addClass("detail-table-row");
+			row.children(".row-exchange").text(priceItem.exchange);
+			row.children(".row-currency-pair").text(priceItem.currency1 + "/" + priceItem.currency2);
+			row.children(".row-volume-percent").text(priceItem.volumePercent.toFixed(2));
+			row.children(".row-volume").text(priceItem.volume.toFixed(2));
+			row.children(".row-last").html(formatLastPrice(priceItem)); // *1000 for mB
+			
+			$("#detail-table").children("tbody").append(row);
+		}
+		/*
+		<td class="row-exchange">Polonix</td>
+		<td class="row-currency-pair">ETH/BTC</td>
+		<td class="row-volume-percent">53.74%</td>
+		<td class="row-volume">2345230</td>
+		<td class="row-last">2.3536</td>
+		*/
+	}
+	
+	/** convert xbt price to mXBT price */
+	function xbt2mXbt(price) {
+		return price * 1000;
+	}
+	
+	function formatLastPrice(priceItem) {
+		var lastPrice = priceItem.last;
+		var lastPriceStr = "";
+		if ("BTC" === priceItem.currency2 || "XBT" === priceItem.currency2) {
+			lastPrice = xbt2mXbt(lastPrice); // display mXbt
+			lastPriceStr = lastPrice.toFixed(4) + " mXBT";
+		} else {
+			lastPriceStr = lastPrice.toFixed(4) + "&nbsp&nbsp&nbsp&nbsp" + priceItem.currency2;
+		}
+		
+		return lastPriceStr;
+		
+	}
+})();
 </script>
+
 
 <style>
 #overall {
@@ -221,6 +263,14 @@
 .down::after {
 	content: "▼";
 }
+
+.detail-table-row-template {
+	display: none;
+}
+
+.detail-table-row {
+}
+
 
 </style>
 
