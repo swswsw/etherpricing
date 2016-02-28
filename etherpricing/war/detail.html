@@ -42,6 +42,7 @@
 
 	<div id="top-section">
 		<h1 class="large-price"><span id="title-price">2.5375</span> m฿</h1>
+		<h3 class="large-price"><span id="title-price-usd">2.5375</span> $</h3>
 	</div>
 	<div id="summary-section">
 		<h3 class="text-center">Summary</h3>
@@ -49,7 +50,10 @@
 			<tbody>
 				<tr>
 					<td>volume (24h)</td>
-					<td><span id="volume">23504321</span> ETH</td>
+					<td>
+						<span id="volume">23504321</span> ETH<br/>
+						<span id="volume-usd">235043210</span> USD
+					</td>
 				</tr>
 				<!-- 
 				<tr>
@@ -112,7 +116,9 @@
 	$.getJSON( "/api/average.jsp", function( data ) { 
 		if (data && data.last && data.volume && data.lastUsd) {
 			$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
+			$("#title-price-usd").text(data.lastUsd.toFixed(4));
 			$("#volume").text(data.volume.toFixed(0));
+			$("#volume-usd").text((data.volume * data.lastUsd).toFixed(0));
 		}
 	});
 
@@ -211,7 +217,7 @@
 	text-align: center;
 }
 
-#title-price {
+#title-price, #title-price-usd {
 	font-size: 1.5em;
 	font-weight: 600;
 	color: #428BCA; 
