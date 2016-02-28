@@ -59,13 +59,13 @@
 				<tr>
 					<td>24h change</td>
 					<td>
-						<span class="updown up"></span> <span id="change24hPercent">0.1252</span> m฿<br/>
-						<span class="updown up"></span> <span id="change24hPercent">1.35</span> %
+						<span class="updown up"></span> <span id="change-24h">0.1252</span> m฿<br/>
+						<span class="updown up"></span> <span id="change-24h-percent">1.35</span> %
 					</td>
 				</tr>
 				<tr>
 					<td>24h sliding average</td>
-					<td><span id="avgSliding">2.5552</span> m฿</td>
+					<td><span id="avg-sliding">2.5552</span> m฿</td>
 				</tr>
 				<tr>
 					<td>high</td>
@@ -75,11 +75,11 @@
 					<td>low</td>
 					<td><span id="low">2.3536</span> m฿</td>
 				</tr>
+				-->
 				<tr>
 					<td>last update</td>
-					<td><span id="lastUpdate">22:05:25</span></td>
+					<td><span id="last-update">22:05:25</span></td>
 				</tr>
-				 -->
 			</tbody>
 		</table>
 	</div>
@@ -119,6 +119,7 @@
 			$("#title-price-usd").text(data.lastUsd.toFixed(4));
 			$("#volume").text(data.volume.toFixed(0));
 			$("#volume-usd").text((data.volume * data.lastUsd).toFixed(0));
+			$("#last-update").text(getHourMin(new Date(data.time)));
 		}
 	});
 
@@ -196,6 +197,17 @@
 		
 		return lastPriceStr;
 		
+	}
+	
+	/** given a date object, show "00:00" */
+	function getHourMin(date) {
+		var hr = date.getHours();
+		var min = date.getMinutes();
+		if (min < 10) {
+		    min = "0" + min;
+		}
+		var ampm = hr < 12 ? "am" : "pm";
+		return hr + ":" + min + " " + ampm;
 	}
 })();
 </script>

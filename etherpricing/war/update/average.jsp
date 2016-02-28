@@ -110,6 +110,7 @@ jsonAvg.put("last", average);
 jsonAvg.put("volume", totalVolume);
 jsonAvg.put("sum", totalSoFar);
 jsonAvg.put("lastUsd", lastUsd);
+jsonAvg.put("time", currentTimeMillis);
 
 CacheManager.save("latest_average", jsonAvg.toString());
 CacheManager.save("price_list", allPrices);
