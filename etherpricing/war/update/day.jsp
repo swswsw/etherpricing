@@ -26,7 +26,7 @@ List<Hour> hours = ObjectifyService.ofy()
 
 		
 if (hours.size() > 0) {
-	//sum up the 10 mins results
+	//sum up results
 	double sum = 0.0d;
 	double volume = 0.0d;
 	for (Hour hour:hours) {
