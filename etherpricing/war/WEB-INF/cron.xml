@@ -45,19 +45,4 @@
     <description>daily summary</description>
     <schedule>every day 00:00</schedule>
   </cron>
-  <cron>
-    <url>/trial/everytenmin.jsp</url>
-    <description>see when it is called every 10 mins</description>
-    <schedule>every 10 minutes from 00:00 to 23:59</schedule>
-  </cron>
-  <cron>
-    <url>/trial/everyhour.jsp</url>
-    <description>see when it is called every hour</description>
-    <schedule>every 1 hours from 00:00 to 23:59</schedule>
-  </cron>
-  <cron>
-    <url>/trial/everyday.jsp</url>
-    <description>see when it is called every day</description>
-    <schedule>every day 00:00</schedule>
-  </cron>
 </cronentries>
