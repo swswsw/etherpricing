@@ -14,7 +14,7 @@ final long MILLIS_IN_ONE_HOUR = 1000L * 60L * 60L;
 Date start = new Date(wholeTime - MILLIS_IN_ONE_HOUR);
 Date end = new Date(wholeTime);
 
-// get last 10 minutes' data
+// get last hour's data
 // note, this may not be able to get current time.  because it might take sometime for the index to get updated.
 List<TenMinute> tenmins = ObjectifyService.ofy()
           .load()
