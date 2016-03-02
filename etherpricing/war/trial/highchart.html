@@ -1,0 +1,138 @@
+<html>
+<head>
+
+<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<!-- 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+ -->
+<script type="text/javascript" src="http://bitcoinaverage.com/js/lib/highstock.js"></script>
+<!--
+<script type="text/javascript" src="http://bitcoinaverage.com/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="http://bitcoinaverage.com/js/lib/jquery.formatCurrency.js"></script>
+<script type="text/javascript" src="http://bitcoinaverage.com/js/lib/lightbox.js"></script>
+<script type="text/javascript" src="http://bitcoinaverage.com/js/lib/moment.min.js"></script>
+-->
+
+</head>
+<body>
+
+<div id="small-chart"></div>
+
+<script type="text/javascript">
+var config = {
+	scaleDivizer: 1,	
+		
+};
+
+var apiDataUpdated = true;
+
+var renderSmallChart = function(currencyCode){
+    if (!apiDataUpdated) {
+        return;
+    }
+    var global_avg_url = "https://api.bitcoinaverage.com/history/";//config.apiHistoryIndexUrl;
+    var data_24h_URL = "https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window_short.csv"; //global_avg_url + currencyCode + '/per_minute_24h_global_average_sliding_window_short.csv';
+
+    $.get(data_24h_URL, function(csv){
+        var data = [];
+        $.each(csv.split('\n'), function(i, line){
+            var values = line.split(',');
+            if(i == 0 || line.length == 0){
+                return;
+            }
+
+            var chartDailyValue = parseFloat(values.slice(-1)[0]) / config.scaleDivizer;
+            var dateStr = values[0];
+            var dateData = dateStr.split(' ');
+            dateData[0] = dateData[0].split('-');
+            dateData[1] = dateData[1].split(':');
+            var dateInt = Date.UTC(dateData[0][0], dateData[0][1] - 1, dateData[0][2], dateData[1][0], dateData[1][1], dateData[1][2]);
+            data.push([dateInt, chartDailyValue]);
+        });
+        data.sort(function(a,b){
+            if (a[0] > b[0]){
+                return 1;
+            } else if (a[0] < b[0]){
+                return -1;
+            } else {
+                return -0;
+            }
+        });
+
+        var priceShift = data[data.length - 1][1] - data[0][1];
+        var priceShiftPercentage = priceShift / data[0][1] * 100;
+        /*
+        $('.main-price-shift .price-arrow').text(priceShift < 0 ? '▼' : '▲');
+        $('.main-price-shift').attr('data-trend', priceShift < 0 ? 'down' : 'up');
+        $('.main-price-shift .price-shift').text(priceShift).formatCurrency({
+            symbol: getCurrencySymbol(currencyCode),
+            positiveFormat: '%s%n ' + currencyCode,
+            negativeFormat: '%s%n ' + currencyCode,
+            roundToDecimalPlace: config.precision
+        });
+        $('.main-price-shift .price-shift-prc').text(Math.abs(priceShiftPercentage).toFixed(2) + '%');
+
+        var prices = $.map(data, function (e, i) { return e[1]; });
+        $('.main-price-highlow .price-high')
+            .text(Math.max.apply(Math, prices))
+            .formatCurrency({
+                symbol: getCurrencySymbol(currencyCode),
+                positiveFormat: '%s%n ' + currencyCode,
+                roundToDecimalPlace: config.precision
+        });
+        $('.main-price-highlow .price-low')
+            .text(Math.min.apply(Math, prices))
+            .formatCurrency({
+                symbol: getCurrencySymbol(currencyCode),
+                positiveFormat: '%s%n ' + currencyCode,
+                roundToDecimalPlace: config.precision
+        });
+		*/
+		
+        $('#small-chart').html('');
+
+        $('#small-chart').highcharts('StockChart', {
+            chart : {
+                animation : {
+                    duration: 10000
+                },
+                events: {
+                    click: function(e){
+                        window.location.href = 'charts.htm#'+currencyCode;
+                    }
+                },
+                spacingBottom: 5,
+                spacingLeft: 0,
+                spacingRight: 0,
+                spacingTop: 0
+            },
+            rangeSelector: {enabled: false},
+            title: {text: '24h price '+currencyCode+' movement'},
+            scrollbar: {enabled: false},
+            navigator: {enabled: false},
+            exporting: {enabled: false},
+            tooltip: {
+                enabled : true,
+                valueDecimals: 3
+            },
+            credits: {enabled : false},
+            series : [{
+                name: currencyCode,
+                data: data,
+                cursor: 'pointer',
+                events: {
+                    click: function(event){
+                        window.location.href = 'charts.htm#'+currencyCode;
+                    }
+                }
+            }]
+
+        });
+    });
+};
+
+renderSmallChart();
+</script>
+</body>
+</html>
