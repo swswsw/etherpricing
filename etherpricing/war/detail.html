@@ -234,11 +234,9 @@
 			break;	
 		}
 	}
-})();
 
-(function() {
 	var config = {
-		scaleDivizer: 1,	
+		scaleDivizer: 1,
 	};
 
 	var apiDataUpdated = true;
@@ -247,10 +245,15 @@
 	    if (!apiDataUpdated) {
 	        return;
 	    }
-	    var global_avg_url = "https://api.bitcoinaverage.com/history/";//config.apiHistoryIndexUrl;
-	    var data_24h_URL = "https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window_short.csv"; //global_avg_url + currencyCode + '/per_minute_24h_global_average_sliding_window_short.csv';
+	  	
+	    var avg24hUrl = "/api/avg24h.jsp";
 
-	    $.get(data_24h_URL, function(csv){
+	    $.getJSON(avg24hUrl, function(data){
+	    	// convert to mXbt
+	    	for (var i=0; i<data.length; i++) {
+	    		data[i][1] = xbt2mXbt(data[i][1]);
+	    	}
+	    	/*
 	        var data = [];
 	        $.each(csv.split('\n'), function(i, line){
 	            var values = line.split(',');
@@ -266,6 +269,7 @@
 	            var dateInt = Date.UTC(dateData[0][0], dateData[0][1] - 1, dateData[0][2], dateData[1][0], dateData[1][1], dateData[1][2]);
 	            data.push([dateInt, chartDailyValue]);
 	        });
+	        */
 	        data.sort(function(a,b){
 	            if (a[0] > b[0]){
 	                return 1;
@@ -348,7 +352,7 @@
 	    });
 	};
 
-	renderSmallChart();
+	renderSmallChart("m฿");
 })();
 </script>
 
