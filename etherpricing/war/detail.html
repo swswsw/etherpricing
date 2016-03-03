@@ -99,7 +99,7 @@
 			</thead>
 			<tbody>
 				<tr class="detail-table-row-template">
-					<td class="row-exchange">Polonix</td>
+					<td><a class="row-exchange" href="">Polonix</a></td>
 					<td class="row-currency-pair">ETH/BTC</td>
 					<td class="row-volume-percent">53.74%</td>
 					<td class="row-volume">2345230</td>
@@ -165,7 +165,8 @@
 			var row = $(".detail-table-row-template").clone();
 			row.removeClass("detail-table-row-template");
 			row.addClass("detail-table-row");
-			row.children(".row-exchange").text(priceItem.exchange);
+			row.find(".row-exchange").text(priceItem.exchange);
+			row.find(".row-exchange").attr("href", getExchangeLink(priceItem.exchange, priceItem.currency1, priceItem.currency2));
 			row.children(".row-currency-pair").text(priceItem.currency1 + "/" + priceItem.currency2);
 			row.children(".row-volume-percent").text(priceItem.volumePercent.toFixed(2));
 			row.children(".row-volume").text(priceItem.volume.toFixed(2));
@@ -227,12 +228,16 @@
 			link = "https://www.kraken.com/charts";
 			break;
 		case "bittrex":
+			link = "https://bittrex.com/Market/Index?MarketName=" + currency2 + "-" + currency1;
 			break;
 		case "bitfinex":
+			link = "https://www.bitfinex.com/";
 			break;
 		default:
 			break;	
 		}
+		
+		return link;
 	}
 
 	var config = {
