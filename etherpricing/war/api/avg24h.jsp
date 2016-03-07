@@ -27,7 +27,7 @@ private static String getCacheKey(long timeMillis) {
 //
 
 long timeMillis = System.currentTimeMillis();
-long wholeTime = Day.calcWholeTime(timeMillis);
+long wholeTime = Minute.calcWholeTime(timeMillis);
 final long MILLIS_IN_ONE_DAY = 1000L * 60L * 60L * 24L;
 Date start = new Date(wholeTime - MILLIS_IN_ONE_DAY);
 Date end = new Date(wholeTime);
