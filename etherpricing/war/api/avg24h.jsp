@@ -33,9 +33,9 @@ Date start = new Date(wholeTime - MILLIS_IN_ONE_DAY);
 Date end = new Date(wholeTime);
 
 // get from cache
-String data = CacheManager.getString(getCacheKey(wholeTime));
+String result = CacheManager.getString(getCacheKey(wholeTime));
 
-if (data == null) {
+if (result == null) {
 	// if not, get data and fill cache
 	
 	// get data
@@ -63,9 +63,9 @@ if (data == null) {
 		arrays.put(array);
 	}
 	
-	data = arrays.toString(2);
+	result = arrays.toString(2);
 	
-	CacheManager.save(getCacheKey(wholeTime), data);
+	CacheManager.save(getCacheKey(wholeTime), result);
 }
 %>
-<%=data%>
+<%=result%>
