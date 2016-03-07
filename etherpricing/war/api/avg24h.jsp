@@ -27,7 +27,10 @@ private static String getCacheKey(long timeMillis) {
 //
 
 long timeMillis = System.currentTimeMillis();
-long wholeTime = Minute.calcWholeTime(timeMillis);
+// todo: to further save the quota, i will use exact time minute time, 
+// so this will only update cache every 10 minutes.
+// i will want to change this back to per minute when i want to show more detailed data 
+long wholeTime = TenMinute.calcWholeTime(timeMillis);
 final long MILLIS_IN_ONE_DAY = 1000L * 60L * 60L * 24L;
 Date start = new Date(wholeTime - MILLIS_IN_ONE_DAY);
 Date end = new Date(wholeTime);
