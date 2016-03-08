@@ -32,6 +32,7 @@ long timeMillis = System.currentTimeMillis();
 // i will want to change this back to per minute when i want to show more detailed data 
 long wholeTime = TenMinute.calcWholeTime(timeMillis);
 final long MILLIS_IN_ONE_DAY = 1000L * 60L * 60L * 24L;
+final long MILLIS_IN_TEN_MINUTES = 1000L * 60L * 10L;
 Date start = new Date(wholeTime - MILLIS_IN_ONE_DAY);
 Date end = new Date(wholeTime);
 
@@ -69,6 +70,10 @@ if (result == null) {
 	result = arrays.toString(2);
 	
 	CacheManager.save(getCacheKey(wholeTime), result);
+	
+	// delete earlier cached item
+	long lastCacheTime = wholeTime - MILLIS_IN_TEN_MINUTES;
+	CacheManager.delete(getCacheKey(lastCacheTime));
 }
 %>
 <%=result%>

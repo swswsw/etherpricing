@@ -74,4 +74,11 @@ public class CacheManager {
 		
 		return value;
 	}
+	
+	public static void delete(String key) {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+		syncCache.delete(key);
+	}
+	
 }
