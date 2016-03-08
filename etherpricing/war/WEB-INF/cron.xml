@@ -45,4 +45,9 @@
     <description>daily summary</description>
     <schedule>every day 00:00</schedule>
   </cron>
+  <cron>
+    <url>/update/avg24hv2.jsp</url>
+    <description>prepare data for avg 24h chart</description>
+    <schedule>every 10 minutes from 00:00 to 23:59</schedule>
+  </cron>
 </cronentries>

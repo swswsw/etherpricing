@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="ether exchange data, ether pricing exchanges, ether pricing detail, ethereum ether pricing, ethereum ether average price index, ethereum ether global average price index, ethereum ether global average price, ethereum ether global average price infographics" />
+<title>EtherPricing Detail</title>
+<script src="js/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<script src="js/highstock.js"></script>
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" itemprop="url">
+                <span itemprop="name">EtherPricing</span>
+            </a>
+            <span class="navbar-brand slogan hidden-xs hidden-sm">Ethereum Ether Price Index</span>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li><a class="submenu" href="explain.htm">Index Formula</a></li>-->
+                <li><a class="submenu" href="detail.html">Detail</a></li>
+                <li><a class="submenu" href="c/">Calculate</a></li>
+                <!--<li><a class="submenu" href="charts.html">Charts</a></li>
+                <!--<li><a class="submenu" href="blog.html">Blog</a></li>-->
+                <!--<li><a class="submenu" href="faq.html">FAQ</a></li>-->
+                <!--<li><a class="submenu" href="api.html">API</a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="overall">
+
+	<div id="top-section">
+		<h1 class="large-price"><span id="title-price">0.0000</span> m฿</h1>
+		<h3 class="large-price"><span id="title-price-usd">0.0000</span> $</h3>
+	</div>
+	<div id="summary-section">
+		<h3 class="text-center">Summary</h3>
+		<table id="summary-table" class="table table-striped table-condensed table-hover">
+			<tbody>
+				<tr>
+					<td>volume (24h)</td>
+					<td>
+						<span id="volume">0</span> ETH<br/>
+						<span id="volume-usd">0</span> USD
+					</td>
+				</tr>
+				<!-- 
+				<tr>
+					<td>24h change</td>
+					<td>
+						<span class="updown up"></span> <span id="change-24h">0.0000</span> m฿<br/>
+						<span class="updown up"></span> <span id="change-24h-percent">0.00</span> %
+					</td>
+				</tr>
+				<tr>
+					<td>24h sliding average</td>
+					<td><span id="avg-sliding">0.0000</span> m฿</td>
+				</tr>
+				<tr>
+					<td>high</td>
+					<td><span id="high">0.0000</span> m฿</td>
+				</tr>
+				<tr>
+					<td>low</td>
+					<td><span id="low">0.0000</span> m฿</td>
+				</tr>
+				-->
+				<tr>
+					<td>last update</td>
+					<td><span id="last-update">00:00 am</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="small-chart"></div>
+	<div id="detail-section">
+		<h3 class="text-center">Pricing Data from Exchanges</h3>
+		<table id="detail-table" class="table table-striped table-condensed table-hover">
+			<thead>
+				<tr>
+					<th>exchange</th>
+					<th>pair</th>
+					<th>volume (%)</th>
+					<th>volume ETH (24h)</th>
+					<th>last price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="detail-table-row-template">
+					<td><a class="row-exchange" href="">Polonix</a></td>
+					<td class="row-currency-pair">ETH/BTC</td>
+					<td class="row-volume-percent">53.74%</td>
+					<td class="row-volume">2345230</td>
+					<td class="row-last">2.3536</td>
+				</tr>
+			</tbody>
+		
+		</table>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+(function() {
+	$.getJSON( "/api/average.jsp", function( data ) { 
+		if (data && data.last && data.volume && data.lastUsd) {
+			$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
+			$("#title-price-usd").text(data.lastUsd.toFixed(4));
+			$("#volume").text(data.volume.toFixed(0));
+			$("#volume-usd").text((data.volume * data.lastUsd).toFixed(0));
+			$("#last-update").text(getHourMin(new Date(data.time)));
+		}
+	});
+
+	retrievePriceList();
+	
+	// get data	
+	function retrievePriceList() {
+		
+		$.getJSON("/api/pricelist.jsp", function(data) {
+			var i; // index
+			var priceItem; // price
+			var totalVolume = 0.0; // total volume
+			
+			// data should be an array
+			if (typeof data === "object") {
+				// sort on volume desc
+				data.sort(function(a, b) {
+				    return b.volume - a.volume;
+				});
+				// calculate total volume
+				for (i=0; i < data.length; i++) {
+					priceItem = data[i];
+					totalVolume += priceItem.volume;
+				}
+				// calculate volume percent and add row
+				for (i=0; i < data.length; i++) {
+					priceItem = data[i];
+					priceItem.volumePercent = (totalVolume != 0) ? (priceItem.volume * 100 / totalVolume) : 0;
+					addRow(priceItem);
+				}
+			}
+		});
+	}
+	
+	/**
+	 * create new row on detail table and attach it
+	 */
+	function addRow(priceItem) {
+		if (typeof priceItem === "object") {
+			// clone, then attach
+			var row = $(".detail-table-row-template").clone();
+			row.removeClass("detail-table-row-template");
+			row.addClass("detail-table-row");
+			row.find(".row-exchange").text(priceItem.exchange);
+			row.find(".row-exchange").attr("href", getExchangeLink(priceItem.exchange, priceItem.currency1, priceItem.currency2));
+			row.children(".row-currency-pair").text(priceItem.currency1 + "/" + priceItem.currency2);
+			row.children(".row-volume-percent").text(priceItem.volumePercent.toFixed(2));
+			row.children(".row-volume").text(priceItem.volume.toFixed(2));
+			row.children(".row-last").html(formatLastPrice(priceItem)); // *1000 for mB
+			
+			$("#detail-table").children("tbody").append(row);
+		}
+		/*
+		<td class="row-exchange">Polonix</td>
+		<td class="row-currency-pair">ETH/BTC</td>
+		<td class="row-volume-percent">53.74%</td>
+		<td class="row-volume">2345230</td>
+		<td class="row-last">2.3536</td>
+		*/
+	}
+	
+	/** convert xbt price to mXBT price */
+	function xbt2mXbt(price) {
+		return price * 1000;
+	}
+	
+	function formatLastPrice(priceItem) {
+		var lastPrice = priceItem.last;
+		var lastPriceStr = "";
+		if ("BTC" === priceItem.currency2 || "XBT" === priceItem.currency2) {
+			lastPrice = xbt2mXbt(lastPrice); // display mXbt
+			lastPriceStr = lastPrice.toFixed(4) + " mXBT";
+		} else {
+			lastPriceStr = lastPrice.toFixed(4) + "&nbsp&nbsp&nbsp&nbsp" + priceItem.currency2;
+		}
+		
+		return lastPriceStr;
+		
+	}
+	
+	/** given a date object, show "00:00" */
+	function getHourMin(date) {
+		var hr = date.getHours();
+		var min = date.getMinutes();
+		if (min < 10) {
+		    min = "0" + min;
+		}
+		var ampm = hr < 12 ? "am" : "pm";
+		return hr + ":" + min + " " + ampm;
+	}
+	
+	/** given exchange name, give exchange link */
+	function getExchangeLink(exchangeName, currency1, currency2) {
+		var link = "http://etherpricing.com";
+		var lowercase = exchangeName.toLowerCase();
+		switch (lowercase) {
+		case "poloniex":
+			link = "https://poloniex.com/exchange#" + currency1 + "_" + currency2;
+			break;
+		case "gatecoin":
+			link = "https://gatecoin.com";
+			break;
+		case "kraken":
+			link = "https://www.kraken.com/charts";
+			break;
+		case "bittrex":
+			link = "https://bittrex.com/Market/Index?MarketName=" + currency2 + "-" + currency1;
+			break;
+		case "bitfinex":
+			link = "https://www.bitfinex.com/";
+			break;
+		default:
+			break;	
+		}
+		
+		return link;
+	}
+
+	var config = {
+		scaleDivizer: 1,
+	};
+
+	var apiDataUpdated = true;
+
+	var renderSmallChart = function(currencyCode){
+	    if (!apiDataUpdated) {
+	        return;
+	    }
+	  	
+	    var avg24hUrl = "/api/avg24hv2.jsp";
+
+	    $.getJSON(avg24hUrl, function(data){
+	    	// convert to mXbt
+	    	for (var i=0; i<data.length; i++) {
+	    		data[i][1] = xbt2mXbt(data[i][1]);
+	    	}
+	    	/*
+	        var data = [];
+	        $.each(csv.split('\n'), function(i, line){
+	            var values = line.split(',');
+	            if(i == 0 || line.length == 0){
+	                return;
+	            }
+
+	            var chartDailyValue = parseFloat(values.slice(-1)[0]) / config.scaleDivizer;
+	            var dateStr = values[0];
+	            var dateData = dateStr.split(' ');
+	            dateData[0] = dateData[0].split('-');
+	            dateData[1] = dateData[1].split(':');
+	            var dateInt = Date.UTC(dateData[0][0], dateData[0][1] - 1, dateData[0][2], dateData[1][0], dateData[1][1], dateData[1][2]);
+	            data.push([dateInt, chartDailyValue]);
+	        });
+	        */
+	        data.sort(function(a,b){
+	            if (a[0] > b[0]){
+	                return 1;
+	            } else if (a[0] < b[0]){
+	                return -1;
+	            } else {
+	                return -0;
+	            }
+	        });
+
+	        var priceShift = data[data.length - 1][1] - data[0][1];
+	        var priceShiftPercentage = priceShift / data[0][1] * 100;
+	        /*
+	        $('.main-price-shift .price-arrow').text(priceShift < 0 ? '▼' : '▲');
+	        $('.main-price-shift').attr('data-trend', priceShift < 0 ? 'down' : 'up');
+	        $('.main-price-shift .price-shift').text(priceShift).formatCurrency({
+	            symbol: getCurrencySymbol(currencyCode),
+	            positiveFormat: '%s%n ' + currencyCode,
+	            negativeFormat: '%s%n ' + currencyCode,
+	            roundToDecimalPlace: config.precision
+	        });
+	        $('.main-price-shift .price-shift-prc').text(Math.abs(priceShiftPercentage).toFixed(2) + '%');
+
+	        var prices = $.map(data, function (e, i) { return e[1]; });
+	        $('.main-price-highlow .price-high')
+	            .text(Math.max.apply(Math, prices))
+	            .formatCurrency({
+	                symbol: getCurrencySymbol(currencyCode),
+	                positiveFormat: '%s%n ' + currencyCode,
+	                roundToDecimalPlace: config.precision
+	        });
+	        $('.main-price-highlow .price-low')
+	            .text(Math.min.apply(Math, prices))
+	            .formatCurrency({
+	                symbol: getCurrencySymbol(currencyCode),
+	                positiveFormat: '%s%n ' + currencyCode,
+	                roundToDecimalPlace: config.precision
+	        });
+			*/
+			
+	        $('#small-chart').html('');
+
+	        $('#small-chart').highcharts('StockChart', {
+	            chart : {
+	                animation : {
+	                    duration: 10000
+	                },
+	                events: {
+	                    click: function(e){
+	                        //window.location.href = 'charts.htm#'+currencyCode;
+	                    }
+	                },
+	                spacingBottom: 5,
+	                spacingLeft: 0,
+	                spacingRight: 0,
+	                spacingTop: 0
+	            },
+	            rangeSelector: {enabled: false},
+	            title: {text: '24h price movement'},
+	            scrollbar: {enabled: false},
+	            navigator: {enabled: false},
+	            exporting: {enabled: false},
+	            tooltip: {
+	                enabled : true,
+	                valueDecimals: 3
+	            },
+	            credits: {enabled : false},
+	            series : [{
+	                name: currencyCode,
+	                data: data,
+	                cursor: 'pointer',
+	                events: {
+	                    click: function(event){
+	                        //window.location.href = 'charts.htm#'+currencyCode;
+	                    }
+	                }
+	            }]
+
+	        });
+	    });
+	};
+
+	renderSmallChart("m฿");
+})();
+</script>
+
+
+<style>
+#overall {
+	margin: 2em auto;
+}
+
+#top-section {
+	min-height: 10em;
+	padding: 4em;
+	background-color: #f7f7f7;
+	margin: 3em auto;
+}
+
+.large-price {
+	text-align: center;
+}
+
+#title-price, #title-price-usd {
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #428BCA; 
+}
+
+#summary-section {
+	margin: 2em auto;
+}
+
+#summary-table {
+	width: 20em;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 2em;
+}
+
+#summary-table tr td:nth-of-type(2) {
+	text-align: right;
+}
+
+#detail-section {
+	margin: 2em auto;
+}
+
+#detail-table {
+	text-align: right;
+}
+
+#overall {
+	width: 95%;
+}
+
+@media (min-width: 640px){
+	#overall {
+		width: 80%;
+	}
+}
+
+
+#detail-table thead th {
+	text-align: right;
+}
+
+.up {
+	color: green;
+}
+
+.up::after {
+	content: "▲";
+}
+
+.down {
+	color: red;
+}
+
+.down::after {
+	content: "▼";
+}
+
+.detail-table-row-template {
+	display: none;
+}
+
+.detail-table-row {
+}
+
+@media (max-width: 500px){
+	#small-chart {
+		height: 20em;
+	}
+}
+
+
+</style>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73381669-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</html>
