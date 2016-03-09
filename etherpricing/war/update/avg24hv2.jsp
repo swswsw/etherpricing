@@ -100,7 +100,7 @@ if (result == null) {
 		}
 		
 		if (!sameTimeslotFound) {
-			arrays.put(0, newArray); // add to front, as the array is supposed to be from newest to oldest
+			arrays.put(newArray); // jsonarray don't have a way to add to front. otherwise, we would want to add to front, as the array is supposed to be from newest to oldest
 		}
 	}
 	
