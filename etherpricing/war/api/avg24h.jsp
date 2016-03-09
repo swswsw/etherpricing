@@ -49,7 +49,7 @@ if (result == null) {
 	          .type(TenMinute.class)
 	          .filter("timeslot >", start)
 	          .filter("timeslot <=", end)
-	          .order("-timeslot")       // Most recent first - timestamp
+	          .order("timeslot")       // Most recent first - timestamp
 	          .list();
 	
 	// convert to json array of array.
