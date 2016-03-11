@@ -1,0 +1,13 @@
+livecoin api example
+https://api.livecoin.net/exchange/ticker?currencyPair=ETH/BTC
+
+{"last":0.02683888,"high":0.02982425,"low":0.02560000,"volume":5182.55611648,"vwap":0.02775482148094583136,"max_bid":0.02982425,"min_ask":0.02560000,"best_bid":0.02550000,"best_ask":0.02600000}
+
+what we need:
+
+last: last
+volume: volume
+
+
+without parameter, we can get all currency pair
+https://api.livecoin.net/exchange/ticker
