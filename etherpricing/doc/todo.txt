@@ -1,0 +1,8 @@
+1. change poloniex usd to usdt
+2. add bitfinex, livecoin
+3. add usd data graph line 
+4. change detailv2.html to detail.html
+5. twitter support
+6. show on task bar
+7. android app?
+8. check how many cron is allowed on free tier
