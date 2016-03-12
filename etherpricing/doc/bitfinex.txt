@@ -1,0 +1,18 @@
+
+https://api.bitfinex.com/v1/pubticker/ethusd
+https://api.bitfinex.com/v1/pubticker/ethbtc
+
+eg.
+{"mid":"414.8","bid":"414.7","ask":"414.9","last_price":"414.76","low":"409.32","high":"423.6","volume":"18661.1765767","timestamp":"1457766548.956415892"}
+
+last: last_price
+volume: volume
+
+https://api.bitfinex.com/v1/symbols
+eg.
+["btcusd","ltcusd","ltcbtc","ethusd","ethbtc"]
+
+get array of currencypairs
+
+
+
