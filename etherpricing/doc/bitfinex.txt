@@ -5,8 +5,8 @@ https://api.bitfinex.com/v1/pubticker/ethbtc
 eg.
 {"mid":"414.8","bid":"414.7","ask":"414.9","last_price":"414.76","low":"409.32","high":"423.6","volume":"18661.1765767","timestamp":"1457766548.956415892"}
 
-last: last_price
-volume: volume
+last: last_price in second currency
+volume: volume in eth (volume in currency1)
 
 https://api.bitfinex.com/v1/symbols
 eg.

@@ -5,8 +5,8 @@ https://api.livecoin.net/exchange/ticker?currencyPair=ETH/BTC
 
 what we need:
 
-last: last
-volume: volume
+last: last (price in currency2)
+volume: volume (in currency1)
 
 
 without parameter, we can get all currency pair
