@@ -45,19 +45,20 @@ public class ScheduleRun {
 	 * run every minute
 	 */
 	public static void minute() {
-		final String poloniex = "/update/poloniex.jsp";
-		final String gatecoin = "/update/gatecoin.jsp";
-		final String kraken = "/update/kraken.jsp";
-		final String bittrex = "/update/bittrex.jsp";
-		final String bitcoinaverage = "/update/bitcoinaverage.jsp";
-		final String average = "/update/average.jsp";
+		final String[] uris = {
+			"/update/bitfinex.jsp",
+			"/update/poloniex.jsp",
+			"/update/gatecoin.jsp",
+			"/update/kraken.jsp",
+			"/update/bittrex.jsp",
+			//"/update/livecoin.jsp",
+			"/update/bitcoinaverage.jsp",
+			"/update/average.jsp",
+		};
 		
-		retrieveData(host + poloniex);
-		retrieveData(host + gatecoin);
-		retrieveData(host + kraken);
-		retrieveData(host + bittrex);
-		retrieveData(host + bitcoinaverage);
-		retrieveData(host + average);
+		for (String uri:uris) {
+			retrieveData(host + uri);
+		}
 	}
 	
 	public static void tenmin() {

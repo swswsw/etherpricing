@@ -37,10 +37,12 @@ long currentTimeMillis = System.currentTimeMillis();
 
 // retrieve price/volume from each cache
 // find average
+PriceCache pcBitfinex = CacheManager.getPriceCache("latest_bitfinex");
 PriceCache pcPoloniex = CacheManager.getPriceCache("latest_poloniex");
 PriceCache pcGatecoin = CacheManager.getPriceCache("latest_gatecoin");
 PriceCache pcKraken = CacheManager.getPriceCache("latest_kraken");
 PriceCache pcBittrex = CacheManager.getPriceCache("latest_bittrex");
+PriceCache pcLivecoin = CacheManager.getPriceCache("latest_livecoin");
 
 //get bitcoin to fiat currency rate data
 String sBaRates = CacheManager.getString("latest_bitcoinaverage");
@@ -60,11 +62,13 @@ double totalVolume = 0.0D;
 double totalSoFar = 0.0D;
 
 // iterate through all prices to calculate weighted average
-ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(50); // probably don't have more than 50 prices to calculate
+ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(100); // probably don't have more than 100 prices to calculate
+if (pcBitfinex != null) { allPrices.addAll(pcBitfinex.getPriceList()); }
 if (pcPoloniex != null) { allPrices.addAll(pcPoloniex.getPriceList()); }
 if (pcGatecoin != null) { allPrices.addAll(pcGatecoin.getPriceList()); }
 if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
 if (pcBittrex != null) { allPrices.addAll(pcBittrex.getPriceList()); }
+if (pcLivecoin != null) { allPrices.addAll(pcLivecoin.getPriceList()); }
 
 // iterate all price to find the weighted average
 // we will calculate the final average in xbt as most of the volume is in xbt right now. 
@@ -141,6 +145,8 @@ if (fiatRates != null) {
 
 %>
 
+<%=pcBitfinex%>
+<hr/>
 <%=pcPoloniex%>
 <hr/>
 <%=pcGatecoin%>
@@ -148,6 +154,8 @@ if (fiatRates != null) {
 <%=pcKraken%>
 <hr/>
 <%=pcBittrex%>
+<hr/>
+<%=pcLivecoin%>
 <hr/>
 <%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>

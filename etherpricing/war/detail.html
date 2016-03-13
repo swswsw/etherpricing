@@ -218,6 +218,9 @@
 		var link = "http://etherpricing.com";
 		var lowercase = exchangeName.toLowerCase();
 		switch (lowercase) {
+		case "bitfinex":
+			link = "https://www.bitfinex.com/";
+			break;
 		case "poloniex":
 			link = "https://poloniex.com/exchange#" + currency1 + "_" + currency2;
 			break;
@@ -230,8 +233,8 @@
 		case "bittrex":
 			link = "https://bittrex.com/Market/Index?MarketName=" + currency2 + "-" + currency1;
 			break;
-		case "bitfinex":
-			link = "https://www.bitfinex.com/";
+		case "livecoin":
+			link = "https://www.livecoin.net/";
 			break;
 		default:
 			break;	
