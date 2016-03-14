@@ -85,7 +85,13 @@ for (int i=0; i<allPrices.size(); i++) {
 	} else {
 		double xbtInCurrency2 = 0.0D;
 		try {
-			xbtInCurrency2 = findXbtRates(price.getCurrency2(), baRates);
+			String currency2 = price.getCurrency2();
+			// use usd rate for usdt
+			if ("USDT".equals(currency2)) {
+				xbtInCurrency2 = findXbtRates("USD", baRates);
+			} else {
+				xbtInCurrency2 = findXbtRates(currency2, baRates);
+			}			
 		} catch (JSONException ex) {
 			// conversion rate for currency2 is not found on bitcoinaverage.
 		}

@@ -24,7 +24,7 @@ if (json != null) {
 		new PriceCache.Price("ETH", "BTC", btceth.getDouble("last"), btceth.getDouble("quoteVolume"), time, poloniex);
 	
 	PriceCache.Price usdtethPrice = 
-		new PriceCache.Price("ETH", "USD", usdteth.getDouble("last"), usdteth.getDouble("quoteVolume"), time, poloniex);
+		new PriceCache.Price("ETH", "USDT", usdteth.getDouble("last"), usdteth.getDouble("quoteVolume"), time, poloniex);
 	
 	pc.getPriceList().add(btcethPrice);
 	pc.getPriceList().add(usdtethPrice);
