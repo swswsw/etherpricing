@@ -7,6 +7,8 @@
 <%@ page import="org.json.*" %>
 <%
 // note: this works on cloud, but does not work on local dev server (v1.9.7).  javax.net.ssl.SSLHandshakeException: Could not verify SSL certificate for URL: https://api.livecoin.net/exchange/ticker?currencyPair=ETH/BTC
+// see http://stackoverflow.com/questions/18932751/appengine-could-not-verify-ssl-certificate-for-url
+// https://code.google.com/p/googleappengine/issues/detail?id=5203
 
 // same as livecoin.jsp class.  just to test urlfetch.
 
