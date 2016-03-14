@@ -63,7 +63,7 @@ double totalSoFar = 0.0D;
 
 // iterate through all prices to calculate weighted average
 ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(100); // probably don't have more than 100 prices to calculate
-//if (pcBitfinex != null) { allPrices.addAll(pcBitfinex.getPriceList()); }
+if (pcBitfinex != null) { allPrices.addAll(pcBitfinex.getPriceList()); }
 if (pcPoloniex != null) { allPrices.addAll(pcPoloniex.getPriceList()); }
 if (pcGatecoin != null) { allPrices.addAll(pcGatecoin.getPriceList()); }
 if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
