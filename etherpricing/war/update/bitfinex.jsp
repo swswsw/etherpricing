@@ -7,7 +7,7 @@
 <%@ page import="org.json.*" %>
 <%
 PriceCache pc = new PriceCache();
-
+/*
 // get list of symbols
 JSONArray symbols = RetrieveData.jsonArray("https://api.bitfinex.com/v1/symbols");
 List<String> ethSymbols = new ArrayList<String>(20); // most likely just 2.  not likely to be over 20.
@@ -19,6 +19,11 @@ for (int i=0; i<symbols.length(); i++) {
 		ethSymbols.add(symbol);
 	}
 }
+*/
+
+List<String> ethSymbols = new ArrayList<String>(20); // most likely just 2.  not likely to be over 20.
+ethSymbols.add("ethusd");
+ethSymbols.add("ethbtc");
 
 //if symbol contains eth, gets the data
 for (String symbol:ethSymbols) {
