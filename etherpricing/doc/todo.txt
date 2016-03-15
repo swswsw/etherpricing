@@ -1,8 +1,16 @@
 
-2. add livecoin
-3. add usd data graph line 
-4. change detailv2.html to detail.html.  remember detail.html is already changed
-5. twitter support
-6. show on task bar
-7. android app?
-8. check how many cron is allowed on free tier
+10. add livecoin
+20. add usd data graph line 
+30. create detailv3.html for updating every minute (as compared to detailv2.html)
+40. change detailv2.html to detail.html.  remember detail.html is already changed
+50. twitter support
+60. show on task bar
+70. auto-update every once a while?
+80. android app?
+90. change flexjson to gson because of occasional problem with flexjson on appengine due to threadlocal 
+  http://www.vogella.com/tutorials/JavaLibrary-Gson/article.html
+  http://search.maven.org/#artifactdetails%7Ccom.google.code.gson%7Cgson%7C2.6.2%7Cjar
+91. calculator change url
+92. calculator style
+93. calculator mobile page fix
+94. remove calculator only show 3 exchanges
