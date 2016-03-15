@@ -1,0 +1,6 @@
+coincheck is more of a broker/dealer.  not exchange.
+
+https://coincheck.jp/api/ticker 
+- however, only see one result, does not see eth trading result.  
+
+https://coincheck.jp/documents/exchange/api#ticker
