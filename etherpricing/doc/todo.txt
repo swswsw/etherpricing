@@ -1,7 +1,7 @@
-1. change poloniex usd to usdt
-2. add bitfinex, livecoin
+
+2. add livecoin
 3. add usd data graph line 
-4. change detailv2.html to detail.html
+4. change detailv2.html to detail.html.  remember detail.html is already changed
 5. twitter support
 6. show on task bar
 7. android app?
