@@ -52,6 +52,7 @@ public class ScheduleRun {
 			"/update/kraken.jsp",
 			"/update/bittrex.jsp",
 			//"/update/livecoin.jsp",
+			"/update/quadrigacx.jsp",
 			"/update/bitcoinaverage.jsp",
 			"/update/average.jsp",
 		};
