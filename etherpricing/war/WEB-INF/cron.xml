@@ -26,6 +26,11 @@
     <description>update bittrex data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/update/quadrigacx.jsp</url>
+    <description>update quadrigacx data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
   <!-- 
   <cron>
     <url>/update/livecoin.jsp</url>

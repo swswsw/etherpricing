@@ -1,0 +1,7 @@
+https://api.quadrigacx.com/v2/ticker?book=eth_btc
+https://api.quadrigacx.com/v2/ticker?book=eth_cad
+
+{"high":"0.03300000","last":"0.03300000","timestamp":"1458105479","volume":"855.18626533","vwap":"0.03042415","low":"0.03299999","ask":"0.03299999","bid":"0.03116602"}
+
+last: last
+volume: volume
