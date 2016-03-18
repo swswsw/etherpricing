@@ -8,6 +8,7 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
 <script src="js/highstock.js"></script>
 </head>
 <body>
@@ -110,6 +111,46 @@
 		</table>
 	</div>
 </div>
+
+<footer class="footer clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="privacy">
+                2015-2016 &nbsp; &nbsp; ETHERPRICING
+            </div>
+            <div class="f_right foot_right" style="text-align: right">
+                <section id="section-connect">
+                    <h4><span>Connect with us</span></h4>
+                    <!-- 
+                    <a href="http://github.com/bitcoinaverage/bitcoinaverage" target="_blank" title="github"><span class="icon-stack">
+                                <i class="icon-circle icon-stack-base icon-1x"></i>
+                                <i class="icon-github icon-light"></i>
+                            </span>
+                    </a>
+                    <a href="http://bitcointalk.org/index.php?topic=270190.0" target="_blank" title="bitcointalk thread">
+                            <span class="icon-stack">
+                                <i class="icon-circle icon-stack-base"></i>
+                                <i class="icon-comment icon-light"></i>
+                            </span>
+                    </a>
+                     -->
+                    <a href="http://twitter.com/EtherPricing" target="_blank" title="twitter">
+                            <span class="icon-stack">
+                                <i class="icon-circle icon-stack-base"></i>
+                                <i class="icon-twitter icon-light"></i>
+                            </span>
+                    </a>
+                    <a href="mailto:etherpricingcom@gmail.com" title="email">
+                            <span class="icon-stack">
+                                <i class="icon-circle icon-stack-base"></i>
+                                <i class="icon-envelope icon-light"></i>
+                            </span>
+                    </a>
+                </section>
+            </div>
+        </div>
+    </div>
+</footer><!-- /footer -->
 
 </body>
 
@@ -460,7 +501,102 @@
 }
 
 
+/* footer -- begin */
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 50px;
+  background-color: #eeeeee;
+}
+
+.footer{
+    clear: both;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    background: #f7f7f7;
+    border-top: 1px solid #dadada;
+    height:89px;
+}
+footer .row{
+    position: relative;
+}
+.privacy{
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    padding-top: 35px;
+    text-align: center;
+    position: absolute;
+    font-family: 'Titillium Web Thin', sans-serif;
+    font-size: 14px;
+    z-index: -1;
+}
+
+.footer-credits {
+    padding: 10px;
+    font-size: 70%;
+    clear: both;
+    position: relative;
+    text-transform: uppercase;
+    background: #f7f7f7;
+}
+
+.footer-credits ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    position: relative;
+    left: -10px;
+}
+.footer-credits * {
+    color: rgb(51, 51, 51);
+    /*color: rgba(255, 255, 255, 0.70);*/
+}
+
+.footer .row-fluid {
+    margin: 20px 0;
+}
+
+.footer section {
+    padding: 15px 0;
+}
+
+.footer h4 {
+    margin: 0 0 16px 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-size: 90%;
+}
+
+.footer h4 span {
+    font-family: 'Titillium Web Thin', sans-serif;
+    font-size: 15px;
+    border-bottom: 3px solid #DADADA /*3399F3*/;
+}
+.footer h4 span a{
+    font-family: 'Titillium Web Thin', sans-serif;
+    font-size: 15px;
+}
+#section-connect a:hover{
+    text-decoration: none;
+}
+
+.icon-circle {
+    color: inherit;
+}
+
+.indent {
+    margin: 75px 0 5px;
+}
+
+
+/* footer -- end */
+
+
 </style>
+
+<link href="css/font-awesome.3.2.1/font-awesome.css" rel="stylesheet" type="text/css" />
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
