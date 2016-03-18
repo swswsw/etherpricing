@@ -55,7 +55,7 @@ double audRate = findXbtRates("AUD", baRates);
 		<div class="containerDiv">
 			<div class="bodyHeader">
 				<div class="logoDiv" onclick="window.location.href='/'">
-					<span>EtherPricing</span>
+					<span>Ξther₱ricing</span>
 				</div>
 				<div class="titleDiv">
 					<span>Ether Pricing Calculator</span>
