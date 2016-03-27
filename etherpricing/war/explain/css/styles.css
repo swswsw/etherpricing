@@ -408,12 +408,12 @@ ul{
 .navbar-nav > li > a:hover {text-decoration: underline !important; }
 
 .logo {
-/*    background: url(../img/logo_full_small.png) no-repeat scroll center center rgba(0, 0, 0, 0);
+    background: url(../img/logo_full_small.png) no-repeat scroll center center rgba(0, 0, 0, 0);
     display: block;
     height: 40px;
     margin: 5px 0 !important;
     text-indent: -9999px;
-    width: 172px;*/
+    width: 172px;
 }
 
 .navbar-collapse .navbar-right li:last-child a {
