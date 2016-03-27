@@ -1,2 +1,4 @@
 http://eggnored.tumblr.com/gradient
 
+logo2
+font: arial
