@@ -55,12 +55,13 @@ public class ScheduleRun {
 			"/update/quadrigacx.jsp",
 			"/update/bitcoinaverage.jsp",
 			"/update/average.jsp",
-			"/update/avg24hv3.jsp"
 		};
 		
 		for (String uri:uris) {
 			retrieveData(host + uri);
 		}
+		
+		retrieveArray(host + "/update/avg24hv3.jsp");
 	}
 	
 	public static void tenmin() {
