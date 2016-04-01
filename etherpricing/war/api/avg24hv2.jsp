@@ -10,7 +10,7 @@
 <%@ page import="com.etherpricing.objectify.ObjectifyManager"%>
 
 <%!
-public static final String CACHE_PREFIX = "avg24h";
+public static final String CACHE_PREFIX = "avg24hv2";
 %>
 
 <%
