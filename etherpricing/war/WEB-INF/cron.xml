@@ -51,7 +51,7 @@
   <cron>
     <url>/update/tenmin.jsp</url>
     <description>ten min summary</description>
-    <schedule>every 10 minutes from 00:05 to 23:59</schedule>
+    <schedule>every 10 minutes from 00:00 to 23:59</schedule>
   </cron>
   <cron>
     <url>/update/hour.jsp</url>
@@ -66,7 +66,7 @@
   <cron>
     <url>/update/avg24hv2.jsp</url>
     <description>prepare data for avg 24h chart</description>
-    <schedule>every 10 minutes from 00:00 to 23:59</schedule>
+    <schedule>every 10 minutes from 00:05 to 23:59</schedule>
   </cron>
   <cron>
     <url>/update/avg24hv3.jsp</url>
