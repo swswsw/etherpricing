@@ -1,7 +1,7 @@
 gatecoin api example
 
 all currency pairs
-https://yunbi.com/api/v2/tickers/
+https://yunbi.com/api/v2/tickers
 
 one currency pair:
 https://yunbi.com/api/v2/tickers/ethbtc

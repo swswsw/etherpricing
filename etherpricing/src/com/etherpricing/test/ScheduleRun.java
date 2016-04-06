@@ -50,6 +50,7 @@ public class ScheduleRun {
 			"/update/poloniex.jsp",
 			"/update/gatecoin.jsp",
 			"/update/kraken.jsp",
+			"/update/yunbi.jsp",
 			"/update/bittrex.jsp",
 			//"/update/livecoin.jsp",
 			"/update/quadrigacx.jsp",

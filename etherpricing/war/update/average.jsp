@@ -41,6 +41,7 @@ PriceCache pcBitfinex = CacheManager.getPriceCache("latest_bitfinex");
 PriceCache pcPoloniex = CacheManager.getPriceCache("latest_poloniex");
 PriceCache pcGatecoin = CacheManager.getPriceCache("latest_gatecoin");
 PriceCache pcKraken = CacheManager.getPriceCache("latest_kraken");
+PriceCache pcYunbi = CacheManager.getPriceCache("latest_yunbi");
 PriceCache pcBittrex = CacheManager.getPriceCache("latest_bittrex");
 PriceCache pcLivecoin = CacheManager.getPriceCache("latest_livecoin");
 PriceCache pcQuadrigacx = CacheManager.getPriceCache("latest_quadrigacx");
@@ -68,6 +69,7 @@ if (pcBitfinex != null) { allPrices.addAll(pcBitfinex.getPriceList()); }
 if (pcPoloniex != null) { allPrices.addAll(pcPoloniex.getPriceList()); }
 if (pcGatecoin != null) { allPrices.addAll(pcGatecoin.getPriceList()); }
 if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
+if (pcYunbi != null) { allPrices.addAll(pcYunbi.getPriceList()); }
 if (pcBittrex != null) { allPrices.addAll(pcBittrex.getPriceList()); }
 //if (pcLivecoin != null) { allPrices.addAll(pcLivecoin.getPriceList()); }
 if (pcQuadrigacx != null) { allPrices.addAll(pcQuadrigacx.getPriceList()); }
@@ -160,6 +162,8 @@ if (fiatRates != null) {
 <%=pcGatecoin%>
 <hr/>
 <%=pcKraken%>
+<hr/>
+<%=pcYunbi%>
 <hr/>
 <%=pcBittrex%>
 <hr/>
