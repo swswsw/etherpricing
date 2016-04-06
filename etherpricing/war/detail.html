@@ -160,8 +160,8 @@
 		if (data && data.last && data.volume && data.lastUsd) {
 			$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
 			$("#title-price-usd").text(data.lastUsd.toFixed(4));
-			$("#volume").text(data.volume.toFixed(0));
-			$("#volume-usd").text((data.volume * data.lastUsd).toFixed(0));
+			$("#volume").text(formatNumber(data.volume, 0));
+			$("#volume-usd").text(formatNumber((data.volume * data.lastUsd), 0));
 			$("#last-update").text(getHourMin(new Date(data.time)));
 		}
 	});
@@ -210,7 +210,7 @@
 			row.find(".row-exchange").attr("href", getExchangeLink(priceItem.exchange, priceItem.currency1, priceItem.currency2));
 			row.children(".row-currency-pair").text(priceItem.currency1 + "/" + priceItem.currency2);
 			row.children(".row-volume-percent").text(priceItem.volumePercent.toFixed(2));
-			row.children(".row-volume").text(priceItem.volume.toFixed(2));
+			row.children(".row-volume").text(formatNumber(priceItem.volume, 2));
 			row.children(".row-last").html(formatLastPrice(priceItem)); // *1000 for mB
 			
 			$("#detail-table").children("tbody").append(row);
@@ -227,6 +227,15 @@
 	/** convert xbt price to mXBT price */
 	function xbt2mXbt(price) {
 		return price * 1000;
+	}
+	
+	/** 
+	 * format to "32,423,532.00"
+	 * @return [string]
+	 */
+	function formatNumber(num, numDecimal) {
+		if (typeof(numDecimal) === "undefined") { numDecimal = 2; }
+		return num.toLocaleString("en", {minimumFractionDigits: numDecimal, maximumFractionDigits: numDecimal});
 	}
 	
 	function formatLastPrice(priceItem) {
