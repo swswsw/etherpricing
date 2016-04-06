@@ -1,0 +1,141 @@
+gatecoin api example
+
+all currency pairs
+https://yunbi.com/api/v2/tickers/
+
+one currency pair:
+https://yunbi.com/api/v2/tickers/ethbtc
+https://yunbi.com/api/v2/tickers/ethcny
+
+see the available currency pairs
+https://yunbi.com/api/v2/markets
+
+
+sample results from 
+https://yunbi.com/api/v2/tickers/
+
+{  
+   "btccny":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"2748.86",
+         "sell":"2751.2",
+         "low":"2730.01",
+         "high":"2766.88",
+         "last":"2749.65",
+         "vol":"1740.1255"
+      }
+   },
+   "ethcny":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"67.18",
+         "sell":"67.2",
+         "low":"65.0",
+         "high":"70.94",
+         "last":"67.2",
+         "vol":"49836.9973"
+      }
+   },
+   "ethbtc":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.0242",
+         "sell":"0.0245",
+         "low":"0.024",
+         "high":"0.0255",
+         "last":"0.0245",
+         "vol":"1286.7527"
+      }
+   },
+   "plscny":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.0056",
+         "sell":"0.0057",
+         "low":"0.0055",
+         "high":"0.005988",
+         "last":"0.0057",
+         "vol":"10007179.14"
+      }
+   },
+   "btscny":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.0389",
+         "sell":"0.0403",
+         "low":"0.0389",
+         "high":"0.0405",
+         "last":"0.0389",
+         "vol":"665444.02"
+      }
+   },
+   "notecny":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.009502",
+         "sell":"0.010399",
+         "low":"0.009502",
+         "high":"0.010399",
+         "last":"0.010399",
+         "vol":"17795.43"
+      }
+   },
+   "bitcnycny":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.99",
+         "sell":"1.0",
+         "low":"1.0",
+         "high":"1.0",
+         "last":"1.0",
+         "vol":"16993.313"
+      }
+   },
+   "btsbtc":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.000013",
+         "sell":"0.00001688",
+         "low":"0.0",
+         "high":"0.0",
+         "last":"0.00001506",
+         "vol":"0.0"
+      }
+   },
+   "bitbtcbtc":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"0.0",
+         "sell":"0.0",
+         "low":"0.0",
+         "high":"0.0",
+         "last":"1.0",
+         "vol":"0.0"
+      }
+   },
+   "btcbitusd":{  
+      "at":1459923445,
+      "ticker":{  
+         "buy":"370.0",
+         "sell":"0.0",
+         "low":"0.0",
+         "high":"0.0",
+         "last":"410.0",
+         "vol":"0.0"
+      }
+   }
+}
+
+
+what we need:
+last: last - string
+volume: vol  (currency1) - string 
+timestamp: at - int or float
+
+
+resources:
+https://github.com/peatio/peatio-client-java/blob/master/src/main/java/org/bitcoin/market/PeatioCNYApi.java
+yunbi uses peatio and have same api as peatio.
+
+
