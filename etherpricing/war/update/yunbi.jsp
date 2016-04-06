@@ -6,47 +6,49 @@
 <%@ page import="com.etherpricing.net.*" %>
 <%@ page import="com.etherpricing.cache.*" %>
 <%@ page import="org.json.*" %>
+<%!
+/**
+ * @param currencyPair - kraken currencyPair, eg. XETHXXBT, XETHZEUR
+ */
+private PriceCache.Price convertToPrice(String currencyPair, JSONObject krakenObj, long time, String exchange) {
+	String currency1 = currencyPair.substring(1, 4); // ignore the leading x or z
+	String currency2 = currencyPair.substring(5, 8); // ignore the leading x or z
+	JSONArray lastArray = krakenObj.getJSONArray("c"); // "c" is last traded array
+	double last = lastArray.getDouble(0); // index 0 is last price
+	JSONArray volumeArray = krakenObj.getJSONArray("v"); // "v" is volume array
+	double volume = volumeArray.getDouble(1); // index 1 is 24h volume
+	return new PriceCache.Price(currency1, currency2, last, volume, time, exchange);
+}
+%>
 <%
 JSONObject json = null;
 try {
-	json = RetrieveData.jsonData("https://www.gatecoin.com/api/Public/LiveTickers");
+	json = RetrieveData.jsonData("https://api.kraken.com/0/public/Ticker?pair=ETHXBT,ETHUSD,ETHEUR,ETHCAD,ETHGBP,ETHJPY");
 } catch (SocketTimeoutException ex) {
 	// sometimes, timeout can occur
 	throw ex;
 }
 
 final long time = System.currentTimeMillis();
-final String gatecoin = "Gatecoin";
+final String kraken = "Kraken";
 
-List<JSONObject> ethTickers = new ArrayList<JSONObject>(5);
+PriceCache pc = new PriceCache();
+
 if (json != null) {
-	JSONArray tickers = json.getJSONArray("tickers");
-	if (tickers != null) {
-		int length = tickers.length();
-		for (int i=0; i<length; i++) {
-			JSONObject ticker = tickers.getJSONObject(i);
-			String currencyPair = ticker.getString("currencyPair");
-			if (currencyPair != null) {
-				if (currencyPair.startsWith("ETH") || currencyPair.endsWith("ETH")) {
-					ethTickers.add(ticker);
-				}
-			}
+	// perhaps we should also check that "error" is an empty array
+	JSONObject result = json.getJSONObject("result"); // what if result is not there?
+	if (result != null) {
+		
+		for (Iterator<String> keys = result.keys(); keys.hasNext(); ) {
+			String key = keys.next();
+			JSONObject value = result.getJSONObject(key);
+			PriceCache.Price price = convertToPrice(key, value, time, kraken);
+			pc.getPriceList().add(price);
 		}
 	}
 }
 
-PriceCache pc = new PriceCache();
-for (int i=0; i<ethTickers.size(); i++) {
-	JSONObject ethTicker = ethTickers.get(i);
-	// eg. currencyPair = "ETHBTC"
-	String currencyPair = ethTicker.getString("currencyPair");
-	String currency1 = currencyPair.substring(0,3); // first 3 characters are currency1
-	String currency2 = currencyPair.substring(3); // last 3 characters are currency2
-	PriceCache.Price price = new PriceCache.Price(currency1, currency2, 
-			ethTicker.getDouble("last"), ethTicker.getDouble("volume"), time, gatecoin);
-	pc.getPriceList().add(price);
-}
 
-CacheManager.save("latest_gatecoin", pc);
+CacheManager.save("latest_kraken", pc);
 %>
 <%=pc%>
