@@ -138,4 +138,4 @@ resources:
 https://github.com/peatio/peatio-client-java/blob/master/src/main/java/org/bitcoin/market/PeatioCNYApi.java
 yunbi uses peatio and have same api as peatio.
 
-
+https://yunbi.com/documents/api_v2/?lang=zh-CN - chinese version of api doc
