@@ -233,11 +233,7 @@
 	 * format to "32,423,532.00"
 	 * @return [string]
 	 */
-	function formatNumber(num, numDecimal) {
-		// to localed string does not work on android browser or safari.  so we use an alternative way to do this.
-		//http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-		//if (typeof(numDecimal) === "undefined") { numDecimal = 2; }
-		//return num.toLocaleString("en", {minimumFractionDigits: numDecimal, maximumFractionDigits: numDecimal});		
+	function formatNumber(num) {
 		var parts = num.toString().split(".");
 	    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	    return parts.join(".");
