@@ -35,7 +35,7 @@ private static String toIsoDate(Date date) {
 %>
 
 <%
-response.setContentType("text/csv");
+//response.setContentType("text/csv");
 
 String paramStart = request.getParameter("start");
 String paramEnd = request.getParameter("end");
