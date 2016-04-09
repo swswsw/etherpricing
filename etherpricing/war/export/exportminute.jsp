@@ -29,7 +29,7 @@ private static String toIsoDate(Date date) {
 	TimeZone tz = TimeZone.getTimeZone("UTC");
 	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 	df.setTimeZone(tz);
-	String iso = df.format(new Date());
+	String iso = df.format(date);
 	return iso;
 }
 %>
@@ -70,8 +70,6 @@ if (paramStart != null && !"".equals(paramStart)
 <%
 		}
 
-	} else {
-		System.out.println("test");
 	}
 	
 } else {
