@@ -7,15 +7,16 @@
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="com.etherpricing.model.*" %>
 <%@ page import="com.etherpricing.objectify.ObjectifyManager"%>
+<%@ page import="com.etherpricing.util.*" %>
 
 <%!
-private static String printCsvLine(Minute minute) {
+private static String printCsvLine(Minute entity) {
 	StringBuilder sb = new StringBuilder();
-	sb.append(minute.id) // same as timeslot (epoch time)
-		.append(",").append(toIsoDate(minute.timeslot))
-		.append(",").append(minute.average)
-		.append(",").append(minute.volume)
-		.append(",").append(minute.sum)
+	sb.append(entity.id) // same as timeslot (epoch time)
+		.append(",").append(DateUtil.toIso(entity.timeslot))
+		.append(",").append(entity.average)
+		.append(",").append(entity.volume)
+		.append(",").append(entity.sum)
 		.append(getLineEnd())
 		;
 	return sb.toString();
@@ -25,61 +26,60 @@ private static String getLineEnd() {
 	return System.lineSeparator();
 }
 
-private static String toIsoDate(Date date) {
-	TimeZone tz = TimeZone.getTimeZone("UTC");
-	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-	df.setTimeZone(tz);
-	String iso = df.format(date);
-	return iso;
-}
-%>
-
-<%
-// disable
-boolean disable = true;
-if (disable) { throw new Exception("disabled"); }
-
-//response.setContentType("text/csv");
-
-String paramStart = request.getParameter("start");
-String paramEnd = request.getParameter("end");
-
-if (paramStart != null && !"".equals(paramStart)
-	&& paramEnd != null && !"".equals(paramEnd)) {
-	Date start = new Date(Long.parseLong(paramStart));
-	Date end = new Date(Long.parseLong(paramEnd));
-	System.out.println(start);
-	System.out.println(end);
-	
-	// get data
-	// note, this may not be able to get current time.  because it might take sometime for the index to get updated.
-	List<Minute> mins = ObjectifyService.ofy()
-	          .load()
-	          .type(Minute.class)
-	          .filter("timeslot >=", start)
-	          .filter("timeslot <=", end)
-	          .order("timeslot")       // Most recent first - timestamp
-	          .list();
-
-	//sum up the 10 mins results
-	if (mins.size() > 0) {
-		double sum = 0.0d;
-		double volume = 0.0d;
-		for (Minute minute:mins) {
-			// convert to csv
-%>
-
-			<%=printCsvLine(minute)%>
-
-<%
-		}
-
+/**
+ * convert to csv
+ */
+private static StringBuilder toCsv(List<Minute> list) {
+	StringBuilder sb = new StringBuilder();
+	for (Minute entity:list) {
+		// convert to csv
+		sb.append(printCsvLine(entity));
 	}
 	
-} else {
-	throw new IllegalArgumentException("parameters missing or invalid parameters");
+	return sb;
 }
 
 
+%>
+
+<%
+boolean enable = true;
+
+StringBuilder csv = new StringBuilder();
+
+if (!enable) { 
+	response.sendRedirect("disabled.jsp");
+} else {
+	
+	//response.setContentType("text/csv");
+	
+	String paramStart = request.getParameter("start");
+	String paramEnd = request.getParameter("end");
+	
+	if (paramStart != null && !"".equals(paramStart)
+		&& paramEnd != null && !"".equals(paramEnd)) {
+		Date start = new Date(Long.parseLong(paramStart));
+		Date end = new Date(Long.parseLong(paramEnd));
+		System.out.println(start);
+		System.out.println(end);
+		
+		// get data
+		// note, this may not be able to get current time.  because it might take sometime for the index to get updated.
+		List<Minute> entities = ObjectifyService.ofy()
+		          .load()
+		          .type(Minute.class)
+		          .filter("timeslot >=", start)
+		          .filter("timeslot <=", end)
+		          .order("timeslot")       // Most recent first - timestamp
+		          .list();
+	
+		csv = toCsv(entities);
+		
+	} else {
+		throw new IllegalArgumentException("parameters missing or invalid parameters");
+	}
+}
+
 
 %>
+<%=csv.toString()%>
