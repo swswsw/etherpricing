@@ -35,6 +35,10 @@ private static String toIsoDate(Date date) {
 %>
 
 <%
+//disable
+boolean disable = true;
+if (disable) { throw new Exception("disabled"); }
+
 //response.setContentType("text/csv");
 
 String paramStart = request.getParameter("start");
