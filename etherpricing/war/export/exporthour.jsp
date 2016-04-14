@@ -43,7 +43,7 @@ private static StringBuilder toCsv(List<Hour> list) {
 %>
 
 <%
-boolean enable = true;
+boolean enable = false;
 
 StringBuilder csv = new StringBuilder();
 
