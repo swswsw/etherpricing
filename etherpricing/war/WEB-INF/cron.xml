@@ -36,6 +36,11 @@
     <description>update quadrigacx data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/update/cex.jsp</url>
+    <description>update cex data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
   <!-- 
   <cron>
     <url>/update/livecoin.jsp</url>

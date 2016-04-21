@@ -1,0 +1,42 @@
+
+https://cex.io/api/ticker/ETH/BTC
+https://cex.io/api/ticker/ETH/USD
+
+eg. for 
+https://cex.io/api/ticker/ETH/BTC
+{  
+   "timestamp":"1461201153",
+   "bid":0.0190056,
+   "ask":0.01998996,
+   "low":"0.01880004",
+   "high":"0.02049999",
+   "last":"0.01999988",
+   "volume":"1509.57139100",
+   "volume30d":"6422.97979100"
+}
+
+note:
+last, volume, timestamp are strings
+but bid, ask are number.  
+inconsistent
+
+
+
+note:
+
+
+this api can give us all the currency pairs by second currency.  
+https://cex.io/rest-api#tickers-all 
+eg. https://cex.io/api/tickers/USD/EUR/RUB/BTC
+market is the second currency.  (eg. ETH/USD: USD is the market).  
+however, we want eth as first currency.  so this does not work for us.
+
+
+at the time of the investigation, currency_limits api is not working.  
+currency_limits api may be used to get all the currency pairs.
+
+currency_limits api: https://cex.io/rest-api#currency-limits
+
+
+resources:
+https://cex.io/rest-api
