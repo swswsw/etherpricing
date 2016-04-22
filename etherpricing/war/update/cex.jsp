@@ -3,45 +3,38 @@
 <%@include file="updateheader.jspf" %>
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.util.logging.*" %>
 <%@ page import="com.etherpricing.net.*" %>
 <%@ page import="com.etherpricing.cache.*" %>
 <%@ page import="org.json.*" %>
-<%! 
-private static final Logger log = Logger.getLogger("cex_jsp");
-
-private static PriceCache.Price retrievePrice(String currency1, String currency2, long time, String exchange) {
-	PriceCache.Price price = null;
-	try {
-		JSONObject json = RetrieveData.jsonData("https://cex.io/api/ticker/" + currency1 + "/" + currency2);
-		
-		if (json != null) {
-			double last = Double.parseDouble(json.getString("last"));
-			double volume = Double.parseDouble(json.getString("volume"));
-			price = new PriceCache.Price(currency1, currency2, last, volume, time, exchange);
-		}
-	} catch (IOException ex) {
-		log.log(Level.WARNING, ex.getMessage(), ex);
-	} catch (HttpResponseCodeException ex) {
-		log.log(Level.WARNING, ex.getMessage(), ex);
-	}
-	
-	return price;	
+<%!
+/**
+ * convert json data to price object
+ */
+private PriceCache.Price retrieveData(String url, String currency1, String currency2, String exchange)
+	throws IOException, HttpResponseCodeException {
+	PriceCache.Price result = null;
+	final long time = System.currentTimeMillis();
+	JSONObject json = RetrieveData.jsonData(url);
+	result = new PriceCache.Price(currency1, currency2, json.getDouble("last"), json.getDouble("volume"), time, exchange);
+	return result;
 }
 %>
+
 <%
-
-
-final long time = System.currentTimeMillis();
-final String cex = "cex.io"; 
+final String quadrigacx = "Quadrigacx";
+PriceCache.Price ethbtc = retrieveData("https://api.quadrigacx.com/v2/ticker?book=eth_btc", "ETH", "BTC", quadrigacx);
+PriceCache.Price ethcad = retrieveData("https://api.quadrigacx.com/v2/ticker?book=eth_cad", "ETH", "CAD", quadrigacx);
 PriceCache pc = new PriceCache();
+if (ethbtc != null) {
+	pc.getPriceList().add(ethbtc);
+}
 
-PriceCache.Price ethbtc = retrievePrice("ETH", "BTC", time, cex);
-PriceCache.Price ethusd = retrievePrice("ETH", "USD", time, cex);
+if (ethcad != null) {
+	pc.getPriceList().add(ethcad);
+}
 
-if (ethbtc != null) { pc.getPriceList().add(ethbtc); }
-if (ethusd != null) { pc.getPriceList().add(ethusd); }
-
-CacheManager.save("latest_cex", pc);
+if (pc.getPriceList().size() > 0) {
+	CacheManager.save("latest_quadrigacx", pc);
+}
 %>
 <%=pc%>
