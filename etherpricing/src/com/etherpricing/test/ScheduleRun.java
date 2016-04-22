@@ -55,6 +55,7 @@ public class ScheduleRun {
 			//"/update/livecoin.jsp",
 			"/update/quadrigacx.jsp",
 			"/update/cex.jsp",
+			"/update/yobit.jsp",
 			"/update/bitcoinaverage.jsp",
 			"/update/average.jsp",
 		};

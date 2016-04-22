@@ -8,47 +8,41 @@
 <%@ page import="org.json.*" %>
 <%!
 /**
- * @param currencyPair - kraken currencyPair, eg. XETHXXBT, XETHZEUR
+ * @param currencyPair - yobit currencyPair, eg. eth_btc, etc_usd
  */
-private PriceCache.Price convertToPrice(String currencyPair, JSONObject krakenObj, long time, String exchange) {
-	String currency1 = currencyPair.substring(1, 4); // ignore the leading x or z
-	String currency2 = currencyPair.substring(5, 8); // ignore the leading x or z
-	JSONArray lastArray = krakenObj.getJSONArray("c"); // "c" is last traded array
-	double last = lastArray.getDouble(0); // index 0 is last price
-	JSONArray volumeArray = krakenObj.getJSONArray("v"); // "v" is volume array
-	double volume = volumeArray.getDouble(1); // index 1 is 24h volume
+private PriceCache.Price convertToPrice(String currencyPair, JSONObject obj, long time, String exchange) {
+	String[] currencies = currencyPair.split("_");
+	String currency1 = currencies[0].toUpperCase();
+	String currency2 = currencies[1].toUpperCase();
+	double last = obj.getDouble("last");
+	double volume = obj.getDouble("vol_cur"); // not "vol".  vol_cur is volume in currency1.  vol is volume in currency2.
 	return new PriceCache.Price(currency1, currency2, last, volume, time, exchange);
 }
 %>
 <%
 JSONObject json = null;
 try {
-	json = RetrieveData.jsonData("https://api.kraken.com/0/public/Ticker?pair=ETHXBT,ETHUSD,ETHEUR,ETHCAD,ETHGBP,ETHJPY");
+	json = RetrieveData.jsonData("https://yobit.net/api/3/ticker/eth_btc-eth_usd-eth_rur");
 } catch (SocketTimeoutException ex) {
 	// sometimes, timeout can occur
 	throw ex;
 }
 
 final long time = System.currentTimeMillis();
-final String kraken = "Kraken";
+final String yobit = "Yobit";
 
 PriceCache pc = new PriceCache();
 
-if (json != null) {
-	// perhaps we should also check that "error" is an empty array
-	JSONObject result = json.getJSONObject("result"); // what if result is not there?
-	if (result != null) {
-		
-		for (Iterator<String> keys = result.keys(); keys.hasNext(); ) {
-			String key = keys.next();
-			JSONObject value = result.getJSONObject(key);
-			PriceCache.Price price = convertToPrice(key, value, time, kraken);
-			pc.getPriceList().add(price);
-		}
+if (json != null) {	
+	for (Iterator<String> keys = json.keys(); keys.hasNext(); ) {
+		String key = keys.next();
+		JSONObject value = json.getJSONObject(key);
+		PriceCache.Price price = convertToPrice(key, value, time, yobit);
+		pc.getPriceList().add(price);
 	}
 }
 
 
-CacheManager.save("latest_kraken", pc);
+CacheManager.save("latest_yobit", pc);
 %>
 <%=pc%>

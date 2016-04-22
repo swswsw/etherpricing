@@ -1,0 +1,54 @@
+
+https://yobit.net/api/3/ticker/eth_btc-eth_usd-eth_rur
+
+Formatted JSON Data
+{  
+   "eth_btc":{  
+      "high":0.01968599,
+      "low":0.01780054,
+      "avg":0.01874326,
+      "vol":175.67080358,
+      "vol_cur":9131.20057788,
+      "last":0.01842972,
+      "buy":0.01800001,
+      "sell":0.01842967,
+      "updated":1461282570
+   },
+   "eth_usd":{  
+      "high":9.19999983,
+      "low":8.35000002,
+      "avg":8.77499992,
+      "vol":21.43043527,
+      "vol_cur":2.55632562,
+      "last":8.35000002,
+      "buy":8.35000002,
+      "sell":8.41000000,
+      "updated":1461281964
+   },
+   "eth_rur":{  
+      "high":553.00000005,
+      "low":550.00011,
+      "avg":551.50005502,
+      "vol":6262.13149695,
+      "vol_cur":11.37651758,
+      "last":550.00012001,
+      "buy":525.00000000,
+      "sell":550.00012001,
+      "updated":1461282249
+   }
+}
+
+last: last
+volume: vol_cur (volume in eth (currency1))
+
+vol is volume in currency2.  
+be careful.
+
+
+to get all the currency pairs.
+https://yobit.net/api/3/info
+
+
+resources:
+https://www.yobit.net/en/api/
+

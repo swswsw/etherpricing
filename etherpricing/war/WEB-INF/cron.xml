@@ -41,6 +41,11 @@
     <description>update cex data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/update/yobit.jsp</url>
+    <description>update yobit data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
   <!-- 
   <cron>
     <url>/update/livecoin.jsp</url>
