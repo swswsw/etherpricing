@@ -15,10 +15,11 @@
 93. calculator mobile page fix
 94. remove calculator only show 3 exchanges
 110. check if we should add others
-120. evaluate whether to save individual curreency data
+120. evaluate whether to save individual currency data
 130. evaluate whether to save individual exchange data, as well as bid/ask data
 
 
 done
 100. add cex.io
+140. add yobit.net
 
