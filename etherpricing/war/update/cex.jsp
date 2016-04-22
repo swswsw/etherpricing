@@ -21,20 +21,20 @@ private PriceCache.Price retrieveData(String url, String currency1, String curre
 %>
 
 <%
-final String quadrigacx = "Quadrigacx";
-PriceCache.Price ethbtc = retrieveData("https://api.quadrigacx.com/v2/ticker?book=eth_btc", "ETH", "BTC", quadrigacx);
-PriceCache.Price ethcad = retrieveData("https://api.quadrigacx.com/v2/ticker?book=eth_cad", "ETH", "CAD", quadrigacx);
+final String cex = "cex.io";
+PriceCache.Price ethbtc = retrieveData("https://cex.io/api/ticker/ETH/BTC", "ETH", "BTC", cex);
+PriceCache.Price ethusd = retrieveData("https://cex.io/api/ticker/ETH/USD", "ETH", "USD", cex);
 PriceCache pc = new PriceCache();
 if (ethbtc != null) {
 	pc.getPriceList().add(ethbtc);
 }
 
-if (ethcad != null) {
-	pc.getPriceList().add(ethcad);
+if (ethusd != null) {
+	pc.getPriceList().add(ethusd);
 }
 
 if (pc.getPriceList().size() > 0) {
-	CacheManager.save("latest_quadrigacx", pc);
+	CacheManager.save("latest_cex", pc);
 }
 %>
 <%=pc%>
