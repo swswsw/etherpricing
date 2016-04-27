@@ -46,6 +46,11 @@
     <description>update yobit data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/update/btce.jsp</url>
+    <description>update btce data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
   <!-- 
   <cron>
     <url>/update/livecoin.jsp</url>

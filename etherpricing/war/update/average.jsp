@@ -47,6 +47,7 @@ PriceCache pcLivecoin = CacheManager.getPriceCache("latest_livecoin");
 PriceCache pcQuadrigacx = CacheManager.getPriceCache("latest_quadrigacx");
 PriceCache pcCex = CacheManager.getPriceCache("latest_cex");
 PriceCache pcYobit = CacheManager.getPriceCache("latest_yobit");
+PriceCache pcBtce = CacheManager.getPriceCache("latest_btce");
 
 //get bitcoin to fiat currency rate data
 String sBaRates = CacheManager.getString("latest_bitcoinaverage");
@@ -77,6 +78,7 @@ if (pcBittrex != null) { allPrices.addAll(pcBittrex.getPriceList()); }
 if (pcQuadrigacx != null) { allPrices.addAll(pcQuadrigacx.getPriceList()); }
 if (pcCex != null) { allPrices.addAll(pcCex.getPriceList()); }
 if (pcYobit != null) { allPrices.addAll(pcYobit.getPriceList()); }
+if (pcBtce != null) { allPrices.addAll(pcBtce.getPriceList()); }
 
 // iterate all price to find the weighted average
 // we will calculate the final average in xbt as most of the volume is in xbt right now. 
@@ -178,6 +180,8 @@ if (fiatRates != null) {
 <%=pcCex%>
 <hr/>
 <%=pcYobit%>
+<hr/>
+<%=pcBtce%>
 <hr/>
 <%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>

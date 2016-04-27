@@ -8,7 +8,7 @@
 <%@ page import="org.json.*" %>
 <%!
 /**
- * @param currencyPair - yobit currencyPair, eg. eth_btc, etc_usd
+ * @param currencyPair - btce currencyPair, eg. eth_btc, etc_usd
  */
 private PriceCache.Price convertToPrice(String currencyPair, JSONObject obj, long time, String exchange) {
 	String[] currencies = currencyPair.split("_");
@@ -22,14 +22,14 @@ private PriceCache.Price convertToPrice(String currencyPair, JSONObject obj, lon
 <%
 JSONObject json = null;
 try {
-	json = RetrieveData.jsonData("https://yobit.net/api/3/ticker/eth_btc-eth_usd-eth_rur");
+	json = RetrieveData.jsonData("https://btc-e.com/api/3/ticker/eth_btc");
 } catch (SocketTimeoutException ex) {
 	// sometimes, timeout can occur
 	throw ex;
 }
 
 final long time = System.currentTimeMillis();
-final String yobit = "Yobit";
+final String btce = "BTC-e";
 
 PriceCache pc = new PriceCache();
 
@@ -37,12 +37,12 @@ if (json != null) {
 	for (Iterator<String> keys = json.keys(); keys.hasNext(); ) {
 		String key = keys.next();
 		JSONObject value = json.getJSONObject(key);
-		PriceCache.Price price = convertToPrice(key, value, time, yobit);
+		PriceCache.Price price = convertToPrice(key, value, time, btce);
 		pc.getPriceList().add(price);
 	}
 }
 
 
-CacheManager.save("latest_yobit", pc);
+CacheManager.save("latest_btce", pc);
 %>
 <%=pc%>
