@@ -22,7 +22,7 @@ private PriceCache.Price convertToPrice(String currencyPair, JSONObject obj, lon
 <%
 JSONObject json = null;
 try {
-	json = RetrieveData.jsonData("https://btc-e.com/api/3/ticker/eth_btc");
+	json = RetrieveData.jsonData("https://btc-e.com/api/3/ticker/eth_btc-eth_usd");
 } catch (SocketTimeoutException ex) {
 	// sometimes, timeout can occur
 	throw ex;
