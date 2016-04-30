@@ -28,10 +28,18 @@ List<TenMinute> tenmins = ObjectifyService.ofy()
 if (tenmins.size() > 0) {
 	double sum = 0.0d;
 	double volume = 0.0d;
+	double sumUsd = 0.0d;
+	boolean sumUsdComplete = true;
 	for (TenMinute tenmin:tenmins) {
 		sum += tenmin.sum;
 		volume += tenmin.volume;
+		if (tenmin.sumUsd == 0.0d) {
+			sumUsdComplete = false;
+		}
 	}
+	
+	// if one of the sumUsd is 0, then not all data is complete.  report sumUsd as 0.
+	if (!sumUsdComplete) { sumUsd = 0.0d; }
 	
 	Hour value = new Hour();
 	value.id = wholeTime;
@@ -40,6 +48,8 @@ if (tenmins.size() > 0) {
 	value.average = (volume > 0) ? (sum / volume) : 0.0d;
 	value.timeslot = end;
 	value.timestamp = timeMillis;
+	value.avgUsd = (volume > 0 && sumUsdComplete) ? (sumUsd / volume) : 0.0d;
+	value.sumUsd = sumUsd;
 	
 	ObjectifyManager.save(value);
 }

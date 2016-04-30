@@ -29,10 +29,18 @@ if (hours.size() > 0) {
 	//sum up results
 	double sum = 0.0d;
 	double volume = 0.0d;
+	double sumUsd = 0.0d;
+	boolean sumUsdComplete = true;
 	for (Hour hour:hours) {
 		sum += hour.sum;
 		volume += hour.volume;
+		if (hour.sumUsd == 0.0d) {
+			sumUsdComplete = false;
+		}
 	}
+	
+	// if one of the sumUsd is 0, then not all data is complete.  report sumUsd as 0.
+	if (!sumUsdComplete) { sumUsd = 0.0d; }
 
 	Day value = new Day();
 	value.id = wholeTime;
@@ -41,6 +49,8 @@ if (hours.size() > 0) {
 	value.average = (volume > 0) ? (sum / volume) : 0.0d;
 	value.timeslot = end;
 	value.timestamp = timeMillis;
+	value.avgUsd = (volume > 0 && sumUsdComplete) ? (sumUsd / volume) : 0.0d;
+	value.sumUsd = sumUsd;
 	
 	ObjectifyManager.save(value);
 }

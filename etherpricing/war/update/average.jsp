@@ -144,6 +144,8 @@ minute.volume = totalVolume;
 minute.sum = totalSoFar;
 minute.timeslot = new Date(wholeTime);
 minute.timestamp = currentTimeMillis;
+minute.avgUsd = lastUsd;
+minute.sumUsd = lastUsd * totalVolume;
 ObjectifyManager.save(minute);
 
 // not used

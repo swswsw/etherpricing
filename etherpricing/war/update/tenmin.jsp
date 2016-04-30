@@ -28,20 +28,31 @@ List<Minute> mins = ObjectifyService.ofy()
 if (mins.size() > 0) {
 	double sum = 0.0d;
 	double volume = 0.0d;
+	double sumUsd = 0.0d;
+	boolean sumUsdComplete = true;
 	for (Minute minute:mins) {
 		sum += minute.sum;
 		volume += minute.volume;
+		sumUsd += minute.sumUsd;
+		if (minute.sumUsd == 0.0d) {
+			sumUsdComplete = false;
+		}
 	}
 	
-	TenMinute tenMinute = new TenMinute();
-	tenMinute.id = wholeMinute;
-	tenMinute.sum = sum;
-	tenMinute.volume = volume;
-	tenMinute.average = (volume > 0) ? (sum / volume) : 0.0d;
-	tenMinute.timeslot = end;
-	tenMinute.timestamp = timeMillis;
+	// if one of the sumUsd is 0, then not all data is complete.  report sumUsd as 0.
+	if (!sumUsdComplete) { sumUsd = 0.0d; }
 	
-	ObjectifyManager.save(tenMinute);
+	TenMinute value = new TenMinute();
+	value.id = wholeMinute;
+	value.sum = sum;
+	value.volume = volume;
+	value.average = (volume > 0) ? (sum / volume) : 0.0d;
+	value.timeslot = end;
+	value.timestamp = timeMillis;
+	value.avgUsd = (volume > 0 && sumUsdComplete) ? (sumUsd / volume) : 0.0d;
+	value.sumUsd = sumUsd;
+	
+	ObjectifyManager.save(value);
 }
 
 %>

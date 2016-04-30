@@ -21,6 +21,8 @@ public class Hour {
     @Index public double average;
     @Index public Date timeslot;
     public long timestamp;
+    @Index public double avgUsd;
+    public double sumUsd;
     
     
     public String toString() {
