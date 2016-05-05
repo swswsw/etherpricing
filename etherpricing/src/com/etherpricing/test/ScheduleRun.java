@@ -57,6 +57,7 @@ public class ScheduleRun {
 			"/update/cex.jsp",
 			"/update/yobit.jsp",
 			"/update/btce.jsp",
+			"/update/gemini.jsp",
 			"/update/bitcoinaverage.jsp",
 			"/update/average.jsp",
 		};
