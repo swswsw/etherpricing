@@ -10,15 +10,7 @@
 <%@ page import="com.etherpricing.objectify.ObjectifyManager"%>
 
 <%!
-public static final String CACHE_PREFIX = "avg24hxbtusd";
-/**
- * create standard cache key
- * @param timeMillis - epoch time, as in System.currentTimeMillis()
- */
-private static String getCacheKey(long timeMillis) {
-	return CACHE_PREFIX + timeMillis;
-}
-
+public static final String CACHE_PREFIX = "avg24husdv3";
 %>
 
 <%
@@ -32,12 +24,13 @@ long timeMillis = System.currentTimeMillis();
 // i will want to change this back to per minute when i want to show more detailed data 
 long wholeTime = TenMinute.calcWholeTime(timeMillis);
 final long MILLIS_IN_ONE_DAY = 1000L * 60L * 60L * 24L;
-final long MILLIS_IN_TEN_MINUTES = 1000L * 60L * 10L;
-Date start = new Date(wholeTime - MILLIS_IN_ONE_DAY);
-Date end = new Date(wholeTime);
+long startTime = wholeTime - MILLIS_IN_ONE_DAY;
+long endTime = wholeTime;
+Date start = new Date(startTime);
+Date end = new Date(endTime);
 
 // get from cache
-String result = CacheManager.getString(getCacheKey(wholeTime));
+String result = CacheManager.getString(CACHE_PREFIX);
 
 if (result == null) {
 	// if not, get data and fill cache
@@ -70,14 +63,10 @@ if (result == null) {
 		array.put(tenmin.avgUsd);
 		arrays.put(array);
 	}
-	
+
 	result = arrays.toString(2);
 	
-	CacheManager.save(getCacheKey(wholeTime), result);
-	
-	// delete earlier cached item
-	long lastCacheTime = wholeTime - MILLIS_IN_TEN_MINUTES;
-	CacheManager.delete(getCacheKey(lastCacheTime));
+	CacheManager.save(CACHE_PREFIX, result);
 }
 %>
 <%=result%>

@@ -66,6 +66,7 @@ public class ScheduleRun {
 		}
 		
 		retrieveArray(host + "/update/avg24hv3.jsp");
+		retrieveArray(host + "/update/avg24husdv3.jsp");
 	}
 	
 	public static void tenmin() {

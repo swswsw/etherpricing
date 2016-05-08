@@ -17,7 +17,7 @@
 110. check if we should add others
 120. evaluate whether to save individual currency data
 130. evaluate whether to save individual exchange data, as well as bid/ask data
-
+150. fix any typo of "polonix"
 
 done
 100. add cex.io

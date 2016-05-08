@@ -323,7 +323,7 @@
 	        return;
 	    }
 	  	
-	    var avg24hUrl = "/api/avg24hxbtusd.jsp";
+	    var avg24hUrl = "/api/avg24husd.jsp";
 
 	    $.getJSON(avg24hUrl, function(data){
 	    	var dataUsd = []; // usd price
@@ -421,7 +421,7 @@
 	            credits: {enabled : false},
 	            yAxis: [{ // Primary yAxis
 	                title: {
-	                    text: 'ETH in mXBT',
+	                    text: 'Price in mXBT',
 	                    style: {
 	                        color: Highcharts.getOptions().colors[0]
 	                    }

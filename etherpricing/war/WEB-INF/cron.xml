@@ -93,4 +93,9 @@
     <description>prepare data for avg 24h chart</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <cron>
+    <url>/update/avg24husdv3.jsp</url>
+    <description>prepare data for avg 24h chart</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
 </cronentries>
