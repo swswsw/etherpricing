@@ -1,0 +1,25 @@
+https://api.gemini.com/v1/pubticker/ethusd
+
+{
+  "bid" : "416.06",
+  "ask" : "416.07",
+  "last" : "416.00",
+  volume" : {
+  	"BTC" : 870.9506308773,
+  	"USD" : 362315.111475198975,
+  	"timestamp" : 1459519200000
+  }}
+
+last: last (last price in currency2)
+volume: volume.ETH (volume in eth, currency1)
+
+
+
+https://api.gemini.com/v1/symbols
+[ "btcusd", "ethusd" ]
+
+
+resources: 
+https://docs.gemini.com/rest-api/#ticker
+
+
