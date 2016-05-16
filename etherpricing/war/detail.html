@@ -100,7 +100,7 @@
 			</thead>
 			<tbody>
 				<tr class="detail-table-row-template">
-					<td><a class="row-exchange" href="">Polonix</a></td>
+					<td><a class="row-exchange" href="">Poloniex</a></td>
 					<td class="row-currency-pair">ETH/BTC</td>
 					<td class="row-volume-percent">53.74%</td>
 					<td class="row-volume">2345230</td>
@@ -305,9 +305,6 @@
 		case "btc-e":
 			link = "https://btc-e.com/exchange/" + currency1.toLowerCase() + "_" + currency2.toLowerCase();
 			break;
-		case "gemini":
-			link = "https://gemini.com/";
-			break;
 		default:
 			break;	
 		}
@@ -326,9 +323,10 @@
 	        return;
 	    }
 	  	
-	    var avg24hUrl = "/api/avg24hv3.jsp";
+	    var avg24hUrl = "/api/avg24husd.jsp";
 
 	    $.getJSON(avg24hUrl, function(data){
+	    	var dataUsd = []; // usd price
 	    	// convert to mXbt
 	    	for (var i=0; i<data.length; i++) {
 	    		data[i][1] = xbt2mXbt(data[i][1]);
@@ -359,6 +357,10 @@
 	                return -0;
 	            }
 	        });
+	        
+	        for (var i=0; i<data.length; i++) {
+	    		dataUsd[i] = [data[i][0], data[i][3]];
+	    	}
 
 	        var priceShift = data[data.length - 1][1] - data[0][1];
 	        var priceShiftPercentage = priceShift / data[0][1] * 100;
@@ -408,7 +410,7 @@
 	                spacingTop: 0
 	            },
 	            rangeSelector: {enabled: false},
-	            title: {text: '24h price movement'},
+	            title: {text: 'ETH 24h price movement'},
 	            scrollbar: {enabled: false},
 	            navigator: {enabled: false},
 	            exporting: {enabled: false},
@@ -417,6 +419,35 @@
 	                valueDecimals: 3
 	            },
 	            credits: {enabled : false},
+	            yAxis: [{ // Primary yAxis
+	                title: {
+	                    text: 'Price in mXBT',
+	                    style: {
+	                        color: Highcharts.getOptions().colors[0]
+	                    }
+	                },
+	                labels: {
+	                    format: '{value} m฿',
+	                    style: {
+	                        color: Highcharts.getOptions().colors[0]
+	                    }
+	                },
+	                opposite: false
+	            }, { // Secondary yAxis
+	                title: {
+	                    text: 'Price in USD',
+	                    style: {
+	                        color: Highcharts.getOptions().colors[1]
+	                    }
+	                },
+	                labels: {
+	                    format: '${value}',
+	                    style: {
+	                        color: Highcharts.getOptions().colors[1]
+	                    }
+	                }
+	            }],
+	            
 	            series : [{
 	                name: currencyCode,
 	                data: data,
@@ -426,7 +457,19 @@
 	                        //window.location.href = 'charts.htm#'+currencyCode;
 	                    }
 	                }
-	            }]
+	            },
+	            {
+	                name: "USD",
+	                data: dataUsd,
+	                cursor: 'pointer',
+	                events: {
+	                    click: function(event){
+	                        //window.location.href = 'charts.htm#'+currencyCode;
+	                    }
+	                },
+	                yAxis: 1,
+	            },
+	            ]
 
 	        });
 	    });
