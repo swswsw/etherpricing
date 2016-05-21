@@ -1,0 +1,19 @@
+https://www.okcoin.com/api/v1/ticker.do?symbol=eth_usd
+
+{  
+   "date":"1463857152",
+   "ticker":{  
+      "buy":"443.16",
+      "high":"445.36",
+      "last":"443.16",
+      "low":"439.25",
+      "sell":"443.35",
+      "vol":"4055.983"
+   }
+}
+
+note: if the symbol is not recognized, it will just give you the default currency pair btc_usd data.  
+
+last: last (price in currency2)
+volume: vol (volume in currency1)
+

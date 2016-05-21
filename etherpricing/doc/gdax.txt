@@ -1,0 +1,36 @@
+
+https://api.exchange.coinbase.com/products/BTC-USD/ticker
+{
+  "trade_id": 4729088,
+  "price": "333.99",
+  "size": "0.193",
+  "bid": "333.98",
+  "ask": "333.99",
+  "volume": "5957.11914015",
+  "time": "2015-11-14T20:46:03.511254Z"
+}
+
+last: price (price in currency2.  eg. ETH-USD, price is in usd)
+volume: volume (volume in currency1.  eg. ETH-USD, volume is in eth)
+
+
+https://api.exchange.coinbase.com/products
+- find all products
+[
+    {
+        "id": "BTC-USD",
+        "base_currency": "BTC",
+        "quote_currency": "USD",
+        "base_min_size": "0.01",
+        "base_max_size": "10000.00",
+        "quote_increment": "0.01"
+    }
+]
+
+
+
+resource:
+coinbase exchange api - market data
+coinbase api is for coinbase.  coinbase exchange api is for exchange.  
+market data is the public api.
+https://docs.exchange.coinbase.com/#market-data
