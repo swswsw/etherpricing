@@ -7,8 +7,8 @@ a http request (urlfetch) that originated inside appengine
 <%@ page import="com.etherpricing.net.*" %>
 
 <%
-JSONObject result = RetrieveData.jsonData("http://localhost:8888/trial/httpheadershow.jsp");
-JSONObject resultUrlFetch = Urlfetch.jsonData("http://localhost:8888/trial/httpheadershow.jsp");
+JSONObject result = RetrieveData.jsonData("http://ethaverage.appspot.com/trial/httpheadershow.jsp");
+JSONObject resultUrlFetch = Urlfetch.jsonData("http://ethaverage.appspot.com/trial/httpheadershow.jsp");
 %>
 <%=result.toString(2)%>
 <%=resultUrlFetch.toString(2)%>
