@@ -1,0 +1,17 @@
+https://bitso.com/api/v2/ticker?book=eth_mxn
+
+{  
+   "high":"277.10",
+   "last":"255.01",
+   "timestamp":"1463902416",
+   "volume":"149.00687273",
+   "vwap":"259.55",
+   "low":"255.00",
+   "ask":"277.10",
+   "bid":"256.00"
+}
+
+
+last: last
+volume: volume
+

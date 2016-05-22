@@ -15,26 +15,24 @@ private PriceCache.Price retrieveData(String url, String currency1, String curre
 	PriceCache.Price result = null;
 	final long time = System.currentTimeMillis();
 	JSONObject json = RetrieveData.jsonData(url);
-	result = new PriceCache.Price(currency1, currency2, json.getDouble("last"), json.getDouble("volume"), time, exchange);
+	double last = Double.parseDouble(json.getString("last"));
+	double volume = Double.parseDouble(json.getString("volume"));
+	result = new PriceCache.Price(currency1, currency2, last, volume, time, exchange);
 	return result;
 }
 %>
 
 <%
-final String cex = "cex.io";
-PriceCache.Price ethbtc = retrieveData("https://cex.io/api/ticker/ETH/BTC", "ETH", "BTC", cex);
-PriceCache.Price ethusd = retrieveData("https://cex.io/api/ticker/ETH/USD", "ETH", "USD", cex);
+final String bitso = "Bitso";
+PriceCache.Price ethmxn = retrieveData("https://bitso.com/api/v2/ticker?book=eth_mxn", "ETH", "MXN", bitso);
 PriceCache pc = new PriceCache();
-if (ethbtc != null) {
-	pc.getPriceList().add(ethbtc);
-}
 
-if (ethusd != null) {
-	pc.getPriceList().add(ethusd);
+if (ethmxn != null) {
+	pc.getPriceList().add(ethmxn);
 }
 
 if (pc.getPriceList().size() > 0) {
-	CacheManager.save("latest_cex", pc);
+	CacheManager.save("latest_bitso", pc);
 }
 %>
 <%=pc%>
