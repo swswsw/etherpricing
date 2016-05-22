@@ -24,7 +24,7 @@ private PriceCache.Price retrieveData(String url, String currency1, String curre
 %>
 
 <%
-final String okcoin = "Okcoin";
+final String okcoin = "OKCoin";
 PriceCache.Price ethbtc = retrieveData("https://www.okcoin.com/api/v1/ticker.do?symbol=eth_btc", "ETH", "BTC", okcoin);
 PriceCache.Price ethusd = retrieveData("https://www.okcoin.com/api/v1/ticker.do?symbol=eth_usd", "ETH", "USD", okcoin);
 PriceCache pc = new PriceCache();
