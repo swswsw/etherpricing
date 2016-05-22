@@ -59,6 +59,7 @@ public class ScheduleRun {
 			"/update/btce.jsp",
 			"/update/gemini.jsp",
 			"/update/gdax.jsp",
+			"/update/okcoin.jsp",
 			"/update/bitcoinaverage.jsp",
 			"/update/average.jsp",
 		};
