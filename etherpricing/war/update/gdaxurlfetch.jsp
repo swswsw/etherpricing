@@ -7,8 +7,7 @@
 <%@ page import="org.json.*" %>
 <%
 PriceCache pc = new PriceCache();
-JSONObject json = RetrieveData.jsonData("https://api.exchange.coinbase.com/products/BTC-USD/ticker");
-
+Urlfetch.jsonData("https://api.exchange.coinbase.com/products/BTC-USD/ticker");
 /*
 // get list of symbols
 JSONArray symbols = RetrieveData.jsonArray("https://api.exchange.coinbase.com/products");
@@ -50,4 +49,3 @@ if (pc.getPriceList().size() > 0) {
 }*/
 %>
 <%=pc%>
-<%=json.toString(2)%>
