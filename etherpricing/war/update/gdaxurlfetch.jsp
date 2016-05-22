@@ -7,15 +7,26 @@
 <%@ page import="org.json.*" %>
 <%
 PriceCache pc = new PriceCache();
-Urlfetch.jsonData("https://api.exchange.coinbase.com/products/BTC-USD/ticker");
-/*
+
+// we need to use Urlfetch instead of retrievedata, because gdax api requires user-agent.
+// otherwise, gdax api will return {"message": "User-Agent header is required."}
+// 
+// on development server:
+// - urlfetch allows us to add user-agent header on local development server.  
+// add user-agent to httpurlconnection does not work at all.  (the user-agent is still not filled)
+// 
+// on deployed server:
+// - using urlfetch or httpurlconnection will both work.  appengine automatically fills user agent with special string.  
+// see https://cloud.google.com/appengine/docs/java/outbound-requests#request_headers
+
 // get list of symbols
-JSONArray symbols = RetrieveData.jsonArray("https://api.exchange.coinbase.com/products");
+JSONArray products = Urlfetch.jsonArray("https://api.exchange.coinbase.com/products");
 List<String> ethSymbols = new ArrayList<String>(20); // most likely just 2.  not likely to be over 20.
 
 // find symbol that starts with ETH
-for (int i=0; i<symbols.length(); i++) {
-	String symbol = symbols.getString(i);
+for (int i=0; i<products.length(); i++) {
+	JSONObject product = products.getJSONObject(i);
+	String symbol = product.getString("id");
 	if (symbol.startsWith("ETH")) {
 		ethSymbols.add(symbol);
 	}
@@ -25,7 +36,7 @@ for (int i=0; i<symbols.length(); i++) {
 for (String symbol:ethSymbols) {
 	String url = "https://api.exchange.coinbase.com/products/{symbol}/ticker";
 	url = url.replace("{symbol}", symbol);
-	JSONObject json = RetrieveData.jsonData(url);
+	JSONObject json = Urlfetch.jsonData(url);
 	final long time = System.currentTimeMillis();
 	final String gdax = "GDAX";
 	
@@ -46,6 +57,6 @@ for (String symbol:ethSymbols) {
 
 if (pc.getPriceList().size() > 0) {
 	CacheManager.save("latest_gdax", pc);
-}*/
+}
 %>
 <%=pc%>
