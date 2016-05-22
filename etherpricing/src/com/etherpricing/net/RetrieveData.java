@@ -24,11 +24,13 @@ public class RetrieveData {
 	        URL url = new URL(sUrl);
 	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	        connection.setRequestProperty("Content-Type", "application/json");
-	        connection.setRequestProperty("accept", "application/json");
-	        connection.setRequestMethod("GET");
-	        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+	        //connection.setRequestProperty("accept", "application/json");
+	        //connection.setRequestMethod("GET");
+	        // setting user-agent does not work on development server.  user-agent header is not populated.
+	        // on deployed server, it will append appengine specific strings.  see https://cloud.google.com/appengine/docs/java/outbound-requests#request_headers
+	        //connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
 	 
-	        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK || connection.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
+	        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	            // OK
 	            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 	            StringBuffer sb = new StringBuffer(); 
