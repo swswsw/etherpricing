@@ -56,13 +56,11 @@
     <description>update gemini data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
-  <!-- 
   <cron>
     <url>/update/bitso.jsp</url>
     <description>update bitso data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
-  -->
   <!-- 
   <cron>
     <url>/update/gdax.jsp</url>
