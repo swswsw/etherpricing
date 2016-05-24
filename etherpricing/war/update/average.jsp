@@ -35,23 +35,6 @@ private double findXbtRates(String currencySymbol, JSONObject bitcoinaverageRate
 
 long currentTimeMillis = System.currentTimeMillis();
 
-// retrieve price/volume from each cache
-// find average
-PriceCache pcBitfinex = CacheManager.getPriceCache("latest_bitfinex");
-PriceCache pcPoloniex = CacheManager.getPriceCache("latest_poloniex");
-PriceCache pcGatecoin = CacheManager.getPriceCache("latest_gatecoin");
-PriceCache pcKraken = CacheManager.getPriceCache("latest_kraken");
-PriceCache pcYunbi = CacheManager.getPriceCache("latest_yunbi");
-PriceCache pcBittrex = CacheManager.getPriceCache("latest_bittrex");
-PriceCache pcLivecoin = CacheManager.getPriceCache("latest_livecoin");
-PriceCache pcQuadrigacx = CacheManager.getPriceCache("latest_quadrigacx");
-PriceCache pcCex = CacheManager.getPriceCache("latest_cex");
-PriceCache pcYobit = CacheManager.getPriceCache("latest_yobit");
-PriceCache pcBtce = CacheManager.getPriceCache("latest_btce");
-PriceCache pcGemini = CacheManager.getPriceCache("latest_gemini");
-PriceCache pcBitso = CacheManager.getPriceCache("latest_bitso");
-PriceCache pcGdax = CacheManager.getPriceCache("latest_gdax");
-PriceCache pcOkcoin = CacheManager.getPriceCache("latest_okcoin");
 
 //get bitcoin to fiat currency rate data
 String sBaRates = CacheManager.getString("latest_bitcoinaverage");
@@ -70,23 +53,35 @@ if (sFiatRates != null) {
 double totalVolume = 0.0D;
 double totalSoFar = 0.0D;
 
+//retrieve price/volume from each cache
+String[] exchanges = {
+		"latest_bitfinex",
+		"latest_poloniex",
+		"latest_gatecoin",
+		"latest_kraken",
+		"latest_yunbi",
+		"latest_bittrex",
+		//"latest_livecoin",
+		"latest_quadrigacx",
+		"latest_cex",
+		"latest_yobit",
+		"latest_btce",
+		"latest_gemini",
+		"latest_bitso",
+		"latest_gdax",
+		//"latest_okcoin",
+};
+
+
 // iterate through all prices to calculate weighted average
-ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(100); // probably don't have more than 100 prices to calculate
-if (pcBitfinex != null) { allPrices.addAll(pcBitfinex.getPriceList()); }
-if (pcPoloniex != null) { allPrices.addAll(pcPoloniex.getPriceList()); }
-if (pcGatecoin != null) { allPrices.addAll(pcGatecoin.getPriceList()); }
-if (pcKraken != null) { allPrices.addAll(pcKraken.getPriceList()); }
-if (pcYunbi != null) { allPrices.addAll(pcYunbi.getPriceList()); }
-if (pcBittrex != null) { allPrices.addAll(pcBittrex.getPriceList()); }
-//if (pcLivecoin != null) { allPrices.addAll(pcLivecoin.getPriceList()); }
-if (pcQuadrigacx != null) { allPrices.addAll(pcQuadrigacx.getPriceList()); }
-if (pcCex != null) { allPrices.addAll(pcCex.getPriceList()); }
-if (pcYobit != null) { allPrices.addAll(pcYobit.getPriceList()); }
-if (pcBtce != null) { allPrices.addAll(pcBtce.getPriceList()); }
-if (pcGemini != null) { allPrices.addAll(pcGemini.getPriceList()); }
-if (pcBitso != null) { allPrices.addAll(pcBitso.getPriceList()); }
-if (pcGdax != null) { allPrices.addAll(pcGdax.getPriceList()); }
-//if (pcOkcoin != null) { allPrices.addAll(pcOkcoin.getPriceList()); }
+List<PriceCache> priceCaches = new ArrayList<PriceCache>(100); // probably less than 100 exchanges to read.
+ArrayList<PriceCache.Price> allPrices = new ArrayList<PriceCache.Price>(200); // probably don't have more than 200 prices to calculate
+
+for (String exchange:exchanges) {
+	PriceCache pc = CacheManager.getPriceCache(exchange);
+	priceCaches.add(pc);
+	if (pc != null) { allPrices.addAll(pc.getPriceList()); }
+}
 
 // iterate all price to find the weighted average
 // we will calculate the final average in xbt as most of the volume is in xbt right now. 
@@ -171,38 +166,13 @@ if (fiatRates != null) {
 
 %>
 
-<%=pcBitfinex%>
+<% for (PriceCache pc : priceCaches) { %>
+<%=pc%>
 <hr/>
-<%=pcPoloniex%>
-<hr/>
-<%=pcGatecoin%>
-<hr/>
-<%=pcKraken%>
-<hr/>
-<%=pcYunbi%>
-<hr/>
-<%=pcBittrex%>
-<hr/>
-<%=pcLivecoin%>
-<hr/>
-<%=pcQuadrigacx%>
-<hr/>
-<%=pcCex%>
-<hr/>
-<%=pcYobit%>
-<hr/>
-<%=pcBtce%>
-<hr/>
-<%=pcGemini%>
-<hr/>
-<%=pcBitso%>
-<hr/>
-<%=pcGdax%>
-<hr/>
-<%=pcOkcoin%>
-<hr/>
+<% } %>
+
 <%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>
 <%=(fiatRates != null) ? fiatRates.toString(2) : null%>
-<h4/>
+<hr/>
 <%=average%>
