@@ -57,18 +57,20 @@
 						<span id="volume-usd">0</span> USD
 					</td>
 				</tr>
-				<!-- 
+				
 				<tr>
 					<td>24h change</td>
 					<td>
-						<span class="updown up"></span> <span id="change-24h">0.0000</span> m฿<br/>
-						<span class="updown up"></span> <span id="change-24h-percent">0.00</span> %
+						<span class="updown up"><span id="change-24h">0.0000</span> m฿</span><br/>
+						<span class="updown up"><span id="change-24h-percent">0.00</span> %</span>
 					</td>
 				</tr>
+				<!-- 
 				<tr>
 					<td>24h sliding average</td>
 					<td><span id="avg-sliding">0.0000</span> m฿</td>
 				</tr>
+				-->
 				<tr>
 					<td>high</td>
 					<td><span id="high">0.0000</span> m฿</td>
@@ -77,7 +79,7 @@
 					<td>low</td>
 					<td><span id="low">0.0000</span> m฿</td>
 				</tr>
-				-->
+				
 				<tr>
 					<td>last update</td>
 					<td><span id="last-update">00:00 am</span></td>
@@ -376,6 +378,26 @@
 
 	        var priceShift = data[data.length - 1][1] - data[0][1];
 	        var priceShiftPercentage = priceShift / data[0][1] * 100;
+	        var priceShiftUsd = dataUsd[dataUsd.length - 1][1] - dataUsd[0][1];
+	        var priceShiftPercentageUsd = priceShiftUsd / dataUsd[0][1] * 100;
+	        $("#change-24h").text(priceShift.toFixed(4));
+	        $("#change-24h-percent").text(priceShiftPercentage.toFixed(2));
+	        if (priceShift < 0) { 
+	        	$(".updown").removeClass("up");
+	        	$(".updown").addClass("down");
+	        } else {
+	        	$(".updown").removeClass("down");
+	        	$(".updown").addClass("up");
+	        }
+	        var prices = $.map(data, function (e, i) { return e[1]; });
+	        var pricesUsd = $.map(dataUsd, function (e, i) { return e[1]; });
+	        $("#high").text(Math.max.apply(Math, prices).toFixed(4));
+	        $("#low").text(Math.min.apply(Math, prices).toFixed(4));
+	        
+	        //$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
+			//$("#title-price-usd").text(data.lastUsd.toFixed(4));
+			//$("#volume").text(formatNumber(data.volume.toFixed(0)));
+			//$("#volume-usd").text(formatNumber((data.volume * data.lastUsd).toFixed(0)));
 	        /*
 	        $('.main-price-shift .price-arrow').text(priceShift < 0 ? '▼' : '▲');
 	        $('.main-price-shift').attr('data-trend', priceShift < 0 ? 'down' : 'up');
@@ -556,7 +578,7 @@
 	color: green;
 }
 
-.up::after {
+.up::before {
 	content: "▲";
 }
 
@@ -564,7 +586,7 @@
 	color: red;
 }
 
-.down::after {
+.down::before {
 	content: "▼";
 }
 
