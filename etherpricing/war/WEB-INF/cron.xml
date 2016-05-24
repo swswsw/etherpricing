@@ -61,13 +61,11 @@
     <description>update bitso data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
-  <!-- 
   <cron>
     <url>/update/gdax.jsp</url>
     <description>update gdax data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
-  -->
   <!-- 
   <cron>
     <url>/update/okcoin.jsp</url>
