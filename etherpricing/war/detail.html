@@ -62,7 +62,9 @@
 					<td>24h change</td>
 					<td>
 						<span class="updown up"><span id="change-24h">0.0000</span> m฿</span><br/>
-						<span class="updown up"><span id="change-24h-percent">0.00</span> %</span>
+						<span class="updown up"><span id="change-24h-percent">0.00</span> %</span><br/>
+						<span class="updown-usd up"><span id="change-24h-usd">0.0000</span> USD</span><br/>
+						<span class="updown-usd up"><span id="change-24h-percent-usd">0.00</span> %</span>
 					</td>
 				</tr>
 				<!-- 
@@ -75,14 +77,14 @@
 					<td>high</td>
 					<td>
 						<span id="high">0.0000</span> m฿<br/>
-						$<span id="highUsd">0.0000</span>
+						<span id="high-usd">0.0000</span> USD
 					</td>
 				</tr>
 				<tr>
 					<td>low</td>
 					<td>
 						<span id="low">0.0000</span> m฿<br/>
-						$<span id="lowUsd">0.0000</span>
+						<span id="low-usd">0.0000</span> USD
 					</td>
 				</tr>
 				
@@ -395,12 +397,22 @@
 	        	$(".updown").removeClass("down");
 	        	$(".updown").addClass("up");
 	        }
+	        $("#change-24h-usd").text(priceShiftUsd.toFixed(4));
+	        $("#change-24h-percent-usd").text(priceShiftPercentageUsd.toFixed(2));
+	        if (priceShiftUsd < 0) { 
+	        	$(".updown-usd").removeClass("up");
+	        	$(".updown-usd").addClass("down");
+	        } else {
+	        	$(".updown-usd").removeClass("down");
+	        	$(".updown-usd").addClass("up");
+	        }
+	        
 	        var prices = $.map(data, function (e, i) { return e[1]; });
 	        var pricesUsd = $.map(dataUsd, function (e, i) { return e[1]; });
 	        $("#high").text(Math.max.apply(Math, prices).toFixed(4));
 	        $("#low").text(Math.min.apply(Math, prices).toFixed(4));
-	        $("#highUsd").text(Math.max.apply(Math, pricesUsd).toFixed(4));
-	        $("#lowUsd").text(Math.min.apply(Math, pricesUsd).toFixed(4));
+	        $("#high-usd").text(Math.max.apply(Math, pricesUsd).toFixed(4));
+	        $("#low-usd").text(Math.min.apply(Math, pricesUsd).toFixed(4));
 	        
 	        //$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
 			//$("#title-price-usd").text(data.lastUsd.toFixed(4));
