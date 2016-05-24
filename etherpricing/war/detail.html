@@ -73,11 +73,17 @@
 				-->
 				<tr>
 					<td>high</td>
-					<td><span id="high">0.0000</span> m฿</td>
+					<td>
+						<span id="high">0.0000</span> m฿<br/>
+						$<span id="highUsd">0.0000</span>
+					</td>
 				</tr>
 				<tr>
 					<td>low</td>
-					<td><span id="low">0.0000</span> m฿</td>
+					<td>
+						<span id="low">0.0000</span> m฿<br/>
+						$<span id="lowUsd">0.0000</span>
+					</td>
 				</tr>
 				
 				<tr>
@@ -124,12 +130,12 @@
                 <section id="section-connect">
                     <h4><span>Connect with us</span></h4>
                     <!-- 
-                    <a href="http://github.com/bitcoinaverage/bitcoinaverage" target="_blank" title="github"><span class="icon-stack">
+                    <a href="http://github.com/" target="_blank" title="github"><span class="icon-stack">
                                 <i class="icon-circle icon-stack-base icon-1x"></i>
                                 <i class="icon-github icon-light"></i>
                             </span>
                     </a>
-                    <a href="http://bitcointalk.org/index.php?topic=270190.0" target="_blank" title="bitcointalk thread">
+                    <a href="" target="_blank" title="bitcointalk thread">
                             <span class="icon-stack">
                                 <i class="icon-circle icon-stack-base"></i>
                                 <i class="icon-comment icon-light"></i>
@@ -393,6 +399,8 @@
 	        var pricesUsd = $.map(dataUsd, function (e, i) { return e[1]; });
 	        $("#high").text(Math.max.apply(Math, prices).toFixed(4));
 	        $("#low").text(Math.min.apply(Math, prices).toFixed(4));
+	        $("#highUsd").text(Math.max.apply(Math, pricesUsd).toFixed(4));
+	        $("#lowUsd").text(Math.min.apply(Math, pricesUsd).toFixed(4));
 	        
 	        //$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
 			//$("#title-price-usd").text(data.lastUsd.toFixed(4));
