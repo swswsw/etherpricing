@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="updateheader.jspf" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.net.*" %>
@@ -163,14 +164,22 @@ if (fiatRates != null) {
 
 
 
-
+// load attribute variables for jstl
+request.setAttribute("priceCaches", priceCaches);
 %>
 
+<c:forEach items="${priceCaches}" var="pc">
+   ${pc}
+   <hr/>
+</c:forEach>
+
+<%--
 <% for (PriceCache pc : priceCaches) { %>
 <%=pc%>
 <hr/>
 <% } %>
-
+ --%>
+ 
 <%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>
 <%=(fiatRates != null) ? fiatRates.toString(2) : null%>
