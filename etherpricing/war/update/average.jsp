@@ -173,12 +173,6 @@ request.setAttribute("priceCaches", priceCaches);
    <hr/>
 </c:forEach>
 
-<%--
-<% for (PriceCache pc : priceCaches) { %>
-<%=pc%>
-<hr/>
-<% } %>
- --%>
  
 <%=(baRates != null) ? baRates.toString(2) : null%>
 <hr/>
