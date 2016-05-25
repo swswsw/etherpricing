@@ -1,8 +1,5 @@
 
 10. add livecoin
-20. add usd data graph line 
-30. create detailv3.html for updating every minute (as compared to detailv2.html)
-40. change detailv2.html to detail.html.  remember detail.html is already changed
 50. twitter support
 60. show on task bar
 70. auto-update every once a while?
@@ -17,9 +14,16 @@
 110. check if we should add others
 120. evaluate whether to save individual currency data
 130. evaluate whether to save individual exchange data, as well as bid/ask data
-150. fix any typo of "polonix"
+160. add faq page
+170. add some data to blog, add link to blog
+180. add blogger
 
 done
 100. add cex.io
 140. add yobit.net
+150. fix any typo of "polonix"
+30. create detailv3.html for updating every minute (as compared to detailv2.html)
+40. change detailv2.html to detail.html.  remember detail.html is already changed (no need to do this.  as detailv3.html supercede this)
+20. add usd data graph line 
+
 
