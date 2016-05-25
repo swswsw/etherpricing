@@ -1,8 +1,6 @@
 
 10. add livecoin
 50. twitter support
-60. show on task bar
-70. auto-update every once a while?
 80. android app?
 90. change flexjson to gson because of occasional problem with flexjson on appengine due to threadlocal 
   http://www.vogella.com/tutorials/JavaLibrary-Gson/article.html
@@ -25,5 +23,7 @@ done
 30. create detailv3.html for updating every minute (as compared to detailv2.html)
 40. change detailv2.html to detail.html.  remember detail.html is already changed (no need to do this.  as detailv3.html supercede this)
 20. add usd data graph line 
+60. show on task bar
+70. auto-update every once a while?
 
 
