@@ -15,6 +15,12 @@
 160. add faq page
 170. add some data to blog, add link to blog
 180. add blogger
+190. chart
+200. stat page
+- distribution by exchanges
+- distribution by currencies
+210. seo
+
 
 done
 100. add cex.io
