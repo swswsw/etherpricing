@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="ether exchange data, ether pricing exchanges, ether pricing detail, ethereum ether pricing, ethereum ether average price index, ethereum ether global average price index, ethereum ether global average price, ethereum ether global average price infographics" />
-<title>EtherPricing Detail</title>
+<title>EtherPricing ETH Price Index Detail</title>
 <script src="js/jquery-2.1.4.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -166,17 +166,24 @@
 
 <script type="text/javascript">
 (function() {
-	$.getJSON( "/api/average.jsp", function( data ) { 
-		if (data && data.last && data.volume && data.lastUsd) {
-			$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
-			$("#title-price-usd").text(data.lastUsd.toFixed(4));
-			$("#volume").text(formatNumber(data.volume.toFixed(0)));
-			$("#volume-usd").text(formatNumber((data.volume * data.lastUsd).toFixed(0)));
-			$("#last-update").text(getHourMin(new Date(data.time)));
-		}
-	});
-
+	var ONEMIN = 60000; // one minute in milliseconds
+	retrieveAverage();
 	retrievePriceList();
+	setInterval(retrieveAverage, ONEMIN);
+	setInterval(retrievePriceList, ONEMIN);
+	
+	function retrieveAverage() {
+		$.getJSON( "/api/average.jsp", function( data ) { 
+			if (data && data.last && data.volume && data.lastUsd) {
+				$("#title-price").text(xbt2mXbt(data.last).toFixed(4));
+				$("#title-price-usd").text(data.lastUsd.toFixed(4));
+				$("#volume").text(formatNumber(data.volume.toFixed(0)));
+				$("#volume-usd").text(formatNumber((data.volume * data.lastUsd).toFixed(0)));
+				$("#last-update").text(getHourMin(new Date(data.time)));
+				updateTitle(xbt2mXbt(data.last).toFixed(2), data.lastUsd.toFixed(2));
+			}
+		});
+	}
 	
 	// get data	
 	function retrievePriceList() {
@@ -197,6 +204,9 @@
 					priceItem = data[i];
 					totalVolume += priceItem.volume;
 				}
+				
+				cleanExchangeTable();
+				
 				// calculate volume percent and add row
 				for (i=0; i < data.length; i++) {
 					priceItem = data[i];
@@ -232,6 +242,14 @@
 		<td class="row-volume">2345230</td>
 		<td class="row-last">2.3536</td>
 		*/
+	}
+	
+	function cleanExchangeTable() {
+		$("#detail-table>tbody").children(".detail-table-row").remove(); // don't remove the template
+	}
+	
+	function updateTitle(last, lastUsd) {
+		document.title = "$" + lastUsd + "|" + last + "m฿" + "|EtherPricing ETH Price Index Detail";
 	}
 	
 	/** convert xbt price to mXBT price */
@@ -341,6 +359,10 @@
 	var apiDataUpdated = true;
 
 	var renderSmallChart = function(currencyCode){
+		if (!currencyCode) {
+			currencyCode = "m฿"; // default
+		}
+		
 	    if (!apiDataUpdated) {
 	        return;
 	    }
@@ -530,6 +552,7 @@
 	};
 
 	renderSmallChart("m฿");
+	setInterval(renderSmallChart, ONEMIN, "m฿");
 })();
 </script>
 
