@@ -20,6 +20,7 @@
 - distribution by exchanges
 - distribution by currencies
 210. seo
+220. chart with eth and btc
 
 
 done
