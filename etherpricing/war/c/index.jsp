@@ -69,10 +69,10 @@ double audRate = findXbtRates("AUD", baRates);
 				an average of <br>
 				<span class="tickSpan">&#10004;</span> Poloniex
 				<span class="tickSpan">&#10004;</span> Kraken
-				<span class="tickSpan">&#10004;</span> Gatecoin
 				<span class="tickSpan">&#10004;</span> Bitfinex
-				<span class="tickSpan">&#10004;</span> Bittrex
-				<span class="tickSpan">&#10004;</span> Quadrigacx
+				<span class="tickSpan">&#10004;</span> GDAX
+				<span class="tickSpan">&#10004;</span> BTC-e
+				and more...
 			</div>
 				<div class="currDiv">
 					<input type="text" class="inputStandard" id="currInput" value="1" onchange="currConvert(this.value)" onkeyup="currConvert(this.value)">
