@@ -58,13 +58,14 @@ double audRate = findXbtRates("AUD", baRates);
 					<span>Ξther₱ricing</span>
 				</div>
 				<div class="titleDiv">
-					<span>Ether Pricing Calculator</span>
+					<span>Calculator</span>
 				</div>
 
 
 			</div>
 			
 			<div class="bodyValues">
+				<!-- 
 				<div class="exchangesDiv">
 				an average of <br>
 				<span class="tickSpan">&#10004;</span> Poloniex
@@ -73,7 +74,8 @@ double audRate = findXbtRates("AUD", baRates);
 				<span class="tickSpan">&#10004;</span> GDAX
 				<span class="tickSpan">&#10004;</span> BTC-e
 				and more...
-			</div>
+				</div>
+				-->
 				<div class="currDiv">
 					<input type="text" class="inputStandard" id="currInput" value="1" onchange="currConvert(this.value)" onkeyup="currConvert(this.value)">
 					<input type="text" class="inputGrey" value="ETH" disabled>
