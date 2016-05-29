@@ -408,7 +408,7 @@
 	        	if (data[i][3] != 0) {
 		    		dataUsd[i] = [data[i][0], data[i][3]];
 	        	} else {
-	        		dataUsd[i] = [data[i][0], data[i+1][3]]; // temp.  to remove.
+	        		dataUsd[i] = [data[i][0], data[i+1][3]]; // todo: temp.  to remove. this is to combat the problem that some of the data is not available and may show as 0.
 	        	}
 	    	}
 
