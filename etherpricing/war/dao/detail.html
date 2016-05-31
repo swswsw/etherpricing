@@ -46,7 +46,8 @@
 	<div id="top-section">
 		<h2 class="large-price">DAO Price</h2>
 		<h1 class="large-price"><span id="title-price">0.0000</span> m฿</h1>
-		<h3 class="large-price"><span id="title-price-usd">0.0000</span> $</h3>
+		<h3 class="large-price"><span id="title-price-usd">0.0000</span> USD</h3>
+		<h3 class="large-price"><span id="title-price-eth">0.0000</span> ETH</h3>
 	</div>
 	<div id="summary-section">
 		<h3 class="text-center">Summary</h3>
@@ -184,6 +185,19 @@
 				$("#volume-usd").text(formatNumber((data.volume * data.lastUsd).toFixed(0)));
 				$("#last-update").text(getHourMin(new Date(data.time)));
 				updateTitle(xbt2mXbt(data.last).toFixed(2), data.lastUsd.toFixed(2));
+				retrieveEthAverage(data.lastUsd);
+			}
+		});
+	}
+	
+	/**
+	 * @param daoPriceUsd - dao price in usd
+	 */
+	function retrieveEthAverage(daoPriceUsd) {
+		$.getJSON( "/api/average.jsp", function( data ) { 
+			if (data && data.last && data.volume && data.lastUsd) {
+				var daoPriceEth = daoPriceUsd / data.lastUsd; // get dao price in eth
+				$("#title-price-eth").text(daoPriceEth.toFixed(4));
 			}
 		});
 	}
@@ -581,6 +595,12 @@
 }
 
 #title-price, #title-price-usd {
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #428BCA; 
+}
+
+#title-price, #title-price-eth {
 	font-size: 1.5em;
 	font-weight: 600;
 	color: #428BCA; 
