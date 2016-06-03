@@ -14,13 +14,14 @@ PriceCache pc = new PriceCache();
 // on development server:
 // - urlfetch allows us to add user-agent header on local development server.  
 // add user-agent to httpurlconnection does not work at all.  (the user-agent is still not filled)
+// - fixed: our own code error.  development server can do it as well.
 // 
 // on deployed server:
 // - using urlfetch or httpurlconnection will both work.  appengine automatically fills user agent with special string.  
 // see https://cloud.google.com/appengine/docs/java/outbound-requests#request_headers
 
 // get list of symbols
-JSONArray products = Urlfetch.jsonArray("https://api.exchange.coinbase.com/products");
+JSONArray products = RetrieveData.jsonArray("https://api.exchange.coinbase.com/products");
 List<String> ethSymbols = new ArrayList<String>(20); // most likely just 2.  not likely to be over 20.
 
 // find symbol that starts with ETH
@@ -36,7 +37,7 @@ for (int i=0; i<products.length(); i++) {
 for (String symbol:ethSymbols) {
 	String url = "https://api.exchange.coinbase.com/products/{symbol}/ticker";
 	url = url.replace("{symbol}", symbol);
-	JSONObject json = Urlfetch.jsonData(url);
+	JSONObject json = RetrieveData.jsonData(url);
 	final long time = System.currentTimeMillis();
 	final String gdax = "GDAX";
 	

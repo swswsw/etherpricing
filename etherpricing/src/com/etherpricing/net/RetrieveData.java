@@ -15,6 +15,8 @@ import org.json.JSONObject;
 
 public class RetrieveData {
 	private static final Logger log = Logger.getLogger(RetrieveData.class.getName());
+	
+	private static String userAgent = "java";
 
 	public static JSONObject jsonData(String sUrl) 
 			throws IOException, HttpResponseCodeException {
@@ -26,13 +28,12 @@ public class RetrieveData {
 	        connection.setRequestProperty("Content-Type", "application/json");
 	        //connection.setRequestProperty("accept", "application/json");
 	        //connection.setRequestMethod("GET");
-	        // setting user-agent does not work on development server.  user-agent header is not populated.
 	        // on deployed server, it will append appengine specific strings.  see https://cloud.google.com/appengine/docs/java/outbound-requests#request_headers
-	        //connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+	        connection.setRequestProperty("User-Agent", userAgent);
 	 
 	        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	            // OK
-	            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	            StringBuffer sb = new StringBuffer(); 
 	            String line;
 	            while ((line = reader.readLine()) != null) {
@@ -76,10 +77,11 @@ public class RetrieveData {
 	        URL url = new URL(sUrl);
 	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	        connection.setRequestProperty("Content-Type", "application/json");
+	        connection.setRequestProperty("User-Agent", userAgent);
 	 
 	        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	            // OK
-	            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	            StringBuffer sb = new StringBuffer(); 
 	            String line;
 	            while ((line = reader.readLine()) != null) {
