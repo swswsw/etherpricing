@@ -8,16 +8,11 @@
 <%
 PriceCache pc = new PriceCache();
 
-// we need to use Urlfetch instead of retrievedata, because gdax api requires user-agent.
+// gdax api requires user-agent to be provided
 // otherwise, gdax api will return {"message": "User-Agent header is required."}
 // 
-// on development server:
-// - urlfetch allows us to add user-agent header on local development server.  
-// add user-agent to httpurlconnection does not work at all.  (the user-agent is still not filled)
-// - fixed: our own code error.  development server can do it as well.
-// 
 // on deployed server:
-// - using urlfetch or httpurlconnection will both work.  appengine automatically fills user agent with special string.  
+// - appengine automatically fills user agent with special string.  
 // see https://cloud.google.com/appengine/docs/java/outbound-requests#request_headers
 
 // get list of symbols
