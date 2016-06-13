@@ -64,11 +64,12 @@ if (result == null) {
 	
 	result = json.toString(2);
 	
-	CacheManager.save(getCacheKey(wholeTime), result);
+	// temporary remove cache
+	//CacheManager.save(getCacheKey(wholeTime), result);
 	
 	// delete earlier cached item
-	long lastCacheTime = wholeTime - MILLIS_IN_ONE_MINUTE;
-	CacheManager.delete(getCacheKey(lastCacheTime));
+	//long lastCacheTime = wholeTime - MILLIS_IN_ONE_MINUTE;
+	//CacheManager.delete(getCacheKey(lastCacheTime));
 }
 %>
 <%=result%>
