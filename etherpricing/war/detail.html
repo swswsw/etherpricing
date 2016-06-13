@@ -89,6 +89,13 @@
 						<span id="low-usd">0.0000</span> USD
 					</td>
 				</tr>
+				<tr>
+					<td>all time high</td>
+					<td>
+						<span id="ath">0.0000</span> m฿<br/>
+						<span id="ath-usd">0.0000</span> USD
+					</td>
+				</tr>
 				
 				<tr>
 					<td>last update</td>
@@ -170,9 +177,11 @@
 (function() {
 	var ONEMIN = 60000; // one minute in milliseconds
 	retrieveAverage();
-	retrievePriceList();
 	setInterval(retrieveAverage, ONEMIN);
+	retrievePriceList();
 	setInterval(retrievePriceList, ONEMIN);
+	retrieveAth();
+	setInterval(retrieveAth, ONEMIN);
 	
 	function retrieveAverage() {
 		$.getJSON( "/api/average.jsp", function( data ) { 
@@ -183,6 +192,15 @@
 				$("#volume-usd").text(formatNumber((data.volume * data.lastUsd).toFixed(0)));
 				$("#last-update").text(getHourMin(new Date(data.time)));
 				updateTitle(xbt2mXbt(data.last).toFixed(2), data.lastUsd.toFixed(2));
+			}
+		});
+	}
+	
+	function retrieveAth() {
+		$.getJSON( "/api/ath.jsp", function( data ) { 
+			if (data && data.ath && data.athUsd && data.athTimestamp && data.athUsdTimestamp) {
+				$("#ath").text(xbt2mXbt(data.ath).toFixed(4));
+				$("#ath-usd").text(data.athUsd.toFixed(4));
 			}
 		});
 	}
