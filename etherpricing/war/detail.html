@@ -93,9 +93,9 @@
 					<td>all time high</td>
 					<td>
 						<span id="ath">0.0000</span> m฿<br/>
-						<!--<span id="ath-timestamp">00:00</span><br/>-->
+						<span id="ath-timestamp">00:00 am</span><br/>
 						<span id="ath-usd">0.0000</span> USD<br/>
-						<!--<span id="ath-usd-timestamp">00:00</span>-->
+						<span id="ath-usd-timestamp">00:00 am</span>
 					</td>
 				</tr>
 				
@@ -204,9 +204,9 @@
 		$.getJSON( "/api/ath.jsp", function( data ) { 
 			if (data && data.ath && data.athUsd && data.athTimestamp && data.athUsdTimestamp) {
 				$("#ath").text(xbt2mXbt(data.ath).toFixed(4));
-				//$("#ath-timestamp").text(getDateTime(data.athTimestamp));
+				$("#ath-timestamp").text(getDateTime(data.athTimestamp));
 				$("#ath-usd").text(data.athUsd.toFixed(4));
-				//$("#ath-usd-timestamp").text(getDateTime(data.athUsdTimestamp));
+				$("#ath-usd-timestamp").text(getDateTime(data.athUsdTimestamp));
 			}
 		});
 	}
