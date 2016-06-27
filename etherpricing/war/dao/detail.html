@@ -114,7 +114,7 @@
 			<tbody>
 				<tr class="detail-table-row-template">
 					<td><a class="row-exchange" href="">Poloniex</a></td>
-					<td class="row-currency-pair">DAO/BTC</td>
+					<td class="row-currency-pair">DAO / BTC</td>
 					<td class="row-volume-percent">53.74%</td>
 					<td class="row-volume">2345230</td>
 					<td class="row-last">2.3536</td>
@@ -245,7 +245,7 @@
 			row.addClass("detail-table-row");
 			row.find(".row-exchange").text(priceItem.exchange);
 			row.find(".row-exchange").attr("href", getExchangeLink(priceItem.exchange, priceItem.currency1, priceItem.currency2));
-			row.children(".row-currency-pair").text(priceItem.currency1 + "/" + priceItem.currency2);
+			row.children(".row-currency-pair").text(priceItem.currency1 + " / " + priceItem.currency2);
 			row.children(".row-volume-percent").text(priceItem.volumePercent.toFixed(2));
 			row.children(".row-volume").text(formatNumber(priceItem.volume.toFixed(2)));
 			row.children(".row-last").html(formatLastPrice(priceItem)); // *1000 for mB
@@ -254,7 +254,7 @@
 		}
 		/*
 		<td class="row-exchange">Poloniex</td>
-		<td class="row-currency-pair">DAO/BTC</td>
+		<td class="row-currency-pair">DAO / BTC</td>
 		<td class="row-volume-percent">53.74%</td>
 		<td class="row-volume">2345230</td>
 		<td class="row-last">2.3536</td>
@@ -293,7 +293,7 @@
 		} else if (priceItem.currency2.length > 3) {
 			lastPriceStr = lastPrice.toFixed(4) + " " + priceItem.currency2;
 		} else {
-			lastPriceStr = lastPrice.toFixed(4) + "&nbsp&nbsp&nbsp&nbsp" + priceItem.currency2;
+			lastPriceStr = lastPrice.toFixed(4) + "&emsp;" + priceItem.currency2;
 		}
 		
 		return lastPriceStr;
@@ -606,12 +606,6 @@
 	color: #428BCA; 
 }
 
-#title-price, #title-price-eth {
-	font-size: 1.5em;
-	font-weight: 600;
-	color: #428BCA; 
-}
-
 #summary-section {
 	margin: 2em auto;
 }
@@ -621,6 +615,10 @@
 	margin-right: auto;
 	margin-left: auto;
 	margin-bottom: 2em;
+}
+
+#summary-table tr td {
+	text-align: right;
 }
 
 #summary-table tr td:nth-of-type(2) {
@@ -633,6 +631,7 @@
 
 #detail-table {
 	text-align: right;
+	table-layout: fixed;
 }
 
 #overall {
@@ -648,6 +647,10 @@
 
 #detail-table thead th {
 	text-align: right;
+}
+
+#detail-table tr td {
+	overflow: hidden;
 }
 
 .up {
@@ -671,6 +674,10 @@
 }
 
 .detail-table-row {
+}
+
+#detail-table .detail-table-row .row-last {
+	color: #8a6d3b;
 }
 
 @media (max-width: 500px){
