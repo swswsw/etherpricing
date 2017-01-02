@@ -16,7 +16,7 @@ PriceCache pc = new PriceCache();
 // see https://cloud.google.com/appengine/docs/java/outbound-requests#request_headers
 
 // get list of symbols
-JSONArray products = RetrieveData.jsonArray("https://api.exchange.coinbase.com/products");
+JSONArray products = RetrieveData.jsonArray("https://api.gdax.com/products");
 List<String> ethSymbols = new ArrayList<String>(20); // most likely just 2.  not likely to be over 20.
 
 // find symbol that starts with ETH
@@ -30,7 +30,7 @@ for (int i=0; i<products.length(); i++) {
 
 //if symbol contains eth, gets the data
 for (String symbol:ethSymbols) {
-	String url = "https://api.exchange.coinbase.com/products/{symbol}/ticker";
+	String url = "https://api.gdax.com/products/{symbol}/ticker";
 	url = url.replace("{symbol}", symbol);
 	JSONObject json = RetrieveData.jsonData(url);
 	final long time = System.currentTimeMillis();
