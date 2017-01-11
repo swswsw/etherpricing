@@ -1,0 +1,31 @@
+xbtce
+
+https://cryptottlivewebapi.xbtce.net:8443/api/v1/public/ticker/ETHBTC%20ETHEUR%20ETHUSD%20ETHRUB
+
+[{
+ "Symbol": "ETHBTC",
+ "BestBid": 0.01028,
+ "BestAsk": 0.01034,
+ "LastBuyPrice": 0.01022,
+ "LastBuyVolume": 1,
+ "LastBuyTimestamp": 1483668645142,
+ "LastSellPrice": 0.01011,
+ "LastSellVolume": 10,
+ "LastSellTimestamp": 1483661635051,
+ "DailyBestBuyPrice": 0.00928,
+ "DailyBestSellPrice": 0.0104,
+ "DailyTradedBuyVolume": 4541.46,
+ "DailyTradedSellVolume": 2977.38,
+ "DailyTradedTotalVolume": 7518.84
+}]
+
+last: bestbid? 
+volume: dailytradedtotalvolume?
+
+https://cryptottlivewebapi.xbtce.net:8443/api/v1/public/symbol
+to see all trading pairs
+
+https://cryptottlivewebapi.xbtce.net:8443/api/v1/public/symbol/ETHBTC%20ETHEUR%20ETHUSD%20ETHRUB
+filter by certain currencies
+
+however, xbtce seems to be margin trading places instead of regular exchange.  margin trading volumes shouldn't be compared with regular volumes.
