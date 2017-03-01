@@ -21,6 +21,17 @@
 - distribution by currencies
 210. seo
 220. chart with eth and btc
+230. catch up on news
+240. write hard fork info on blog
+
+
+300. redo the interface
+310. add etc
+320. other derivative coins, like digix, gnx, hackergold, or other associated coin like zcash
+330. bitcoinaverage - do new api
+
+340. add bter, coinone, korbit, c-cex
+350. decide whether to add xbtce.
 
 
 done
