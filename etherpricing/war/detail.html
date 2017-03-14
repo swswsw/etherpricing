@@ -91,8 +91,10 @@
 				<tr>
 					<td>all time high</td>
 					<td>
+						<span style="display: none;"><!-- temp not display this -->
 						<span id="ath">0.0000</span> m฿<br/>
 						<span id="ath-timestamp">00:00 am</span><br/>
+						</span>
 						<span id="ath-usd">0.0000</span> USD<br/>
 						<span id="ath-usd-timestamp">00:00 am</span>
 					</td>
@@ -401,6 +403,15 @@
 
 	    $.getJSON(avg24hUrl, function(data){
 	    	var dataUsd = []; // usd price
+	    	
+	    	// remove data between time of 1489501800000 to 1489507200000
+	    	
+	    	for (var k=(data.length - 1); k>=0; k--) {
+	    		if (data[k][0] <= 1489507200000 && data[k][0] >= 1489501800000) {
+	    			data.splice(k, 1);
+	    		}	    		
+	    	}
+	    	
 	    	// convert to mXbt
 	    	for (var i=0; i<data.length; i++) {
 	    		data[i][1] = xbt2mXbt(data[i][1]);
