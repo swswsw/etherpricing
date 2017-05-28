@@ -1,0 +1,28 @@
+bitstamp.net
+
+it is not yet online, assume the api would be the following. 
+they schedule to have it online in june 2017.
+
+https://www.bitstamp.net/api/v2/ticker/ethusd/
+https://www.bitstamp.net/api/v2/ticker/ethusd/
+https://www.bitstamp.net/api/v2/ticker/ethbtc/
+
+eg.
+{  
+   "high":"2254.53",
+   "last":"2207.47",
+   "timestamp":"1495943476",
+   "bid":"2207.47",
+   "vwap":"2056.10",
+   "volume":"26641.38273902",
+   "low":"1850.00",
+   "ask":"2217.13",
+   "open":"2042.89"
+}
+
+last: last in second currency (eg. usd) - string
+volume: volum in eth (volume in currency1) - string
+
+resources:
+https://www.bitstamp.net/api/  under the section "ticker"
+

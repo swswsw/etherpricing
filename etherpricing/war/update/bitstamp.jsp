@@ -21,9 +21,10 @@ private PriceCache.Price retrieveData(String url, String currency1, String curre
 %>
 
 <%
-final String cex = "cex.io";
-PriceCache.Price ethbtc = retrieveData("https://cex.io/api/ticker/ETH/BTC", "ETH", "BTC", cex);
-PriceCache.Price ethusd = retrieveData("https://cex.io/api/ticker/ETH/USD", "ETH", "USD", cex);
+final String bitstamp = "Bitstamp";
+PriceCache.Price ethbtc = retrieveData("https://www.bitstamp.net/api/v2/ticker/ethbtc/", "ETH", "BTC", bitstamp);
+PriceCache.Price ethusd = retrieveData("https://www.bitstamp.net/api/v2/ticker/ethusd/", "ETH", "USD", bitstamp);
+PriceCache.Price etheur = retrieveData("https://www.bitstamp.net/api/v2/ticker/etheur/", "ETH", "EUR", bitstamp);
 PriceCache pc = new PriceCache();
 if (ethbtc != null) {
 	pc.getPriceList().add(ethbtc);
@@ -33,8 +34,12 @@ if (ethusd != null) {
 	pc.getPriceList().add(ethusd);
 }
 
+if (etheur != null) {
+	pc.getPriceList().add(etheur);
+}
+
 if (pc.getPriceList().size() > 0) {
-	CacheManager.save("latest_cex", pc);
+	CacheManager.save("latest_bitstamp", pc);
 }
 %>
 <%=pc%>

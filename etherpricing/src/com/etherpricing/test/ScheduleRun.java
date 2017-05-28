@@ -63,7 +63,7 @@ public class ScheduleRun {
 			"/update/okcoin.jsp",
 			//"/update/xbtce.jsp",
 			"/update/huobi.jsp",
-			//"/update/bitstamp.jsp",
+			"/update/bitstamp.jsp",
 			"/update/bitcoinaverage.jsp",
 			"/update/average.jsp",
 		};
