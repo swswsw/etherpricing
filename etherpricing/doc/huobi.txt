@@ -1,0 +1,26 @@
+
+
+ethcny https://api.huobi.com/staticmarket/ticker_eth_json.js
+ethusd https://api.huobi.com/usdmarket/ticker_eth_json.js
+
+eg.
+{  
+   "time":"1495936449",
+   "ticker":{  
+      "symbol":"btcusd",
+      "open":1860.01,
+      "last":1974.44,
+      "low":1860.01,
+      "high":1974.44,
+      "vol":7.0797,
+      "buy":1900.010000,
+      "sell":1974.440000
+   }
+}
+
+last: last in second currency (eg. cny)
+volume: vol in eth (volume in currency1)
+
+resources:
+https://github.com/huobiapi/API_Docs/wiki/REST-Candlestick-Chart
+why is this api under candlestick-chart api?  weird, but that is how they design it.  

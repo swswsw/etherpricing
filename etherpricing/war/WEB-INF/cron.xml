@@ -70,6 +70,13 @@
   </cron>
   <!-- 
   <cron>
+    <url>/update/huobi.jsp</url>
+    <description>update huobi data to cache</description>
+    <schedule>every 1 minutes</schedule>
+  </cron>
+  -->
+  <!-- 
+  <cron>
     <url>/update/okcoin.jsp</url>
     <description>update okcoin data to cache</description>
     <schedule>every 1 minutes</schedule>
