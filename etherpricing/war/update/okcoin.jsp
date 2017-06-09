@@ -25,16 +25,16 @@ private PriceCache.Price retrieveData(String url, String currency1, String curre
 
 <%
 final String okcoin = "OKCoin";
-PriceCache.Price ethbtc = retrieveData("https://www.okcoin.com/api/v1/ticker.do?symbol=eth_btc", "ETH", "BTC", okcoin);
-PriceCache.Price ethusd = retrieveData("https://www.okcoin.com/api/v1/ticker.do?symbol=eth_usd", "ETH", "USD", okcoin);
+PriceCache.Price ethcny = retrieveData("https://www.okcoin.cn/api/v1/ticker.do?symbol=eth_cny", "ETH", "CNY", okcoin);
+//PriceCache.Price ethusd = retrieveData("https://www.okcoin.com/api/v1/ticker.do?symbol=eth_usd", "ETH", "USD", okcoin);
 PriceCache pc = new PriceCache();
-if (ethbtc != null) {
-	pc.getPriceList().add(ethbtc);
+if (ethcny != null) {
+	pc.getPriceList().add(ethcny);
 }
 
-if (ethusd != null) {
-	pc.getPriceList().add(ethusd);
-}
+//if (ethusd != null) {
+//	pc.getPriceList().add(ethusd);
+//}
 
 if (pc.getPriceList().size() > 0) {
 	CacheManager.save("latest_okcoin", pc);

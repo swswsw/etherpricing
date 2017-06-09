@@ -72,7 +72,7 @@ String[] exchanges = {
 		"latest_gdax",
 		"latest_huobi",
 		"latest_bitstamp",
-		//"latest_okcoin",
+		"latest_okcoin",
 };
 
 
