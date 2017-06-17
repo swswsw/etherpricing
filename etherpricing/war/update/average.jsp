@@ -38,10 +38,16 @@ long currentTimeMillis = System.currentTimeMillis();
 
 
 //get bitcoin to fiat currency rate data
-String sBaRates = CacheManager.getString("latest_bitcoinaverage");
-JSONObject baRates = null;
-if (sBaRates != null) {
-	baRates = new JSONObject(sBaRates);
+//String sBaRates = CacheManager.getString("latest_bitcoinaverage");
+//JSONObject baRates = null;
+//if (sBaRates != null) {
+//	baRates = new JSONObject(sBaRates);
+//}
+
+String sBcinfoRates = CacheManager.getString("latest_bcinfo");
+JSONObject bcinfoRates = null;
+if (sBcinfoRates != null) {
+	bcinfoRates = new JSONObject(sBcinfoRates);
 }
 
 // get fiat exchange rate data (not used right now. to remove)
@@ -104,9 +110,12 @@ for (int i=0; i<allPrices.size(); i++) {
 			String currency2 = price.getCurrency2();
 			// use usd rate for usdt
 			if ("USDT".equals(currency2)) {
-				xbtInCurrency2 = findXbtRates("USD", baRates);
+				xbtInCurrency2 = findXbtRates("USD", bcinfoRates);
+			} else if ("RUR".equals(currency2)) {
+				// btc-e and yobit uses "rur", but bcinfo uses "rub"
+				xbtInCurrency2 = findXbtRates("RUB", bcinfoRates);
 			} else {
-				xbtInCurrency2 = findXbtRates(currency2, baRates);
+				xbtInCurrency2 = findXbtRates(currency2, bcinfoRates);
 			}			
 		} catch (JSONException ex) {
 			// conversion rate for currency2 is not found on bitcoinaverage.
@@ -129,7 +138,7 @@ for (int i=0; i<allPrices.size(); i++) {
 
 // avoid divide by 0 problem.  check if denominator is 0.
 double average = (totalVolume != 0.0D) ? (totalSoFar / totalVolume) : 0.0D;
-double rateUsd = findXbtRates("USD", baRates);
+double rateUsd = findXbtRates("USD", bcinfoRates);
 double lastUsd = average * rateUsd;
 JSONObject jsonAvg = new JSONObject();
 jsonAvg.put("last", average);
@@ -176,7 +185,7 @@ request.setAttribute("priceCaches", priceCaches);
 </c:forEach>
 
  
-<%=(baRates != null) ? baRates.toString(2) : null%>
+<%=(bcinfoRates != null) ? bcinfoRates.toString(2) : null%>
 <hr/>
 <%=(fiatRates != null) ? fiatRates.toString(2) : null%>
 <hr/>
