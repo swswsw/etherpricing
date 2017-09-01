@@ -6,6 +6,9 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // H
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 response.setHeader("Expires", "0"); // Proxies.
 
+//cors
+response.addHeader("Access-Control-Allow-Origin","*");
+
 // other headers
 response.addHeader("Content-Type", "application/json");
 %>
