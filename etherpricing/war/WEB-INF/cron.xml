@@ -23,11 +23,13 @@
     <description>update kraken data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  <!-- yunbi suspended their api on 9/6.  we removed them until they restore it.  https://yunbi.zendesk.com/hc/en-us/articles/115000145482-Suspension-of-YUNBI-API-Trading
   <cron>
     <url>/update/yunbi.jsp</url>
     <description>update yunbi data to cache</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+  -->
   <cron>
     <url>/update/bittrex.jsp</url>
     <description>update bittrex data to cache</description>
