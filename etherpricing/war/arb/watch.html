@@ -1,0 +1,361 @@
+<html>
+<head>
+<script src="js/moment.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="app-1">
+
+	<h3>usd prices</h3>
+	<table>
+	  <tr>
+	    <th>exchange</th>
+	    <th style="text-align: right;">price</th>
+	    <th></th>
+	    <th style="text-align: right;">diff%</th>
+	    <th>updated time</th>
+	    <th style="text-align: right;">volume (eth)</th>
+	  </tr>
+	  <tr v-for="priceitem in usdprices">
+	  	<td>{{ priceitem.exchange }}</td>
+	  	<td style="text-align: right;">{{ getDisplayLast(priceitem.last) }}</td>
+	  	<td>{{ priceitem.currency2 }}</td>
+	  	<td style="text-align: right;">{{ priceitem.diffPercent }}</td>
+	  	<td>{{ moment(priceitem.time).fromNow() }}</td>
+	  	<td style="text-align: right;">{{ priceitem.volume.toFixed(0) }}</td>
+	  </tr>
+	</table>
+
+	
+	<div class="spacer" style="height: 30px;"></div>
+	<div style="height: 30px; background-color: grey;"></div>
+	<hr/>
+	
+	<h3>btc prices</h3>
+	<table>
+	  <tr>
+	    <th>exchange</th>
+	    <th style="text-align: right;">price</th>
+	    <th></th>
+	    <th style="text-align: right;">diff%</th>
+	    <th>updated time</th>
+	    <th style="text-align: right;">volume (eth)</th>
+	  </tr>
+	  <tr v-for="priceitem in btcprices">
+	  	<td>{{ priceitem.exchange }}</td>
+	  	<td style="text-align: right;">{{ getDisplayLast(priceitem.last) }}</td>
+	  	<td>{{ priceitem.currency2 }}</td>
+	  	<td style="text-align: right;">{{ priceitem.diffPercent }}</td>
+	  	<td>{{ moment(priceitem.time).fromNow() }}</td>
+	  	<td style="text-align: right;">{{ priceitem.volume.toFixed(0) }}</td>
+	  </tr>
+	</table>
+	
+	<div class="spacer" style="height: 30px;"></div>
+	<div style="height: 30px; background-color: grey;"></div>
+	<hr/>
+
+	<h3>all prices</h3>
+	<table>
+	  <tr>
+	    <th>exchange</th>
+	    <th>price</th>
+	    <th></th>
+	    <th>$price</th>
+	    <th>diff%</th>
+	    <th>updated time</th>
+	    <th>weird</th>
+	  </tr>
+	  <tr v-for="priceitem in pricelist">
+	  	<td>{{ priceitem.exchange }}</td>
+	  	<td style="text-align: right;">{{ getDisplayLast(priceitem.last) }}</td>
+	  	<td>{{ priceitem.currency2 }}</td>
+	  	<td style="text-align: right;">{{ getDisplayLast(priceitem.usdLast) }}</td>
+	  	<td style="text-align: right;">{{ priceitem.diffPercent }}</td>
+	  	<td>{{ moment(priceitem.time).fromNow() }}</td>
+	  	<td></td>
+	  </tr>
+	</table>
+	
+	<div class="spacer" style="height: 30px;"></div>
+	<div style="height: 30px; background-color: grey;"></div>
+	<hr/>
+	
+	
+	<h3>forex rates</h3>
+	<h4>base: usd</h4>
+	<h4>source: fixer.io</h4>
+	<table>
+	  <tr>
+	    <th>currency</th>
+	    <th>price</th>
+	  </tr>
+	  <tr v-for="(value, propertyName, index) in forexprices">
+	  	<td>{{ propertyName }}</td>
+	  	<td style="text-align: right;">{{ value }}</td>
+	  </tr>
+	</table>
+
+</div>
+
+
+</body>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+
+<script>
+
+var app1 = new Vue({
+	  el: '#app-1',
+	  data: {                
+          pricelist: [], // all exchange and price (in all currencies) 
+          usdprices: [], // only the usd eth prices
+          btcprices: [], // only the btc eth prices
+          
+          /** forex rates.  
+           * relative to usd.  eg. cad: 1.21 means 1usd=1.21cad 
+           * eg. {"AUD":1.2432,"BGN":1.6302,"BRL":3.0889,"CAD":1.2121}  
+           */
+          forexprices: {}, // forex rates
+          
+          /**
+           * bitcoin price from blockchain.info
+eg.
+{
+  "USD" : {"15m" : 4202.09, "last" : 4202.09, "buy" : 4202.85, "sell" : 4201.32, "symbol" : "$"},
+  "AUD" : {"15m" : 5233.04, "last" : 5233.04, "buy" : 5233.99, "sell" : 5232.09, "symbol" : "$"},
+  "TWD" : {"15m" : 126159.2, "last" : 126159.2, "buy" : 126182.17, "sell" : 126136.23, "symbol" : "NT$"}
+}
+           */
+          bcinfoprices: {},
+      },
+      mounted() {
+          this.get();
+      },
+      methods: {
+          get: function () {                    
+              axios.get('http://etherpricing.com/api/pricelist.jsp')
+                  .then(response => {
+                	var pricelist = response.data;
+                	console.log("etherpricing pricelist: ");
+                	console.dir(pricelist);
+                	
+                	var usdprices = [];
+                	var btcprices = [];
+                	
+                	// loop through to add elem to usdprices and btcprices
+                  	pricelist.forEach(function(elem){
+                  		if (elem.currency2 === "USD" || elem.currency2 === "USDT") {
+                  			usdprices.push($.extend(true, {}, elem)); // make a copy
+                  		} else if (elem.currency2 === "XBT" || elem.currency2 === "BTC") {
+                  			btcprices.push($.extend(true, {}, elem)); // make a copy
+                  		}
+                  	});  
+                	
+                	this.processPricelist(pricelist);
+                	this.processPrices(usdprices);
+                	this.processPrices(btcprices);
+                	
+                  	this.pricelist = pricelist;
+                  	this.usdprices = usdprices;
+                  	this.btcprices = btcprices;
+                  	
+              });
+              
+              
+              // forex exchange rate from fixer.io http://fixer.io/
+              axios.get('http://api.fixer.io/latest?base=USD')
+              	.then(response => {
+              		var fixerprices = response.data;
+              		console.log("fixer.io forex exchange rates: ");
+              		console.dir(fixerprices);
+              		this.forexprices = fixerprices.rates;
+              		
+              		this.processPricelist(this.pricelist);
+              	});
+              
+           	  // bitcoin price from blockchain.info
+              axios.get('https://blockchain.info/ticker?cors=true')
+              	.then(response => {
+              		var bcinfoprices = response.data;
+              		console.log("blockchain.info bitcoin price: ");
+              		console.dir(bcinfoprices);
+              		this.bcinfoprices = bcinfoprices;
+              		
+              		this.processPricelist(this.pricelist);
+              	});
+          },
+          
+          /**
+           * process the usdprices or btcprices array
+           */
+          processPrices: function(prices) {        	  
+        	  // sort by last (high to low)
+        	  prices.sort(compareLast);
+        	  
+        	  // add price diff %
+        	  prices.forEach(function(priceitem) {
+        		  priceitem.diffPercent = (((prices[0].last - priceitem.last) / prices[0].last ) * 100).toFixed(0);
+        	  });
+        	  
+        	  /**
+        	   * compare a.last and b.last
+        	   */
+        	  function compareLast(a, b) {
+				if (a.last > b.last) {
+					return -1;
+				} else if (a.last == b.last) {
+					return 0;
+				} else {
+					return 1;
+				}
+			  }
+        	  
+          },
+          
+          /**
+           * process the pricelist array
+           */
+          processPricelist: function(pricelist) {
+        	  
+        	  console.log("forexprices = ");
+    		  console.dir(this.forexprices);
+    		  console.log("bcinfoprices = ");
+    		  console.dir(this.bcinfoprices);
+        	  
+        	// for pricelist, add usd last for each item
+          	// for currency not being considered, put 0 as usdPrice.
+          	pricelist.forEach((elem) => {
+          		console.dir(this);
+          		
+          		var usdLast;
+          		if (elem.currency2 == "USD" || elem.currency2 == "USDT") {
+          			usdLast = elem.last;
+          		} else if (elem.currency2 == "BTC" || elem.currency2 == "XBT") {
+          			if (typeof (this.bcinfoprices) !== "undefined"
+          					&& typeof (this.bcinfoprices.USD) !== "undefined"
+          					&& typeof (this.bcinfoprices.USD.last) !== "undefined") {
+          				var btcPriceInUsd = this.bcinfoprices.USD.last;
+          				usdLast = elem.last * btcPriceInUsd;
+          			}
+          		} else {
+          			if (typeof (this.forexprices) !== "undefined") {
+	          			if (typeof (this.forexprices[elem.currency2]) === "undefined") {
+	          				usdLast = 0;
+	          			} else {
+	          				console.log("rate for " + elem.currency2 + ": this.forexprices[elem.currency2]");
+	          				usdLast = elem.last / this.forexprices[elem.currency2];
+	          			}
+          			} else {
+          				usdLast = 0;
+          			}
+          		}
+          		elem.usdLast = usdLast; 
+          		
+          	});  
+        	
+        	console.log("pricelist before sort");
+        	console.log(pricelist);
+        	
+        	// sort by usdLast
+        	pricelist.sort(compareUsdLast);
+        	
+        	  /**
+	       	   * compare a.usdLast and b.usdLast
+	       	   */
+	       	  function compareUsdLast(a, b) {
+        		  // need to check for undefined, otherwise comparison is wrong
+        		  // comparing undefined with another number, treat undefined as smaller
+        		  if (typeof a.usdLast === "undefined" && typeof b.usdLast === "undefined") {
+        			  return 0;
+        		  } else if (typeof a.usdLast === "undefined") {
+        			  return 1;
+        		  } else if (typeof b.usdLast === "undefined") {
+        			  return -1;
+        		  } else if (a.usdLast > b.usdLast) {
+        			  return -1;
+				  } else if (a.usdLast < b.usdLast) {
+					  return 1;
+				  } else {
+					  return 0;
+				  }
+			  }
+          	
+	       // add price diff %
+	       pricelist.forEach(function(priceitem) {
+       		  priceitem.diffPercent = (((pricelist[0].usdLast - priceitem.usdLast) / pricelist[0].usdLast ) * 100).toFixed(0);
+       	   });
+          	
+          	
+          	// highlight if it is weird and should not be considered
+          },
+          
+          /**
+           * show 3 significant figure.  if it is bigger than 1000, rounded to no decimal place
+           * convert 0.043256 to 0.0433
+           * convert 316.23 to 316
+           * @param last [number] the original last price to convert
+           * @return [number] converted value 
+           */
+          getDisplayLast: function(last) {
+        	  var display;
+        	  if (last) {
+		       	  if (last > 1000) {
+		       		  display = last.toFixed(0);
+		       	  } else {
+		       		  display = last.toPrecision(3);
+		       	  }
+        	  }	       	  
+	       	  return display;
+          },
+          
+          /**
+           * convert time in millis to "2 minutes ago" using moment.js
+           * @param timeInMillis - time in miiliseconds
+           */
+          fromNow: function(timeInMillis) {
+        	  return moment(timeInMillis).fromNow();
+          },
+          
+          /**
+           * vue.js binding probably cannot use global scope variable.  
+           * so to use moment, we created a method for moment.
+           * @see https://laracasts.com/discuss/channels/vue/momentjs-with-vue?page=1
+           */
+          moment: function(...args) {
+        	  return moment(...args);
+          },
+      }
+	})
+
+
+</script>
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+
+</html>
