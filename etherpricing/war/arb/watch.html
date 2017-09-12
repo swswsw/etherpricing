@@ -8,6 +8,9 @@
 
 <div id="app-1">
 
+	<h4>update time</h4>
+	<h5>{{ (pricelist && pricelist[0]) ? moment(pricelist[0].time).format('h:mm:ss a') : '' }}</h5>
+
 	<h3>usd prices</h3>
 	<table>
 	  <tr>
@@ -235,7 +238,7 @@ eg.
         	// for pricelist, add usd last for each item
           	// for currency not being considered, put 0 as usdPrice.
           	pricelist.forEach((elem) => {
-          		console.dir(this);
+          		//console.dir(this);
           		
           		var usdLast;
           		if (elem.currency2 == "USD" || elem.currency2 == "USDT") {
@@ -252,7 +255,7 @@ eg.
 	          			if (typeof (this.forexprices[elem.currency2]) === "undefined") {
 	          				usdLast = 0;
 	          			} else {
-	          				console.log("rate for " + elem.currency2 + ": this.forexprices[elem.currency2]");
+	          				//console.log("rate for " + elem.currency2 + ": this.forexprices[elem.currency2]");
 	          				usdLast = elem.last / this.forexprices[elem.currency2];
 	          			}
           			} else {
@@ -335,7 +338,10 @@ eg.
         	  return moment(...args);
           },
       }
-	})
+	});
+	
+	
+setInterval(app1.get, 60000);
 
 
 </script>
